@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: hospitease-backend
+    container_name: hospitease-node-backend
+    working_dir: /usr/src/app
+    volumes:
+      - ./backend:/usr/src/app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/mydatabase
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: hospitease-frontend
+    container_name: hospitease-react-frontend
+    working_dir: /usr/src/app
+    volumes:
+      - ./frontend:/usr/src/app
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_BACKEND_URL=http://backend:5000
+
+volumes:
+  mongodb_data:

@@ -1,0 +1,14 @@
+{
+  "user": "",
+  "password": "",
+  "server": "",
+  "database": "",
+  "options": {
+    "trustedConnection": true,
+    "encrypt": false,
+    "enableArithAbort": true,
+    "trustServerCertificate": true
+  },
+  "API" : "",
+  "HOST" : 5000
+}

@@ -1,2 +1,10 @@
+medical/backend/dist
+medical/backend/node_modules
+medical/backend/config.json
+
+administration/backend/dist
+administration/backend/node_modules
+administration/backend/config.json
+
 /administration/frontend/node_modules
 /medical/frontend/node_modules

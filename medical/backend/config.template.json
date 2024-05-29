@@ -10,5 +10,6 @@
     "trustServerCertificate": true
   },
   "API" : "",
-  "HOST" : 5000
+  "HOST" : 5000,
+  "MOGODB_URL":  "mongodb://127.0.0.1:27017/test"
 }

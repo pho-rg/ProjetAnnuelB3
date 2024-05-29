@@ -75,25 +75,25 @@ const utilisateurUniqueGET = async(
   }
 }
 
-// const utilisateurPATCH = async (
-//   request: express.Request,
-//   response: express.Response,
-//   next: express.NextFunction
-// ) => {
-//   try {
-//     const body = request.body
-//     await connect(config.MOGODB_URL);
-//     response.status(200).send(body)
-//     User.updateOne({"_id": body.id}, new User()).exec().then((result) =>{
-//       console.log(result)
-//       return response.status(200).send("result");
-//     }).catch((error) => {
-//       // return response.status(400).send(error);
-//     });
-//   } catch (error) {
-//     // return response.status(400).send(error);
-//   }
+const utilisateurPATCH = async (
+  request: express.Request,
+  response: express.Response,
+  next: express.NextFunction
+) => {
+  try {
+    const body = request.body
+    await connect(config.MOGODB_URL);
+    response.status(200).send(body)
+    User.updateOne({"_id": body.id}, new User()).exec().then((result) =>{
+      console.log(result)
+      return response.status(200).send("result");
+    }).catch((error) => {
+      // return response.status(400).send(error);
+    });
+  } catch (error) {
+    // return response.status(400).send(error);
+  }
 
-// }
+}
 
 export { utilisateurGET, nouvelUtilisateurPOST, utilisateurUniqueGET, utilisateurPATCH };

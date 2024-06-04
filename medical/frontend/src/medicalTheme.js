@@ -8,6 +8,10 @@ const medicalTheme = createTheme({
             main: lightGreen[400],
             contrastText: '#ffffff',
         },
+        secondary: {
+            main: lightGreen[700],
+            contrastText: '#ffffff',
+        },
         default: {
             main: lightGreen[400],
         },

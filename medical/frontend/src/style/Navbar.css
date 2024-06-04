@@ -1,0 +1,27 @@
+.Navbar {
+    padding: 2px;
+    color: #A6CB72;
+    background-color: #33691e;
+    border-bottom: solid 2px #A6CB72;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+
+.Navbar-split {
+    text-align: left;
+    margin-left: 10px;
+    margin-right: 10px;
+    flex-direction: row;
+    align-items: center;
+    display: flex;
+
+
+}
+
+.Navbar-logo {
+    color: #A6CB72;
+    padding-left: 10px;
+    padding-right: 10px;
+}

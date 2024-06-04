@@ -8,3 +8,5 @@ administration/backend/config.json
 
 /administration/frontend/node_modules
 /medical/frontend/node_modules
+
+.idea

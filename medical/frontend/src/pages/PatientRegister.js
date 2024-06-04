@@ -6,7 +6,10 @@ const PatientRegister = () => {
     return (
         <div className="PatientRegister">
             PatientRegister page
-            {currentPatientNIR}
+            <br/>
+            <p>
+                {"NIR : "}{currentPatientNIR}
+            </p>
         </div>
     );
 };

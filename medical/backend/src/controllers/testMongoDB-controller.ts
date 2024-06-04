@@ -55,7 +55,7 @@ const utilisateurGET = async (
   console.log("");
 };
 
-const utilisateurUniqueGET = async(
+const utilisateurUniqueGETONE = async(
   request: express.Request,
   response: express.Response,
   next: express.NextFunction
@@ -88,7 +88,7 @@ const utilisateurPATCH = async (
       console.log(result)
       return response.status(200).send("result");
     }).catch((error) => {
-      // return response.status(400).send(error);
+      return response.status(400).send(error);
     });
   } catch (error) {
     // return response.status(400).send(error);
@@ -96,4 +96,24 @@ const utilisateurPATCH = async (
 
 }
 
-export { utilisateurGET, nouvelUtilisateurPOST, utilisateurUniqueGET, utilisateurPATCH };
+const utilisateurDELETEONE = async (
+  request: express.Request,
+  response: express.Response,
+  next: express.NextFunction
+) => {
+  try {
+    const params = request.params
+   const id = params.id
+  await connect(config.MOGODB_URL);
+  User.deleteOne({"_id" : id}).exec().then((result) => {
+    console.log(result);
+    return response.status(200).send(result);
+  }).catch(error => {
+    return response.status(400).send(error);
+  });
+  } catch (error) {
+    return response.status(400).send(error);
+  }
+}
+
+export { utilisateurGET, nouvelUtilisateurPOST, utilisateurUniqueGETONE, utilisateurPATCH, utilisateurDELETEONE };

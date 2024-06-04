@@ -1,24 +1,22 @@
-import logo from './logo.svg';
 import './style/App.css';
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import MedRouter from "./components/MedRouter";
+import Login from "./pages/Login";
+import {ThemeProvider} from "@mui/material";
+import medicalTheme from "./medicalTheme";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={medicalTheme}>
+        <div className="App">
+          <BrowserRouter>
+            <Routes>
+              <Route path="/login" element={<Login/>}/>
+              <Route path="/*" element={<MedRouter/>}/>
+            </Routes>
+          </BrowserRouter>
+        </div>
+    </ThemeProvider>
   );
 }
 

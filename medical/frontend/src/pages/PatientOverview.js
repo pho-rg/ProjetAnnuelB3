@@ -1,11 +1,17 @@
 import React from 'react';
+import {useParams} from "react-router-dom";
 
-const Patient = () => {
+const PatientOverview = () => {
+    const {currentPatientNIR} = useParams();
     return (
-        <div>
+        <div className="PatientOverview">
             PatientOverview page
+            <br/>
+            <p>
+                {"NIR : "}{currentPatientNIR}
+            </p>
         </div>
     );
 };
 
-export default Patient;
+export default PatientOverview;

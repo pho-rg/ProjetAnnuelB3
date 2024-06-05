@@ -4,6 +4,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import '../style/Navbar.css'
 
 const Navbar = () => {
+    //_____Variables_____//
     // TODO -> recup nom hopital avec accountService
     //const fullHospitalName = 'Hôpital ' + accountService.getHospitalName();
     const fullHospitalName = 'Hôpital Mignon';
@@ -11,15 +12,16 @@ const Navbar = () => {
     //const fullUserName = 'Dr ' + accountService.getUserName();
     const fullUserName = 'Dr Cohen';
 
+    //_____Affichage_____//
     return (
         <div className="Navbar">
-            <div className="navbarSplit">
+            <div className="NavbarSplit">
                 <LocalHospitalIcon className="NavbarIcon" fontSize="large"/>
                 <h3>{fullHospitalName}</h3>
             </div>
-            <div className="navbarSplit">
+            <div className="NavbarSplit">
                 <h3>{fullUserName}</h3>
-                <AccountCircleIcon className="navbarIcon" fontSize="large"/>
+                <AccountCircleIcon className="NavbarIcon" fontSize="large"/>
             </div>
         </div>
     );

@@ -9,7 +9,7 @@
     position: relative;
 }
 
-.loginContainer {
+.LoginContainer {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -24,14 +24,14 @@
     padding-block: 30px;
 }
 
-.loginTitle {
+.LoginTitle {
     color: #33691e;
     display: flex;
     justify-content: center;
     text-align: center;
 }
 
-.loginForm {
+.LoginForm {
     display: flex;
     flex-direction: column;
     margin: 0 auto;
@@ -42,18 +42,18 @@
     width: 100%;
 }
 
-.loginInput {
+.LoginInput {
     margin: 5px;
     width: 100%;
 }
 
-.loginButton {
+.LoginButton {
     margin-top: 15px;
     text-align: center;
     color: #33691e;
 }
 
-.loginAlert {
+.LoginAlert {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;

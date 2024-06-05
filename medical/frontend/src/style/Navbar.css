@@ -9,7 +9,7 @@
     align-items: center;
 }
 
-.navbarSplit {
+.NavbarSplit {
     text-align: left;
     margin-left: 10px;
     margin-right: 10px;
@@ -20,7 +20,7 @@
 
 }
 
-.navbarIcon {
+.NavbarIcon {
     color: #A6CB72;
     padding-left: 10px;
     padding-right: 10px;

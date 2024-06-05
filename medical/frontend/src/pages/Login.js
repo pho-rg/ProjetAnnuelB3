@@ -21,12 +21,9 @@ const Login = () => {
     // Hook de navigation
     const navigate = useNavigate();
 
-    // Bool d'affichage du message d'alerte identifiants incorrects
-    const [invalidId, setInvalidId] = useState(false);
-
-    // Component message d'alerte identifiants incorrects
-    const errorAlert = invalidId ?
-        <Alert className="loginAlert" severity="error">Identifiants incorrects</Alert> : null;
+    // Gestion du message d'alerte
+    const [alertMessage, setAlertMessage] = useState("")
+    const [alertOpen, setAlertOpen] = useState(false);
 
     // Objet des infos de connexion (email, mdp)
     const [credentials, setCredentials] = useState({
@@ -39,11 +36,12 @@ const Login = () => {
 
     //_____Evènements_____//
     // Mise à jour champs (email, mdp) de l'objet "credentials"
-    const userFormInput = (e) => {
-        setCredentials({
-            ...credentials,
-            [e.target.name]: e.target.value
-        })
+    const handleChange = (event) => {
+            setAlertOpen(false);
+            setCredentials({
+                ...credentials,
+                [event.target.name]: event.target.value
+            });
     }
     // Click logo oeil pour afficher/masquer le mdp
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -52,39 +50,44 @@ const Login = () => {
 
     };
     // Click bouton pour se connecter
-    const userFormSubmit = (e) => {
-        e.preventDefault();
-        if (accountService.login(credentials)) {
+    const handleLogin = (event) => {
+        event.preventDefault();
+        if (controleEmail() && accountService.login(credentials)) {
             navigate('/search');
         } else {
-            setInvalidId(true);
+            setAlertMessage(" Identifiants incorrects");
+            setAlertOpen(true);
         }
     }
     // Appuie Entrer pour se connecter
-    const handleKeyDown = (e) => {
-        if (e.key === "Enter") {
-            if (accountService.login(credentials)) {
-                navigate('/search');
-            } else {
-                setInvalidId(true);
-            }
+    const handleKeyDown = (event) => {
+        if (event.key === "Enter") {
+            handleLogin(event)
         }
     }
 
     //_____Contrôles_____//
-    // TODO
+    // Controle du format de l'email
+    const controleEmail = () => {
+        console.log(credentials.email);
+        return credentials.email.match(/^\S+@\S+\.\S+$/);
+    }
+    // Controle de la saisie en fonction des champs
+    const controlPassword = (event) => {
+        return credentials.password.match(/^\S*$/)
+    }
 
     //_____Affichage_____//
     return (<div className="Login">
-        <div className="loginContainer">
-            <div className="loginTitle">
+        <div className="LoginContainer">
+            <div className="LoginTitle">
                 <LocalHospitalIcon className="NavbarIcon" sx={{fontSize: 80}}/>
             </div>
-            <div className="loginTitle">
+            <div className="LoginTitle">
                 <h2>Hôpital Mignon</h2>
             </div>
-            <div className="loginForm">
-                <div className="loginInput">
+            <div className="LoginForm">
+                <div className="LoginInput">
                     <FormControl sx={{m: 1, width: '25ch'}} variant="outlined">
                         <InputLabel htmlFor="outlined-adornment-password">Adresse Email</InputLabel>
                         <OutlinedInput
@@ -97,12 +100,12 @@ const Login = () => {
                             label="Adresse Email"
                             name="email"
                             value={credentials.email}
-                            onChange={userFormInput}
+                            onChange={handleChange}
                             onKeyDown={handleKeyDown}
                         />
                     </FormControl>
                 </div>
-                <div className="loginInput">
+                <div className="LoginInput">
                     <FormControl sx={{m: 1, width: '25ch'}} variant="outlined">
                         <InputLabel htmlFor="outlined-adornment-password">Mot de passe</InputLabel>
                         <OutlinedInput
@@ -124,17 +127,23 @@ const Login = () => {
                             label="Mot de passe"
                             name="password"
                             value={credentials.password}
-                            onChange={userFormInput}
+                            onChange={handleChange}
                             onKeyDown={handleKeyDown}
                         />
                     </FormControl>
                 </div>
-                <div className="loginButton">
-                    <Button variant="contained" onClick={userFormSubmit}>
+                <div className="LoginButton">
+                    <Button variant="contained" onClick={handleLogin}>
                         Se connecter
                     </Button>
                 </div>
-                <div>{errorAlert}</div>
+                { alertOpen &&
+                    <div className="LoginAlert">
+                        <Alert severity="error">
+                            {alertMessage}
+                        </Alert>
+                    </div>
+                }
             </div>
         </div>
     </div>);

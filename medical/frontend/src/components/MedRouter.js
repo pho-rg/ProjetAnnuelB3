@@ -10,7 +10,7 @@ const MedRouter = () => {
     return (
         <Routes>
             <Route element={<Layout/>}>
-                <Route index element={<SearchRouter/>}/>
+                <Route path="/*" element={<SearchRouter/>}/>
                 <Route path="/search/*" element={<SearchRouter/>}/>
                 <Route path="/patient-overview/:currentPatientNIR" element={<PatientOverview/>}/>
                 <Route path="/patient-register/:currentPatientNIR" element={<PatientRegister/>}/>

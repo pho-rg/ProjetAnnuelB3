@@ -5,11 +5,7 @@ const PatientRegister = () => {
     const {currentPatientNIR} = useParams();
     return (
         <div className="PatientRegister">
-            PatientRegister page
-            <br/>
-            <p>
-                {"NIR : "}{currentPatientNIR}
-            </p>
+            <p>PatientRegister NIR : {currentPatientNIR}</p>
         </div>
     );
 };

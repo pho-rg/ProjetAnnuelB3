@@ -6,7 +6,7 @@ const isNirValid = (nir) => {
     } else return (97 - (parseInt(nir.substring(0, 13)) % 97) === parseInt(nir.substring(13)));
 };
 const adminFileExists = (nir) => {
-    return false;
+    return true;
     // requete API de vérif si le patient a un dossier administratif
 };
 

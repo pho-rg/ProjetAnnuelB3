@@ -13,13 +13,13 @@ const Navbar = () => {
 
     return (
         <div className="Navbar">
-            <div className="Navbar-split">
-                <LocalHospitalIcon className="Navbar-logo" fontSize="large"/>
+            <div className="navbarSplit">
+                <LocalHospitalIcon className="NavbarIcon" fontSize="large"/>
                 <h3>{fullHospitalName}</h3>
             </div>
-            <div className="Navbar-split">
+            <div className="navbarSplit">
                 <h3>{fullUserName}</h3>
-                <AccountCircleIcon className="Navbar-logo" fontSize="large"/>
+                <AccountCircleIcon className="navbarIcon" fontSize="large"/>
             </div>
         </div>
     );

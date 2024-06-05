@@ -1,7 +1,11 @@
 .SearchForm{
     display: flex;
+    flex-direction: column;
+}
+.SearchInputs{
+    display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 .NirSearch, .NameSearch{
     display: flex;
@@ -16,8 +20,13 @@
 .SearchSeparator{
     display: block;
     margin: auto;
-    margin-left: 3%;
-    margin-right: 3%;
+    margin-left: 0;
+    margin-right: 0;
+}
+.SearchAlert {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 ::-webkit-calendar-picker-indicator {
     filter: invert(20%) sepia(52%) saturate(590%) hue-rotate(59deg) brightness(94%) contrast(96%);

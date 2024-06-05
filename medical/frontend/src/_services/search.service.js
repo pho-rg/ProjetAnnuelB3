@@ -16,7 +16,7 @@ const medFileExists = (nir) => {
 };
 
 const isNameValid = (name) => {
-    return (name.length >= 2 && name.length <= 32 && name.match(/^[a-z ,.'-]+$/i));
+    return (name.length >= 2 && name.length <= 32 && name.match(/^[A-Za-zÀ-ÖØ-öø-ÿ ,.'-]+$/i));
 }
 const isDateValid = (date) => {
     if (date.length === 0) {

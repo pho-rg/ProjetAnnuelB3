@@ -33,8 +33,10 @@ const SearchForm = () => {
         switch (event.target.name) {
             case "nir":
                 return (event.target.value.match(/^[0-9]*$/) && event.target.value.length < 16);
-            case ("nom" || "prenom"):
-                return (event.target.value.length <= 32 && event.target.value.match(/^[a-z ,.'-]*$/i))
+            case "nom":
+                return (event.target.value.length <= 32 && event.target.value.match(/^[A-Za-zÀ-ÖØ-öø-ÿ ,.'-]*$/i))
+            case "prenom":
+                return (event.target.value.length <= 32 && event.target.value.match(/^[A-Za-zÀ-ÖØ-öø-ÿ ,.'-]*$/i))
             default:
                 return true;
         }

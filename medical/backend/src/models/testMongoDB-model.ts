@@ -1,4 +1,4 @@
-import { Schema, model, connect, Mongoose } from "mongoose";
+import { Schema, model} from 'mongoose';
 
 // 1. Create an interface representing a document in MongoDB.
 interface IUser {
@@ -15,5 +15,5 @@ interface IUser {
   });
   
   // 3. Create a Model.
-  const User = model<IUser>("User", userSchema);
-;  export{User}
+  const User = model<IUser>('User', userSchema);
+  export{User}

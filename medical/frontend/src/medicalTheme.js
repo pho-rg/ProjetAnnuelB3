@@ -12,6 +12,10 @@ const medicalTheme = createTheme({
             main: lightGreen[700],
             contrastText: '#ffffff',
         },
+        error: {
+            main: '#d12a2a',
+            contrastText: '#ffffff',
+        },
         default: {
             main: lightGreen[400],
         },

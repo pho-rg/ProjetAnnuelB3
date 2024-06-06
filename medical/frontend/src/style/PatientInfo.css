@@ -6,14 +6,14 @@
     border-radius: 7px;
     width: 70%;
     padding: 2%;
-    align-items: center;
+    align-items: stretch;
 }
-.adminInfoField{
+.adminInfoField, .medInfoField, .medInfoFieldFull{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-left: 1em;
-    margin-right: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
 }
 .adminInfoNir, .adminInfoLogo, .adminInfoButton, .adminInfoGlobal{
     display: flex;
@@ -21,16 +21,15 @@
     align-items: center;
 }
 .adminInfoNir{
-    margin-right: 3em;
+    padding-right: 7%;
 }
 .adminInfoButton{
-    margin-left: 4.5em;
-    margin-right: 1em;
+    padding-left: 5%;
 
 }
 .adminInfoLogo{
-    margin-left: 1em;
-    margin-right: 1.5em;
+    padding-left: 1%;
+    padding-right: 2%;
 }
 
 .adminInfoGlobal{
@@ -42,14 +41,95 @@
 .adminInfoGlobalRow{
     display: flex;
     flex-direction: row;
-    margin-top: 1em;
+    margin-top: 4%;
 }
 
 .adminInfo{
     display: flex;
     flex-direction: row;
+    margin-bottom: 4%;
+}
+
+.newFileAlert{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.newFileAlertTitle{
+    display: flex;
+    padding: 1%;
+    padding-bottom: 3%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
 }
 
 .infoFieldDisabled{
     background-color: #f5f5f5;
+}
+
+.medInfo{
+    margin-top: 3%;
+}
+.medInfoData{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
+.medInfoTitle{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    margin-bottom: 2%;
+}
+
+.medInfoFieldFull{
+    width: 100%;
+}
+
+.medInfoRow, .medInfoRowFirst{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 2%;
+}
+
+.medInfoRowFirst{
+    width: 70%;
+}
+
+.medInfoButtonsRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.medInfoButtonsContainer{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding-right: 2.5em;
+    padding-bottom: 1%;
+}
+.medInfoButtons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.medSaveChange{
+    margin-left: 5%;
+}
+
+.infoField{
+    background-color: #ffffff;
+}
+
+.infoFieldLabel{
+    overflow: hidden;
 }

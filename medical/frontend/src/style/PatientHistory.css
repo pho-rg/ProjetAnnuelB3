@@ -1,0 +1,12 @@
+.PatientHistory {
+    display: flex;
+    flex-direction: column;
+    background-color: #f2ffed;
+    border: 2px solid #e8fae1;
+    max-width: 95%;
+}
+
+.PatientHistoryLabel, .PatientHistoryButton {
+    color: #33691e;
+    text-align: center;
+}

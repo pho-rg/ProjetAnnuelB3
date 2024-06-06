@@ -1,0 +1,17 @@
+.MedicalAct {
+    display: flex;
+    flex-direction: column;
+    background-color: #e8e6e1;
+    border: 1px #A6CB72 solid;
+    border-radius: 5px;
+    margin-left: 2em;
+    margin-right: 2em;
+
+}
+
+.MedicalActHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1em;
+}

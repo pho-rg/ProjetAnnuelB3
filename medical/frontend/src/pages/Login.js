@@ -74,7 +74,7 @@ const Login = () => {
     }
     // Controle de la saisie en fonction des champs
     const controlPassword = (event) => {
-        return credentials.password.match(/^\S*$/)
+        return credentials.password.match(/^\S*$/);
     }
 
     //_____Affichage_____//

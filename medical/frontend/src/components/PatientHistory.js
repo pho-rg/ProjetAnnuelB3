@@ -3,20 +3,35 @@ import MedicalAct from './MedicalAct';
 import '../style/PatientHistory.css'
 import {Button} from "@mui/material";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import HealingIcon from '@mui/icons-material/Healing';
 
 const PatientHistory = (props) => {
 
     //_____Affichage_____//
     return (<div className="PatientHistory">
-            <p>NIR: {props.nir}</p>
-            <h1 className="PatientHistoryLabel">Cardiologie</h1>
-            <div className="PatientHistoryButton">
-                <Button variant="contained"  endIcon={<AddCircleIcon/>}>
-                    Ajouter un acte médical
-                </Button>
+                <div className="PatientHistoryTitle">
+                    <HealingIcon sx={{color: '#204213', height: "40px", width: "auto", mr: 2}}/>
+                    <h1 className="PatientHistoryLabel">Cardiologie</h1>
+                </div>
+            <div className="PatientHistoryBody">
+                <h2 className="PatientHistoryBodyLabel">Liste des actes médicaux</h2>
+                <div className="PatientHistoryButton">
+                    <Button variant="contained" endIcon={<AddCircleIcon/>}>
+                        Ajouter un acte médical
+                    </Button>
+                </div>
+                <div className="PatientHistoryMedicalActList">
+                    <MedicalAct
+                        id={'1a'}
+                        service={'Radiologie'}
+                        nir={'104021730625478'}
+                        date={'08/06/2024'}
+                        intitule_acte={'Radio des poumonsRadio des poumonsRadio des poumons'}
+                        nom_medecin={'Dr Maboul'}
+                        description={'Ah batard tu fumes'}
+                    />
+                </div>
             </div>
-            <h2 className="PatientHistoryLabel">Historique des actes médicaux</h2>
-            <MedicalAct nir={props.nir}/>
         </div>
 
     )

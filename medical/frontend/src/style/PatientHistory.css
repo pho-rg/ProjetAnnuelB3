@@ -8,7 +8,35 @@
     padding: 2%;
 }
 
-.PatientHistoryLabel, .PatientHistoryButton {
+.PatientHistoryBody {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.PatientHistoryTitle{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    margin-left: 6%;
+}
+
+.PatientHistoryLabel {
     color: #33691e;
-    text-align: center;
+}
+
+.PatientHistoryBodyLabel {
+    color: #33691e;
+    margin-bottom: 4%;
+}
+
+.PatientHistoryButton {
+    margin-bottom: 3%;
+}
+
+.PatientHistoryMedicalActList {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
 }

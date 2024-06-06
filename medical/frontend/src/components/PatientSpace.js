@@ -1,4 +1,5 @@
 import React from 'react';
+import '../style/PatientSpace.css'
 import PatientInfo from "./PatientInfo";
 import PatientHistory from "./PatientHistory";
 

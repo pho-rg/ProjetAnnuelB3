@@ -4,6 +4,7 @@ import '../style/SearchForm.css';
 import ContactPageIcon from '@mui/icons-material/ContactPage';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
+import EventIcon from '@mui/icons-material/Event';
 import PersonIcon from '@mui/icons-material/Person';
 import {Alert, Button, TextField} from "@mui/material";
 import {searchService} from "../_services/search.service";
@@ -110,43 +111,48 @@ const SearchForm = () => {
                 </div>
                 <div className="SearchSeparator"><span>ou</span></div>
                 <div className="NameSearch">
-                <div className="NameSearchItem"><PersonIcon fontSize="large" sx={{color:'#204213'}}/></div>
-                <div className="NameSearchItem">
-                    <TextField value={searchData.nom}
-                               label="Nom"
-                               variant="filled"
-                               onChange={handleChange}
-                               name="nom"
-                               onKeyDown={handleKeyDown}/></div>
-                <div className="NameSearchItem">
-                    <TextField value={searchData.prenom}
-                               label="Prénom"
-                               variant="filled"
-                               onChange={handleChange}
-                               name="prenom"
-                               onKeyDown={handleKeyDown}/></div>
-                <div className="NameSearchItem">
-                    <TextField value={searchData.date}
-                               label="Date de naissance"
-                               variant="filled"
-                               type="date"
-                               InputLabelProps={{shrink: true}}
-                               onChange={handleChange}
-                               name="date"
-                               onKeyDown={handleKeyDown}/></div>
-                <div className="NameSearchItem">
-                    <Button variant="contained"
-                            endIcon={<ManageSearchIcon/>}
-                            onClick={handleSearch}>
-                        Rechercher
-                    </Button></div>
+                    <div className="NameSearchItem">
+                        <PersonIcon fontSize="large" sx={{color: '#204213'}}/></div>
+                        <div className="NameSearchItem">
+                            <TextField value={searchData.prenom}
+                                       label="Prénom"
+                                       variant="filled"
+                                       onChange={handleChange}
+                                       name="prenom"
+                                       onKeyDown={handleKeyDown}/>
+                        </div>
+                        <div className="NameSearchItem">
+                            <TextField value={searchData.nom}
+                                       label="Nom de famille"
+                                       variant="filled"
+                                       onChange={handleChange}
+                                       name="nom"
+                                       onKeyDown={handleKeyDown}/>
+                        </div>
+                        <div className="NameSearchItem">
+                            <TextField value={searchData.date}
+                                       label="Date de naissance"
+                                       variant="filled"
+                                       type="date"
+                                       InputLabelProps={{shrink: true}}
+                                       onChange={handleChange}
+                                       name="date"
+                                       onKeyDown={handleKeyDown}/>
+                        </div>
+                        <div className="NameSearchItem">
+                            <Button variant="contained"
+                                    endIcon={<ManageSearchIcon/>}
+                                    onClick={handleSearch}>
+                                Rechercher
+                            </Button>
+                        </div>
+                </div>
             </div>
-            </div>
-            { alertOpen &&
+            {alertOpen &&
                 <div className="SearchAlert">
                     <Alert severity="error"
                            onClose={handleCloseAlert}
-                           sx={{minWidth:'30%'}}>
+                           sx={{minWidth: '30%'}}>
                         {alertMessage}
                     </Alert>
                 </div>

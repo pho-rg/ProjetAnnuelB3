@@ -1,7 +1,9 @@
 const isNirValid = (nir) => {
-    if (nir.length !== 15) {
-        return false;
-    } else if (!nir.match(/^[0-9]*$/)) {
+    // if (nir.length !== 15) {
+    //     return false;
+    // } else if (!nir.match(/^[0-9]*$/)) {
+    //     return false;
+    if (!nir.match(/^[12][0-9]{2}(0[1-9]|1[0-2])(2[AB]|[0-9]{2})[0-9]{3}[0-9]{3}([0-9]{2})$/)) {
         return false;
     } else return (97 - (parseInt(nir.substring(0, 13)) % 97) === parseInt(nir.substring(13)));
 };

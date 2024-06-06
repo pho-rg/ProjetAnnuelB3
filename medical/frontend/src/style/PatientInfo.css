@@ -1,0 +1,54 @@
+.PatientInfo{
+    display: flex;
+    flex-direction: column;
+    background-color: #f2ffed;
+    border: 2px solid #e8fae1;
+    border-radius: 7px;
+    max-width: 95%;
+    padding: 2%;
+}
+.adminInfoField{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+.adminInfoNir, .adminInfoLogo, .adminInfoButton, .adminInfoGlobal{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.adminInfoNir{
+    margin-right: 3em;
+}
+.adminInfoButton{
+    margin-left: 4.5em;
+    margin-right: 1em;
+
+}
+.adminInfoLogo{
+    margin-left: 1em;
+    margin-right: 1.5em;
+}
+
+.adminInfoGlobal{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.adminInfoGlobalRow{
+    display: flex;
+    flex-direction: row;
+    margin-top: 1em;
+}
+
+.adminInfo{
+    display: flex;
+    flex-direction: row;
+}
+
+.infoFieldDisabled{
+    background-color: #f5f5f5;
+}

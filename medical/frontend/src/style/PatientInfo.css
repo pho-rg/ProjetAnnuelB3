@@ -4,8 +4,9 @@
     background-color: #f2ffed;
     border: 2px solid #e8fae1;
     border-radius: 7px;
-    max-width: 95%;
+    width: 70%;
     padding: 2%;
+    align-items: center;
 }
 .adminInfoField{
     display: flex;

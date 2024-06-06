@@ -8,6 +8,7 @@ const PatientSpace = (props) => {
         <div className="PatientSpace">
             <p>PatientSpace NIR : {props.nir}</p>
             <PatientInfo nir={props.nir} type="display"/>
+            <br/>
             <PatientHistory nir={props.nir}/>
         </div>
     );

@@ -24,6 +24,7 @@ import {
 } from "@mui/material";
 import ContactPageIcon from "@mui/icons-material/ContactPage";
 import {Event} from "@mui/icons-material";
+import MedInfoList from "./MedInfoList";
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -53,7 +54,6 @@ const PatientInfo = (props) => {
         operations:[],
         allergies:[]
     });
-
     const [expanded, setExpanded] = React.useState(true);
 
     const handleExpandClick = () => {
@@ -163,7 +163,7 @@ const PatientInfo = (props) => {
                         expand={expanded}
                         onClick={handleExpandClick}
                         aria-expanded={expanded}
-                                aria-label="Afficher tout"
+                        aria-label="Afficher tout"
                     >
                         <ExpandMoreIcon sx={{color: '#204213', height: "40px", width: "auto"}}/>
                     </ExpandMore>
@@ -226,17 +226,11 @@ const PatientInfo = (props) => {
                                     <Select
                                         className="infoField"
                                         value={patientData.grp_sanguin}
-                                        InputProps={{
-                                            endAdornment: (
-                                                <InputAdornment position="end">
-                                                    <Typography variant="body1" sx={{color: '#204213'}}>kg</Typography>
-                                                </InputAdornment>
-                                            ),
-                                        }}
                                         // onChange={handleChange}
                                     >
-                                        {bloodGroups.map((bloodGroup) => (
-                                            <MenuItem value={bloodGroup}>{bloodGroup}</MenuItem>))}
+                                        {bloodGroups.map((bloodGroup, index) => {
+                                            return(<MenuItem key={index} value={bloodGroup}>{bloodGroup}</MenuItem>)
+                                        })}
                                     </Select>
                                 </div>
                             </div>
@@ -278,7 +272,17 @@ const PatientInfo = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className="medLists"></div>
+                <div className="medInfoListRow">
+                    <div className="medInfoList">
+                        <MedInfoList list={patientData.pathologies} title={"Pathologies"} />
+                    </div>
+                    <div className="medInfoList">
+                        <MedInfoList list={patientData.allergies} title={"Allergies"} />
+                    </div>
+                    <div className="medInfoList">
+                        <MedInfoList list={patientData.operations} title={"Opérations"} />
+                    </div>
+                </div>
             </Collapse>
 
         </div>

@@ -1,0 +1,12 @@
+.MedInfoList{
+    display: flex;
+    flex-direction: column;
+    padding: 4%;
+    border: 1px solid #c4c4c4;
+    border-radius: 4px;
+}
+.listTitleRow{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

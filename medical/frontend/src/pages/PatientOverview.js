@@ -8,7 +8,6 @@ const PatientOverview = () => {
     return (
         <div className="PatientOverview">
             <SearchForm/>
-            <p>PatientOverview NIR : {currentPatientNIR}</p>
             <PatientSpace nir={currentPatientNIR}/>
         </div>
     );

@@ -1,6 +1,8 @@
 .SearchForm{
     display: flex;
     flex-direction: column;
+    margin-top: 0.7%;
+    margin-bottom: 2%;
 }
 .SearchInputs{
     display: flex;

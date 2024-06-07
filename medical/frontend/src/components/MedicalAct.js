@@ -23,6 +23,8 @@ const MedicalAct = (props) => {
 
     const [showLabel, setShowLabel] = useState(false);
 
+    console.log(props)
+
     //_____Affichage_____//
     return (<div className="MedicalAct">
                 <Accordion sx = {{width: '100%'}}>

@@ -4,6 +4,7 @@ import Layout from "../pages/Layout";
 import PatientOverview from "../pages/PatientOverview";
 import PatientRegister from "../pages/PatientRegister";
 import SearchRouter from "./SearchRouter";
+import '../style/MedRouteur.css'
 
 const MedRouter = () => {
 

@@ -34,7 +34,6 @@
 .LoginForm {
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
     justify-content: center;
     text-align: center;
     margin-top: 5%;
@@ -43,12 +42,12 @@
 }
 
 .LoginInput {
-    margin: 2%;
+    margin: 5%;
     width: 100%;
 }
 
 .LoginButton {
-    margin-top: 5%;
+    margin-top: 8%;
     text-align: center;
     color: #33691e;
 }

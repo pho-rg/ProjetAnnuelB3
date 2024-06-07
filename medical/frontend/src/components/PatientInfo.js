@@ -70,7 +70,7 @@ const PatientInfo = (props) => {
                     <div className="adminInfoField">
                         <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Numéro NIR</Typography>
                         <TextField
-                            className="infoFieldDisabled"
+                            className="InfoFieldDisabled"
                             disabled
                             value={props.nir}
                             InputProps={{
@@ -90,7 +90,7 @@ const PatientInfo = (props) => {
                         <div className="adminInfoField">
                             <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Prénom</Typography>
                             <TextField
-                                className="infoFieldDisabled"
+                                className="InfoFieldDisabled"
                                 disabled
                                 value={patientData.prenom}
                                 InputProps={{
@@ -106,7 +106,7 @@ const PatientInfo = (props) => {
                         <div className="adminInfoField">
                             <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Nom de famille</Typography>
                             <TextField
-                                className="infoFieldDisabled"
+                                className="InfoFieldDisabled"
                                 disabled
                                 value={patientData.nom}
                                 InputProps={{
@@ -124,7 +124,7 @@ const PatientInfo = (props) => {
                         <div className="adminInfoField">
                             <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Sexe</Typography>
                             <TextField
-                                className="infoFieldDisabled"
+                                className="InfoFieldDisabled"
                                 disabled
                                 value={patientData.sexe.substring(0, 1).toUpperCase() + patientData.sexe.substring(1).toLowerCase()}
                                 InputProps={{
@@ -141,7 +141,7 @@ const PatientInfo = (props) => {
                         <div className="adminInfoField">
                             <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Date de naissance</Typography>
                             <TextField
-                                className="infoFieldDisabled"
+                                className="InfoFieldDisabled"
                                 disabled
                                 type="date"
                                 value={patientData.date}

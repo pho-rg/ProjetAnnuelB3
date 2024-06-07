@@ -1,3 +1,4 @@
+// Composant de la barre de navigation
 import React from 'react';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';

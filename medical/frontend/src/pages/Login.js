@@ -1,3 +1,4 @@
+// Composant de la page de login
 import React, {useState} from 'react';
 import '../style/Login.css';
 import {
@@ -88,7 +89,7 @@ const Login = () => {
             </div>
             <div className="LoginForm">
                 <div className="LoginInput">
-                    <FormControl sx={{m: 1, width: '25ch'}} variant="outlined">
+                    <FormControl variant="outlined">
                         <InputLabel htmlFor="outlined-adornment-password">Adresse Email</InputLabel>
                         <OutlinedInput
                             type='mail'
@@ -106,7 +107,7 @@ const Login = () => {
                     </FormControl>
                 </div>
                 <div className="LoginInput">
-                    <FormControl sx={{m: 1, width: '25ch'}} variant="outlined">
+                    <FormControl variant="outlined">
                         <InputLabel htmlFor="outlined-adornment-password">Mot de passe</InputLabel>
                         <OutlinedInput
                             id="outlined-adornment-password"
@@ -137,6 +138,7 @@ const Login = () => {
                         Se connecter
                     </Button>
                 </div>
+                {/* Si contrôle ko alors affichage du message d'erreur*/}
                 { alertOpen &&
                     <div className="LoginAlert">
                         <Alert severity="error">

@@ -1,3 +1,4 @@
+// Jeu de données d'acte médicaux provisoire avant raccordement au backEnd
 export const medicalActData = [
     {
         id:1,

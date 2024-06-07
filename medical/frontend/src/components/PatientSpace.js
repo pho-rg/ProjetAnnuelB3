@@ -9,7 +9,7 @@ const PatientSpace = (props) => {
             <p>PatientSpace NIR : {props.nir}</p>
             <PatientInfo nir={props.nir} type="display"/>
             <br/>
-            {/*<PatientHistory nir={props.nir}/>*/}
+            <PatientHistory nir={props.nir}/>
         </div>
     );
 };

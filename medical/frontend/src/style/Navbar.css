@@ -1,5 +1,5 @@
 .Navbar {
-    padding: 2px;
+    padding: 0.1%;
     color: #A6CB72;
     background-color: #33691e;
     border-bottom: solid 2px #A6CB72;
@@ -7,21 +7,28 @@
     justify-content: space-between;
     flex-direction: row;
     align-items: center;
+    width: 100%;
 }
 
-.NavbarSplit {
-    text-align: left;
-    margin-left: 10px;
-    margin-right: 10px;
+.NavbarSplit, .NavBarHospital, .NavBarDoctor {
+    margin-left: 0.5%;
+    margin-right: 0.5%;
     flex-direction: row;
     align-items: center;
     display: flex;
+    width: 100%;
+}
 
+.NavBarHospital {
+    justify-content: flex-start;
+}
 
+.NavBarDoctor {
+    justify-content: end;
 }
 
 .NavbarIcon {
     color: #A6CB72;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 1%;
+    padding-right: 1%;
 }

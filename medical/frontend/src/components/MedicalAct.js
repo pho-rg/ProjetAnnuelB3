@@ -6,21 +6,10 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import {InputAdornment, TextField, Typography} from "@mui/material";
 import DescriptionIcon from '@mui/icons-material/Description';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import DownloadIcon from '@mui/icons-material/Download';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 
 const MedicalAct = (props) => {
-    //_____Variables_____//
-    const [medicalActData, setMedicalActData] = useState({
-        id:props.id,
-        service:props.service,
-        nir:props.nir,
-        date:props.date,
-        intitule:props.intitule_acte,
-        nomMedecin:props.nom_medecin,
-        desc:props.description
-    });
 
     //_____Evènements_____//
     const handleLabel = () => {
@@ -53,7 +42,7 @@ const MedicalAct = (props) => {
                                     <TextField
                                         className="infoFieldGlobal"
                                         disabled
-                                        value={medicalActData.date}
+                                        value={props.data.date}
                                         variant="standard"
                                     />
                                 </div>
@@ -65,7 +54,7 @@ const MedicalAct = (props) => {
                                     <TextField
                                         className="infoFieldGlobal"
                                         disabled
-                                        value={medicalActData.intitule}
+                                        value={props.data.intitule_acte}
                                         variant="standard"
                                         sx = {{width: '100%'}}
                                     />
@@ -83,7 +72,7 @@ const MedicalAct = (props) => {
                                         <TextField
                                             className="infoFieldDisabled"
                                             disabled
-                                            value={medicalActData.nomMedecin}
+                                            value={props.data.nom_medecin}
                                             variant="outlined"
                                             InputProps={{
                                                 endAdornment: (
@@ -109,7 +98,7 @@ const MedicalAct = (props) => {
                                             disabled
                                             multiline
                                             rows={10}
-                                            value={medicalActData.desc}
+                                            value={props.data.description}
                                             sx = {{width: '100%'}}
                                         />
                                 </div>

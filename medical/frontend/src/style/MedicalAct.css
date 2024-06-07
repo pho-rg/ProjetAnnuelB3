@@ -3,11 +3,12 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
+    margin-bottom: 2%;
 }
 
 .MedicalActLogo {
-    margin-left: 1em;
-    margin-right: 1.5em;
+    margin-left: 2%;
+    margin-right: 3%;
 }
 
 .MedicalActInfoGlobal {
@@ -20,7 +21,7 @@
 .MedicalActInfoBody {
     display: flex;
     flex-direction: column;
-    margin-left: 4em;
+    margin-left: 8%;
 }
 
 .MedicalActInfoBodyRow {
@@ -35,8 +36,8 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-left: 1em;
-    margin-right: 1em;
+    margin-left: 1%;
+    margin-right: 3%;
     width: 100%;
 }
 
@@ -45,7 +46,7 @@
     align-items: flex-start;
 }
 
-.MedicalActName {
+.MedicalActName, .MedicalActReport {
     width: 100%;
 }
 

@@ -31,7 +31,7 @@ const ExpandMore = styled((props) => {
     return <IconButton {...other} />;
 })(({ theme, expand }) => ({
     transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-    marginLeft: 'auto',
+    marginLeft: '0',
     transition: theme.transitions.create('transform', {
         duration: theme.transitions.duration.shortest,
     }),
@@ -159,134 +159,142 @@ const PatientInfo = (props) => {
                 </div>
 
                 <div className="adminInfoButton">
+                    <Typography variant="body2" sx={{color: '#204213', mb:1}}>
+                        {expanded ? "Réduire" : "Profil médical"}
+                    </Typography>
                     <ExpandMore
                         expand={expanded}
                         onClick={handleExpandClick}
                         aria-expanded={expanded}
                         aria-label="Afficher tout"
                     >
-                        <ExpandMoreIcon sx={{color: '#204213', height: "40px", width: "auto"}}/>
+                        <ExpandMoreIcon sx={{color: '#204213', height: "40px", width: "auto", margin:'auto'}}/>
                     </ExpandMore>
                 </div>
             </div>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
-                <Divider sx={{mb:4}}/>
-                <div className="newFileAlert">
-                    <Alert icon={false} severity="info" sx={{width: '100%', justifyContent: 'center'}}>
-                        <div className="newFileAlertTitle">
-                            <PersonAddAlt1Icon fontSize="medium"/>
-                            <Typography variant="body1" sx={{pl: 2}}>Nouveau patient</Typography>
-                        </div>
-                        Veuillez renseigner ci-dessous le profil médical du patient.
-                    </Alert>
-                </div>
-                <div className="medInfo">
-                    <div className="medInfoTitle">
-                        <LocalHospitalOutlinedIcon sx={{color: '#204213', height: "40px", width: "auto", mr:2}} />
-                        <Typography variant="h5" sx={{color: '#204213'}}>Profil médical</Typography>
+                <div className="medInfoContainer">
+                    <Divider sx={{mb: 4}}/>
+                    <div className="newFileAlert">
+                        <Alert icon={false} severity="info" sx={{width: '100%', justifyContent: 'center'}}>
+                            <div className="newFileAlertTitle">
+                                <PersonAddAlt1Icon fontSize="medium"/>
+                                <Typography variant="body1" sx={{pl: 2}}>Nouveau patient</Typography>
+                            </div>
+                            Veuillez renseigner ci-dessous le profil médical du patient.
+                        </Alert>
                     </div>
-                    <div className="medInfoData">
-                        <div className="medInfoButtonsRow">
-                            <div className="medInfoRowFirst">
-                                <div className="medInfoField">
-                                    <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Taille</Typography>
-                                    <TextField
-                                        className="infoField"
-                                        type="number"
-                                        value={patientData.taille}
-                                        InputProps={{
-                                            endAdornment: (
-                                                <InputAdornment position="end">
-                                                    <Typography variant="body1" sx={{color: '#204213'}}>cm</Typography>
-                                                </InputAdornment>
-                                            ),
-                                        }}
-                                        variant="outlined"
-                                    />
-                                </div>
-                                <div className="medInfoField">
-                                    <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Poids</Typography>
-                                    <TextField
-                                        className="infoField"
-                                        type="number"
-                                        value={patientData.poids}
-                                        InputProps={{
-                                            endAdornment: (
-                                                <InputAdornment position="end">
-                                                    <Typography variant="body1" sx={{color: '#204213'}}>kg</Typography>
-                                                </InputAdornment>
-                                            ),
-                                        }}
-                                        variant="outlined"
-                                    />
-                                </div>
-                                <div className="medInfoField">
-                                    <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Groupe
-                                        sanguin</Typography>
-                                    <Select
-                                        className="infoField"
-                                        value={patientData.grp_sanguin}
-                                        // onChange={handleChange}
-                                    >
-                                        {bloodGroups.map((bloodGroup, index) => {
-                                            return(<MenuItem key={index} value={bloodGroup}>{bloodGroup}</MenuItem>)
-                                        })}
-                                    </Select>
-                                </div>
-                            </div>
-                            <div className="medInfoButtonsContainer">
-                                <div className="medInfoButtons">
-                                    <div className="medResetChange">
-                                        <Button variant="contained"
-                                                color="error"
-                                                endIcon={<EditOffIcon/>}
-                                            // onClick={handleAccess}
-                                        >
-                                            Annuler
-                                        </Button>
-                                    </div>
-                                    <div className="medSaveChange">
-                                        <Button variant="contained"
-                                                endIcon={<SaveIcon/>}
-                                            // onClick={handleAccess}
-                                        >
-                                            Enregistrer
-                                        </Button>
-                                    </div>
-                                </div>
-                            </div>
+                    <div className="medInfo">
+                        <div className="medInfoTitle">
+                            <LocalHospitalOutlinedIcon sx={{color: '#204213', height: "60px", width: "auto", mr: 2}}/>
+                            <Typography variant="h4" sx={{color: '#204213'}}>Profil médical</Typography>
                         </div>
+                        <div className="medInfoData">
+                            <div className="medInfoButtonsRow">
+                                <div className="medInfoRowFirst">
+                                    <div className="medInfoField">
+                                        <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Taille</Typography>
+                                        <TextField
+                                            className="infoField"
+                                            type="number"
+                                            value={patientData.taille}
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <Typography variant="body1"
+                                                                    sx={{color: '#204213'}}>cm</Typography>
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            variant="outlined"
+                                        />
+                                    </div>
+                                    <div className="medInfoField">
+                                        <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Poids</Typography>
+                                        <TextField
+                                            className="infoField"
+                                            type="number"
+                                            value={patientData.poids}
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <Typography variant="body1"
+                                                                    sx={{color: '#204213'}}>kg</Typography>
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            variant="outlined"
+                                        />
+                                    </div>
+                                    <div className="medInfoField">
+                                        <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Groupe
+                                            sanguin</Typography>
+                                        <Select
+                                            className="infoField"
+                                            fullWidth
+                                            value={patientData.grp_sanguin}
+                                            // onChange={handleChange}
+                                        >
+                                            {bloodGroups.map((bloodGroup, index) => {
+                                                return (
+                                                    <MenuItem key={index} value={bloodGroup}>{bloodGroup}</MenuItem>)
+                                            })}
+                                        </Select>
+                                    </div>
+                                </div>
+                                <div className="medInfoButtonsContainer">
+                                    <div className="medInfoButtons">
+                                        <div className="medResetChange">
+                                            <Button variant="contained"
+                                                    color="error"
+                                                    endIcon={<EditOffIcon/>}
+                                                // onClick={handleAccess}
+                                            >
+                                                Annuler
+                                            </Button>
+                                        </div>
+                                        <div className="medSaveChange">
+                                            <Button variant="contained"
+                                                    endIcon={<SaveIcon/>}
+                                                // onClick={handleAccess}
+                                            >
+                                                Enregistrer
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                        <div className="medInfoRow">
-                            <div className="medInfoFieldFull">
-                                <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Remarques</Typography>
-                                <TextField
-                                    className="infoField"
-                                    sx={{width: '100%'}}
-                                    multiline
-                                    rows={6}
-                                    value={patientData.remarques}
-                                    variant="outlined"
-                                />
+                            <div className="medInfoRow">
+                                <div className="medInfoFieldFull">
+                                    <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Remarques</Typography>
+                                    <TextField
+                                        className="infoField"
+                                        sx={{width: '100%'}}
+                                        multiline
+                                        rows={6}
+                                        value={patientData.remarques}
+                                        variant="outlined"
+                                    />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div className="medInfoListRow">
-                    <div className="medInfoList">
-                        <MedInfoList list={patientData.pathologies} title={"Pathologies"} />
-                    </div>
-                    <div className="medInfoList">
-                        <MedInfoList list={patientData.allergies} title={"Allergies"} />
-                    </div>
-                    <div className="medInfoList">
-                        <MedInfoList list={patientData.operations} title={"Opérations"} />
+                        <div className="medInfoListRow">
+                            <div className="medInfoList">
+                                <MedInfoList list={patientData.pathologies} title={"Pathologies"}/>
+                            </div>
+                            <div className="medInfoList">
+                                <MedInfoList list={patientData.allergies} title={"Allergies"}/>
+                            </div>
+                            <div className="medInfoList">
+                                <MedInfoList list={patientData.operations} title={"Opérations"}/>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </Collapse>
-
         </div>
-    );
+);
 };
 
 export default PatientInfo;

@@ -1,7 +1,7 @@
 import React from 'react';
 import MedicalAct from './MedicalAct';
 import '../style/PatientHistory.css'
-import {Button} from "@mui/material";
+import {Button, Typography} from "@mui/material";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import HealingIcon from '@mui/icons-material/Healing';
 
@@ -10,8 +10,8 @@ const PatientHistory = (props) => {
     //_____Affichage_____//
     return (<div className="PatientHistory">
                 <div className="PatientHistoryTitle">
-                    <HealingIcon sx={{color: '#204213', height: "40px", width: "auto", mr: 2}}/>
-                    <h1 className="PatientHistoryLabel">Cardiologie</h1>
+                    <HealingIcon sx={{color: '#204213', height: "60px", width: "auto", mr: 2}}/>
+                    <Typography variant="h4" className="PatientHistoryLabel">Cardiologie</Typography>
                 </div>
             <div className="PatientHistoryBody">
                 <h2 className="PatientHistoryBodyLabel">Liste des actes médicaux</h2>

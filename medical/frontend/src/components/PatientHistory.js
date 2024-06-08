@@ -2,22 +2,28 @@
 import React, {useState} from 'react';
 import MedicalAct from './MedicalAct';
 import '../style/PatientHistory.css'
-import {Button, Typography} from "@mui/material";
+import {Button, MenuItem, Select, Typography} from "@mui/material";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import HealingIcon from '@mui/icons-material/Healing';
 import MedicalActList from "./MedicalActList";
 import EditOffIcon from "@mui/icons-material/EditOff";
+import ImportExportIcon from '@mui/icons-material/ImportExport';
 
 const PatientHistory = (props) => {
     //_____Variables_____//
     // UseState de création d'un nouvel acte médical
     const [newMedicalAct, setNewMedicalAct] = useState(false);
-    // UseState d'affichage du nouvel acte médical
+    // UseState de tri séléctionné
+    const [selectedSort, setSelectedSort] = useState(1);
 
     //_____Evènement_____//
     // Gestion de l'ajout d'un nouvel acte médical
     const handleAdd = () => {
         setNewMedicalAct(prevState => !prevState);
+    };
+
+    const handleChange = (event) => {
+        setSelectedSort(event.target.value);
     };
 
     //_____Affichage_____//
@@ -49,9 +55,25 @@ const PatientHistory = (props) => {
                     {/* Si bouton d'ajout cliqué, affichage d'un composant MedicalAct de type create*/}
                     {newMedicalAct && <MedicalAct type="create" data={{}}/>}
                 </div>
+                <div className="PatientHistorySortContainer">
+                    <div className="PatientHistorySortLabel">
+                        <ImportExportIcon sx={{fontSize: 30}}/>
+                    </div>
+                    <Select
+                        variant={"standard"}
+                        sx={{minWidth: '20%'}}
+                        value={selectedSort}
+                        label="Trier par"
+                        onChange={handleChange}
+                    >
+                        <MenuItem value={1}>date récente</MenuItem>
+                        <MenuItem value={2}>date ancienne</MenuItem>
+                        <MenuItem value={3}>nom du médecin</MenuItem>
+                    </Select>
+                </div>
                 <div className="PatientHistoryMedicalActList">
                     {/* Liste des actes médicaux en fonction du patient (nir) et du service*/}
-                    <MedicalActList nir={props.nir} service={props.service}/>
+                    <MedicalActList nir={props.nir} service={props.service} selectedSort={selectedSort}/>
                 </div>
             </div>
         </div>

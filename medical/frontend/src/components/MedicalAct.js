@@ -192,7 +192,7 @@ const MedicalAct = (props) => {
                 {/* Si MedicalAct de type création, on affiche les boutons*/}
                 {props.type === "create" && <AccordionActions>
                     <div className="MedicalActButtonsContainer">
-                        <div className="MedicalActButtons">
+                        <div className="MedicalActButtonContainer">
                             {alertOpen &&
                                 <div className="newMedicalActAlert">
                                     <Alert severity="error"

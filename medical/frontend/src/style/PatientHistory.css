@@ -6,6 +6,7 @@
     border-radius: 7px;
     width: 70%;
     padding: 2%;
+    margin: 1%;
 }
 
 .PatientHistoryBody {
@@ -50,4 +51,21 @@
 
 .PatientHistoryAddedMedicalAct  {
     width: 85%;
+}
+
+.PatientHistorySortContainer {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2%;
+    margin-bottom: 4%;
+    width: 80%;
+    align-items: flex-start;
+}
+
+.PatientHistorySortLabel {
+
+}
+
+.PatientHistorySortSelect {
+
 }

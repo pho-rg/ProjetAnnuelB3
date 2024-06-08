@@ -88,7 +88,7 @@
     padding-bottom: 2%;
 }
 
-.MedicalActButtons{
+.MedicalActButtonContainer{
     display: flex;
     flex-direction: row;
     width: 100%;

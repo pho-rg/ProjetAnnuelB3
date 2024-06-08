@@ -2,12 +2,11 @@
 // Données provisoires avant raccordement au backEnd
 import {medicalActData} from '../datas/MedicalActData';
 import MedicalAct from "./MedicalAct";
-import React, {useState} from "react";
 import {Alert} from "@mui/material";
 
 const MedicalActList = (props) => {
-    //_____Variables_____//
-    const [alertMessage, setAlertMessage] = useState("")
+    // TODO backEnd
+    // tri préalable de medicalActData avec le props.selectedSort en parametre
 
     //_____Affichage_____//
     return (<div className="MedicalActList">

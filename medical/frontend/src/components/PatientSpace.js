@@ -9,7 +9,6 @@ const PatientSpace = (props) => {
     return (
         <div className="PatientSpace">
             <PatientInfo nir={props.nir} type="display"/>
-            <br/>
             <PatientHistory nir={props.nir} service={selectedService}/>
         </div>
     );

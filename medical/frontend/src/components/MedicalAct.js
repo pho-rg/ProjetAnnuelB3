@@ -4,21 +4,81 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AccordionDetails from "@mui/material/AccordionDetails";
-import {AccordionActions, Button, InputAdornment, TextField, Typography} from "@mui/material";
+import {AccordionActions, Alert, Button, InputAdornment, TextField, Typography} from "@mui/material";
 import DescriptionIcon from '@mui/icons-material/Description';
 import DownloadIcon from '@mui/icons-material/Download';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import EditOffIcon from "@mui/icons-material/EditOff";
 import SaveIcon from "@mui/icons-material/Save";
+import {medicalActData} from "../datas/MedicalActData";
 
 const MedicalAct = (props) => {
     //_____Variables_____//
+    // UseState des données liées au nouvel acte médical saisi
+    const newMedicalActInitialiseState = {
+        // Remarque : si la l'historique est vide pour le patient, props.data n'est pas alimenté par PatientHistory
+        //id:, TODO a gerer cote back
+        //service:, TODO a gerer avec la liste deroulante
+        //nir:, TODO a gerer avec la localStorage
+        date: "",
+        intitule_acte: "",
+        nom_medecin: "",
+        description: ""
+    };
+
+    // Initialisation du nouvel acte médical avec les données de newMedicalActInitialiseState (état initial)
+    const [newMedicalActData, setNewMedicalActData] = useState(newMedicalActInitialiseState);
+
     // UseState d'affichage des intitulés
     const [showLabel, setShowLabel] = useState(false);
+    // Gestion du message d'erreur
+    const [alertMessage, setAlertMessage] = useState("");
+    const [alertOpen, setAlertOpen] = useState(false);
+    const handleCloseAlert = () => {
+        setAlertOpen(false);
+    }
 
     //_____Evènements_____//
     // Gestion de l'affichage des intitulés
-    const handleLabel = () => {setShowLabel(!showLabel);}
+    const handleLabel = () => {
+        setShowLabel(!showLabel);
+    };
+    // Detection d'un champ modifié sur un type create
+    const handleChange = (event) => {
+        setAlertOpen(false); // masquage de l'alerte erreur
+        setNewMedicalActData({
+            ...newMedicalActData,
+            [event.target.name]: event.target.value
+        });
+    };
+    // Enregistrement du nouvel acte médical
+    const saveNewMedicalAct = () => {
+        if (controlChange()) { // contrôles de saisie
+            // TODO requete API
+            setAlertOpen(false)
+            console.log(newMedicalActData);
+        } else {
+            setAlertMessage("Saisie incorrecte, tous les champs doivent ête complétés.");
+            setAlertOpen(true);
+        }
+    };
+    // Annnulation du nouvel acte médical
+    const discardNewMedicalAct = () => {
+        // Remise de newMedicalActData à son état initial
+        setNewMedicalActData(newMedicalActInitialiseState);
+        setAlertOpen(false);
+        // TODO Masquage de la zone de saisie d'un nouvel acte
+        // verif
+        console.log(newMedicalActData);
+    }
+
+    //_____Contrôles_____
+    const controlChange = (event) => {
+        return (newMedicalActData.date.trim() !== "" &&
+            newMedicalActData.intitule_acte.trim() !== "" &&
+            newMedicalActData.nom_medecin.trim() !== "" &&
+            newMedicalActData.description.trim() !== "");
+    };
 
     //_____Affichage_____//
     return (<div className="MedicalAct">
@@ -26,6 +86,7 @@ const MedicalAct = (props) => {
             <Accordion
                 sx={{width: '100%', '&:hover': {bgcolor: 'white'}}}
                 defaultExpanded={props.type === "create"}
+                // Si MedicalAct>create ou MedicalAct>display label affichés alors on dépli
                 expanded={props.type === "create" || showLabel}
             >
                 {/* Partie visible du composant replié*/}
@@ -53,13 +114,15 @@ const MedicalAct = (props) => {
                                         Date</Typography>)}
                                     <TextField
                                         className="InfoFieldGlobal"
+                                        name="date"
                                         // Si MedicalAct>display on grise le champ
                                         disabled={props.type === "display"}
-                                        type={props.type === "create" && "date"}
+                                        //type={props.type === "create" && "date"}
                                         InputLabelProps={{shrink: true}}
-                                        value={props.data.date}
-                                        variant="standard"
                                         placeholder="Date du jour"
+                                        value={props.type === "display" ? props.data.date : newMedicalActData.date}
+                                        variant="standard"
+                                        onChange={handleChange}
                                     />
                                 </div>
                             </div>
@@ -72,12 +135,15 @@ const MedicalAct = (props) => {
                                         Intitulé de l'acte médical</Typography>)}
                                     <TextField
                                         className="InfoFieldGlobal"
+                                        name="intitule_acte"
                                         // Si MedicalAct>display on grise le champ
                                         disabled={props.type === "display"}
-                                        value={props.data.intitule_acte}
+                                        placeholder="Intitulé de la consultation"
+                                        value={props.type === "display" ? props.data.intitule_acte :
+                                            newMedicalActData.intitule_acte}
                                         variant="standard"
                                         sx={{width: '100%'}}
-                                        placeholder="Intitulé de la consultation"
+                                        onChange={handleChange}
                                     />
                                 </div>
                             </div>
@@ -93,10 +159,13 @@ const MedicalAct = (props) => {
                                     <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Nom du
                                         médecin</Typography>
                                     <TextField
-                                        className="InfoFieldDisabled"
+                                        className="InfoFieldColored"
+                                        name="nom_medecin"
                                         // Si MedicalAct>display on grise le champ
                                         disabled={props.type === "display"}
-                                        value={props.data.nom_medecin}
+                                        placeholder="Nom du médecin"
+                                        value={props.type === "display" ? props.data.nom_medecin :
+                                            newMedicalActData.nom_medecin}
                                         variant="outlined"
                                         InputProps={{
                                             endAdornment: (
@@ -106,7 +175,7 @@ const MedicalAct = (props) => {
                                             ),
                                         }}
                                         sx={{mb: 2}}
-                                        placeholder="Nom du médecin"
+                                        onChange={handleChange}
                                     />
                                 </div>
                             </div>
@@ -119,14 +188,17 @@ const MedicalAct = (props) => {
                                 <Typography variant="body1"
                                             sx={{mb: 1, color: '#204213'}}>Compte-rendu</Typography>
                                 <TextField
-                                    className="InfoFieldDisabled"
+                                    className="InfoFieldColored"
+                                    name="description"
                                     // Si MedicalAct>display on grise le champ
                                     disabled={props.type === "display"}
                                     multiline
                                     rows={10}
-                                    value={props.data.description}
-                                    sx={{width: '100%'}}
                                     placeholder="Rédiger un compte-rendu détaillé"
+                                    value={props.type === "display" ? props.data.description :
+                                        newMedicalActData.description}
+                                    sx={{width: '100%'}}
+                                    onChange={handleChange}
                                 />
                             </div>
                         </div>
@@ -136,10 +208,20 @@ const MedicalAct = (props) => {
                 {props.type === "create" && <AccordionActions>
                     <div className="MedicalActButtonsContainer">
                         <div className="MedicalActButtons">
+                            {alertOpen &&
+                                <div className="newMedicalActAlert">
+                                    <Alert severity="error"
+                                           onClose={handleCloseAlert}
+                                           sx={{minWidth: '30%'}}>
+                                        {alertMessage}
+                                    </Alert>
+                                </div>
+                            }
                             <div className="MedicalActResetChange">
                                 <Button variant="contained"
                                         color="error"
                                         endIcon={<EditOffIcon/>}
+                                        onClick={discardNewMedicalAct}
                                 >
                                     Annuler
                                 </Button>
@@ -147,6 +229,7 @@ const MedicalAct = (props) => {
                             <div className="MedicalActSaveChange">
                                 <Button variant="contained"
                                         endIcon={<SaveIcon/>}
+                                        onClick={saveNewMedicalAct}
                                 >
                                     Enregistrer
                                 </Button>

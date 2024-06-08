@@ -24,7 +24,7 @@ const MedicalAct = (props) => {
     return (<div className="MedicalAct">
             {/* Composant repliable*/}
             <Accordion
-                sx={{width: '100%'}}
+                sx={{width: '100%', '&:hover': {bgcolor: 'white'}}}
                 defaultExpanded={props.type === "create"}
                 expanded={props.type === "create" || showLabel}
             >
@@ -35,6 +35,7 @@ const MedicalAct = (props) => {
                     aria-controls="panel1-content"
                     id="panel1-header"
                     onClick={handleLabel}
+                    sx={{'&:hover': {bgcolor: 'white'}}}
                 >
                     <div className="AccordionSummaryRow">
                         {/* Affichage du titre pour un nouvel acte médical*/}

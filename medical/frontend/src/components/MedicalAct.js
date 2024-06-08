@@ -197,7 +197,7 @@ const MedicalAct = (props) => {
                                 <div className="newMedicalActAlert">
                                     <Alert severity="error"
                                            onClose={handleCloseAlert}
-                                           sx={{minWidth: '30%'}}>
+                                           sx={{Width: '100%'}}>
                                         {alertMessage}
                                     </Alert>
                                 </div>

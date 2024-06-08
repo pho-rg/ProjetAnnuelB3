@@ -26,6 +26,7 @@ const MedicalAct = (props) => {
             <Accordion
                 sx={{width: '100%'}}
                 defaultExpanded={props.type === "create"}
+                expanded={props.type === "create" || showLabel}
             >
                 {/* Partie visible du composant replié*/}
                 <AccordionSummary

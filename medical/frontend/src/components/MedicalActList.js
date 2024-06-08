@@ -11,13 +11,13 @@ const MedicalActList = (props) => {
     //_____Affichage_____//
     return (<div className="MedicalActList">
             {/* pour chaque élément, mappage et injection des données dans un acte médical*/}
-            {medicalActData.length > 0 ? (medicalActData.map((act) => (
+            {medicalActData.length > 10 ? (medicalActData.map((act) => (
                     <MedicalAct
                         type="display"
                         key={act.id}
                         data={act}
                     />))
-            ) : (<Alert severity="warning">Aucun acte médical {props.service.toLowerCase()} pour ce patient</Alert>
+            ) : (<Alert severity="info">Aucun acte médical {props.service.toLowerCase()} pour ce patient</Alert>
             )
             }
         </div>

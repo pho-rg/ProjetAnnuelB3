@@ -55,6 +55,8 @@ const MedicalAct = (props) => {
                                         className="InfoFieldGlobal"
                                         // Si MedicalAct>display on grise le champ
                                         disabled={props.type === "display"}
+                                        type={props.type === "create" && "date"}
+                                        InputLabelProps={{shrink: true}}
                                         value={props.data.date}
                                         variant="standard"
                                         placeholder="Date du jour"

@@ -61,6 +61,10 @@
     align-items: flex-start;
 }
 
+.MedicalActDate {
+    margin-right: 2%;
+}
+
 .MedicalActName, .MedicalActReport {
     width: 100%;
 }

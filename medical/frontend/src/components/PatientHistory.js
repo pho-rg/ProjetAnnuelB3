@@ -6,16 +6,18 @@ import {Button, Typography} from "@mui/material";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import HealingIcon from '@mui/icons-material/Healing';
 import MedicalActList from "./MedicalActList";
+import EditOffIcon from "@mui/icons-material/EditOff";
 
 const PatientHistory = (props) => {
     //_____Variables_____//
     // UseState de création d'un nouvel acte médical
     const [newMedicalAct, setNewMedicalAct] = useState(false);
+    // UseState d'affichage du nouvel acte médical
 
     //_____Evènement_____//
     // Gestion de l'ajout d'un nouvel acte médical
     const handleAdd = () => {
-        setNewMedicalAct(true);
+        setNewMedicalAct(prevState => !prevState);
     };
 
     //_____Affichage_____//
@@ -29,16 +31,23 @@ const PatientHistory = (props) => {
                     <Typography variant="h5">Liste des actes médicaux</Typography>
                 </div>
                 <div className="PatientHistoryButton">
-                    <Button
-                        variant="contained"
-                        endIcon={<AddCircleIcon/>}
-                        onClick={handleAdd}>
-                        Ajouter un acte médical
-                    </Button>
+                    {!newMedicalAct ? <Button
+                            variant="contained"
+                            endIcon={<AddCircleIcon/>}
+                            onClick={handleAdd}>
+                            Ajouter un acte médical
+                        </Button> :
+                        <Button
+                            variant="contained"
+                            color="error"
+                            endIcon={<EditOffIcon/>}
+                            onClick={handleAdd}>
+                            Annuler la saisie
+                        </Button>}
                 </div>
                 <div className="PatientHistoryAddedMedicalAct">
                     {/* Si bouton d'ajout cliqué, affichage d'un composant MedicalAct de type create*/}
-                    {newMedicalAct && <MedicalAct type="create" data={{}} />}
+                    {newMedicalAct && <MedicalAct type="create" data={{}}/>}
                 </div>
                 <div className="PatientHistoryMedicalActList">
                     {/* Liste des actes médicaux en fonction du patient (nir) et du service*/}

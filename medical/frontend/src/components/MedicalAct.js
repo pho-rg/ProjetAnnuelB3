@@ -8,14 +8,11 @@ import {AccordionActions, Alert, Button, InputAdornment, TextField, Typography} 
 import DescriptionIcon from '@mui/icons-material/Description';
 import DownloadIcon from '@mui/icons-material/Download';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
-import EditOffIcon from "@mui/icons-material/EditOff";
 import SaveIcon from "@mui/icons-material/Save";
-import {medicalActData} from "../datas/MedicalActData";
 
 const MedicalAct = (props) => {
     //_____Variables_____//
-    // UseState des données liées au nouvel acte médical saisi
-    const newMedicalActInitialiseState = {
+    const [newMedicalActData, setNewMedicalActData] = useState({
         // Remarque : si la l'historique est vide pour le patient, props.data n'est pas alimenté par PatientHistory
         //id:, TODO a gerer cote back
         //service:, TODO a gerer avec la liste deroulante
@@ -24,10 +21,7 @@ const MedicalAct = (props) => {
         intitule_acte: "",
         nom_medecin: "",
         description: ""
-    };
-
-    // Initialisation du nouvel acte médical avec les données de newMedicalActInitialiseState (état initial)
-    const [newMedicalActData, setNewMedicalActData] = useState(newMedicalActInitialiseState);
+    });
 
     // UseState d'affichage des intitulés
     const [showLabel, setShowLabel] = useState(false);
@@ -62,15 +56,6 @@ const MedicalAct = (props) => {
             setAlertOpen(true);
         }
     };
-    // Annnulation du nouvel acte médical
-    const discardNewMedicalAct = () => {
-        // Remise de newMedicalActData à son état initial
-        setNewMedicalActData(newMedicalActInitialiseState);
-        setAlertOpen(false);
-        // TODO Masquage de la zone de saisie d'un nouvel acte
-        // verif
-        console.log(newMedicalActData);
-    }
 
     //_____Contrôles_____
     const controlChange = (event) => {
@@ -217,15 +202,6 @@ const MedicalAct = (props) => {
                                     </Alert>
                                 </div>
                             }
-                            <div className="MedicalActResetChange">
-                                <Button variant="contained"
-                                        color="error"
-                                        endIcon={<EditOffIcon/>}
-                                        onClick={discardNewMedicalAct}
-                                >
-                                    Annuler
-                                </Button>
-                            </div>
                             <div className="MedicalActSaveChange">
                                 <Button variant="contained"
                                         endIcon={<SaveIcon/>}

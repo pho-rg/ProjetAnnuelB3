@@ -15,7 +15,7 @@ const PatientSpace = (props) => {
 
     return (
         <div className="PatientSpace">
-            <div className="PatientInfoContainerOverview">
+            <div className="patientInfoContainerOverview">
                 <PatientInfo nir={props.nir} type="display"/>
             </div>
             <div className="selectService">
@@ -41,7 +41,7 @@ const PatientSpace = (props) => {
                         })}
                     </Select>
                 </div>
-            {selectedService !== "" && <div className="PatientHistoryContainerOverview"><PatientHistory nir={props.nir}
+            {selectedService !== "" && <div className="patientHistoryContainerOverview"><PatientHistory nir={props.nir}
                                                                                                         service={selectedService}/>
             </div>}
         </div>

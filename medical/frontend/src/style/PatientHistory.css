@@ -9,13 +9,13 @@
     margin-top: 1%;
 }
 
-.PatientHistoryBody {
+.patientHistoryBody {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.PatientHistoryTitle{
+.patientHistoryTitle{
     display: flex;
     flex-direction: row;
     justify-content: left;
@@ -27,11 +27,11 @@
 }
 
 
-.PatientHistoryLabel {
+.patientHistoryLabel {
     color: #204213;
 }
 
-.PatientHistoryBodyLabel {
+.patientHistoryBodyLabel {
     color: #33691e;
     margin-bottom: 2%;
     padding-bottom: 1%;
@@ -39,21 +39,21 @@
     width: 30%;
 }
 
-.PatientHistoryButton {
+.patientHistoryButton {
     margin-bottom: 2%;
 }
 
-.PatientHistoryMedicalActList {
+.patientHistoryMedicalActList {
     display: flex;
     flex-direction: column;
     width: 80%;
 }
 
-.PatientHistoryAddedMedicalAct  {
+.patientHistoryAddedMedicalAct  {
     width: 85%;
 }
 
-.PatientHistorySortContainer {
+.patientHistorySortContainer {
     display: flex;
     flex-direction: row;
     margin-top: 2%;
@@ -62,7 +62,7 @@
     align-items: flex-start;
 }
 
-.MedicalActAddedAlertSuccess {
+.medicalActAddedAlertSuccess {
     display: flex;
     width: 80%;
     margin-bottom: 3%;

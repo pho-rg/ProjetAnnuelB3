@@ -92,10 +92,10 @@ const SearchForm = (props) => {
     //_____Affichage_____//
     return (
         <div className="SearchForm">
-            <div className="SearchInputs">
-                <div className="NirSearch">
-                    <div className="NirSearchItem"><ContactPageIcon fontSize="large" sx={{color:'#204213'}}/></div>
-                    <div className="NirSearchItem">
+            <div className="searchInputs">
+                <div className="nirSearch">
+                    <div className="nirSearchItem"><ContactPageIcon fontSize="large" sx={{color:'#204213'}}/></div>
+                    <div className="nirSearchItem">
                         <TextField value={searchData.nir}
                                    label="Numéro NIR"
                                    variant="filled"
@@ -103,7 +103,7 @@ const SearchForm = (props) => {
                                    name="nir"
                                    onKeyDown={handleKeyDown}
                         /></div>
-                    <div className="NirSearchItem">
+                    <div className="nirSearchItem">
                         <Button variant="contained"
                                 endIcon={<PersonSearchIcon/>}
                                 onClick={handleAccess}>
@@ -111,11 +111,11 @@ const SearchForm = (props) => {
                         </Button>
                     </div>
                 </div>
-                <div className="SearchSeparator"><span>ou</span></div>
-                <div className="NameSearch">
-                    <div className="NameSearchItem">
+                <div className="searchSeparator"><span>ou</span></div>
+                <div className="nameSearch">
+                    <div className="nameSearchItem">
                         <PersonIcon fontSize="large" sx={{color: '#204213'}}/></div>
-                        <div className="NameSearchItem">
+                        <div className="nameSearchItem">
                             <TextField value={searchData.prenom}
                                        label="Prénom"
                                        variant="filled"
@@ -123,7 +123,7 @@ const SearchForm = (props) => {
                                        name="prenom"
                                        onKeyDown={handleKeyDown}/>
                         </div>
-                        <div className="NameSearchItem">
+                        <div className="nameSearchItem">
                             <TextField value={searchData.nom}
                                        label="Nom de famille"
                                        variant="filled"
@@ -131,7 +131,7 @@ const SearchForm = (props) => {
                                        name="nom"
                                        onKeyDown={handleKeyDown}/>
                         </div>
-                        <div className="NameSearchItem">
+                        <div className="nameSearchItem">
                             <TextField value={searchData.date}
                                        label="Date de naissance"
                                        variant="filled"
@@ -141,7 +141,7 @@ const SearchForm = (props) => {
                                        name="date"
                                        onKeyDown={handleKeyDown}/>
                         </div>
-                        <div className="NameSearchItem">
+                        <div className="nameSearchItem">
                             <Button variant="contained"
                                     endIcon={<ManageSearchIcon/>}
                                     onClick={handleSearch}>

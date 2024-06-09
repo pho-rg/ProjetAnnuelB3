@@ -16,16 +16,16 @@ const Navbar = () => {
     //_____Affichage_____//
     return (
         <div className="Navbar">
-            <div className="NavbarSplit">
-                <div className="NavBarHospital">
-                    <LocalHospitalIcon className="NavbarIcon" fontSize="large"/>
+            <div className="navbarSplit">
+                <div className="navBarHospital">
+                    <LocalHospitalIcon className="navbarIcon" fontSize="large"/>
                     <h3>{fullHospitalName}</h3>
                 </div>
             </div>
-            <div className="NavbarSplit">
-                <div className="NavBarDoctor">
+            <div className="navbarSplit">
+                <div className="navBarDoctor">
                     <h3>{fullUserName}</h3>
-                    <AccountCircleIcon className="NavbarIcon" fontSize="large"/>
+                    <AccountCircleIcon className="navbarIcon" fontSize="large"/>
                 </div>
             </div>
         </div>

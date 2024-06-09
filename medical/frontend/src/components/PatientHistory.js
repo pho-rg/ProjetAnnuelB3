@@ -41,15 +41,15 @@ const PatientHistory = (props) => {
 
     //_____Affichage_____//
     return (<div className="PatientHistory">
-            <div className="PatientHistoryTitle">
+            <div className="patientHistoryTitle">
                 <CoPresentIcon sx={{color: '#204213', height: "50px", width: "auto", mr: 2}}/>
                 <Typography variant="h4" sx={{color: '#204213'}}>{props.service}</Typography>
             </div>
-            <div className="PatientHistoryBody">
-                <div className="PatientHistoryBodyLabel">
+            <div className="patientHistoryBody">
+                <div className="patientHistoryBodyLabel">
                     <Typography variant="h5">Liste des actes médicaux</Typography>
                 </div>
-                <div className="PatientHistoryButton">
+                <div className="patientHistoryButton">
                     {!newMedicalAct ? <Button
                             variant="contained"
                             endIcon={<AddCircleIcon/>}
@@ -64,14 +64,14 @@ const PatientHistory = (props) => {
                             Annuler la saisie
                         </Button>}
                 </div>
-                <div className="PatientHistoryAddedMedicalAct">
+                <div className="patientHistoryAddedMedicalAct">
                     {/* Si bouton d'ajout cliqué, affichage d'un composant MedicalAct de type create*/}
                     {newMedicalAct && <MedicalAct type="create"
                                                   data={{}}
                                                   handleSuccess={handleSuccess}/>}
                 </div>
                 {showSuccessAlert &&
-                    <div className="MedicalActAddedAlertSuccess">
+                    <div className="medicalActAddedAlertSuccess">
                         <Alert icon={false} severity="success" onClose={() => {setShowSuccessAlert(false)}}
                                sx={{width: '100%', justifyContent: 'center'}}>
                             <div className="medInfoAlertSuccessTitle">
@@ -81,7 +81,7 @@ const PatientHistory = (props) => {
                             <Typography variant="body2" sx={{mt: 1.5}}>{alertText}</Typography>
                         </Alert>
                     </div>}
-                <div className="PatientHistorySortContainer">
+                <div className="patientHistorySortContainer">
                     <div className="PatientHistorySortLabel">
                         <ImportExportIcon sx={{fontSize: 30}}/>
                     </div>
@@ -99,7 +99,7 @@ const PatientHistory = (props) => {
                         <MenuItem value={3}>Nom du médecin</MenuItem>
                     </Select>
                 </div>
-                <div className="PatientHistoryMedicalActList">
+                <div className="patientHistoryMedicalActList">
                     {/* Liste des actes médicaux en fonction du patient (nir) et du service*/}
                     <MedicalActList nir={props.nir} service={props.service} selectedSort={selectedSort}/>
                 </div>

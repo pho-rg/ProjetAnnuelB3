@@ -12,6 +12,7 @@
     width: 100%;
     margin-bottom: 1%;
 }
+
 .PatientInfoContainer {
     display: flex;
     flex-direction: column;

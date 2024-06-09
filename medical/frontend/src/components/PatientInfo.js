@@ -454,17 +454,20 @@ const PatientInfo = (props) => {
                                 <div className="medInfoList">
                                     <MedInfoList list={pathologies}
                                                  title={"Pathologies"}
-                                                 setList={setPathologies}/>
+                                                 setList={setPathologies}
+                                                 enableSave={setUnsavedChanges}/>
                                 </div>
                                 <div className="medInfoList">
                                     <MedInfoList list={allergies}
                                                  title={"Allergies"}
-                                                 setList={setAllergies}/>
+                                                 setList={setAllergies}
+                                                 enableSave={setUnsavedChanges}/>
                                 </div>
                                 <div className="medInfoList">
                                     <MedInfoList list={operations}
                                                  title={"Opérations"}
-                                                 setList={setOperations}/>
+                                                 setList={setOperations}
+                                                 enableSave={setUnsavedChanges}/>
                                 </div>
                             </div>
                         </div>

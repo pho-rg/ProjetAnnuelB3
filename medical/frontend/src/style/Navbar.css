@@ -1,9 +1,9 @@
 .Navbar {
     padding-top: 0.3%;
     padding-bottom: 0.3%;
-    color: #A6CB72;
-    background-color: #33691e;
-    border-bottom: solid 2px #A6CB72;
+    color: #c6e8a3;
+    background-color: #284c16;
+    border-bottom: solid 2px #c6e8a3;
     display: flex;
     justify-content: space-between;
     flex-direction: row;
@@ -29,7 +29,7 @@
 }
 
 .NavbarIcon {
-    color: #A6CB72;
+    color: #c6e8a3;
     padding-left: 1%;
     padding-right: 1%;
 }

@@ -4,10 +4,10 @@ import MedicalAct from './MedicalAct';
 import '../style/PatientHistory.css'
 import {Button, MenuItem, Select, Typography} from "@mui/material";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import HealingIcon from '@mui/icons-material/Healing';
 import MedicalActList from "./MedicalActList";
 import EditOffIcon from "@mui/icons-material/EditOff";
 import ImportExportIcon from '@mui/icons-material/ImportExport';
+import CoPresentIcon from '@mui/icons-material/CoPresent';
 
 const PatientHistory = (props) => {
     //_____Variables_____//
@@ -30,7 +30,7 @@ const PatientHistory = (props) => {
     //_____Affichage_____//
     return (<div className="PatientHistory">
             <div className="PatientHistoryTitle">
-                <HealingIcon sx={{color: '#204213', height: "40px", width: "auto", mr: 2}}/>
+                <CoPresentIcon sx={{color: '#204213', height: "50px", width: "auto", mr: 2}}/>
                 <Typography variant="h4" sx={{color: '#204213'}}>{props.service}</Typography>
             </div>
             <div className="PatientHistoryBody">
@@ -62,7 +62,7 @@ const PatientHistory = (props) => {
                     </div>
                     <Select
                         variant={"standard"}
-                        sx={{minWidth: '20%'}}
+                        sx={{minWidth: '20%', textAlign:"left", ml:1}}
                         value={selectedSort}
                         onChange={handleChange}
                         MenuProps={{

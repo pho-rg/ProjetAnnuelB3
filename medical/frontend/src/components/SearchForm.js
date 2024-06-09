@@ -5,14 +5,12 @@ import ContactPageIcon from '@mui/icons-material/ContactPage';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import PersonIcon from '@mui/icons-material/Person';
-import {Alert, Button, TextField} from "@mui/material";
+import {Button, TextField} from "@mui/material";
 import {searchService} from "../_services/search.service";
 
-const SearchForm = () => {
+const SearchForm = (props) => {
     //_____Variables_____//
     const navigate = useNavigate();
-    const [alertMessage, setAlertMessage] = useState("")
-    const [alertOpen, setAlertOpen] = useState(false);
     const [searchData, setSearchData] = useState({
         nir:"",
         nom:"",
@@ -21,10 +19,9 @@ const SearchForm = () => {
     });
 
     //_____Evènement_____//
-    const handleCloseAlert = () => {setAlertOpen(false);}
     const handleChange = (event) => {
         if (controlChange(event)) { // contrôles de saisie
-            setAlertOpen(false); // masquage de l'alerte erreur
+            props.setAlertOpen(false); // masquage de l'alerte erreur
             setSearchData({
                 ...searchData,
                 [event.target.name] : event.target.value
@@ -44,13 +41,13 @@ const SearchForm = () => {
     const handleAccess = () => {
         // Contrôle validité nir et existence du dossier administratif
         if (!searchService.isNirValid(searchData.nir)) {
-            setAlertMessage("Le numéro NIR renseigné est invalide.");
-            setAlertOpen(true);
+            props.setAlertMessage("Le numéro NIR renseigné est invalide.");
+            props.setAlertOpen(true);
             return;
         }
         else if (!searchService.adminFileExists(searchData.nir)) {
-            setAlertMessage("Aucun dossier administratif n'existe pour ce numéro NIR, il doit être créé avant l'ouverture d'un dossier médical.");
-            setAlertOpen(true);
+            props.setAlertMessage("Aucun dossier administratif n'existe pour ce numéro NIR, il doit être créé avant l'ouverture d'un dossier médical.");
+            props.setAlertOpen(true);
             return;
         }
         // Redirection vers la bonne page Patient
@@ -63,14 +60,14 @@ const SearchForm = () => {
     const handleSearch = () => {
         // Contrôle de validité des champs de recherche
         if (!searchService.isNameValid(searchData.nom)) {
-            setAlertMessage("Le nom renseigné est invalide.");
-            setAlertOpen(true);
+            props.setAlertMessage("Le nom renseigné est invalide.");
+            props.setAlertOpen(true);
         } else if (!searchService.isNameValid(searchData.prenom)) {
-            setAlertMessage("Le prénom renseigné est invalide.");
-            setAlertOpen(true);
+            props.setAlertMessage("Le prénom renseigné est invalide.");
+            props.setAlertOpen(true);
         } else if (!searchService.isDateValid(searchData.date)) {
-            setAlertMessage("La date de naissance renseignée est invalide.");
-            setAlertOpen(true);
+            props.setAlertMessage("La date de naissance renseignée est invalide.");
+            props.setAlertOpen(true);
             // Redirection vers le résultat de la recherche
         } else {
             navigate(`/search/result/${searchData.nom}/${searchData.prenom}/${searchData.date}`)
@@ -153,15 +150,6 @@ const SearchForm = () => {
                         </div>
                 </div>
             </div>
-            {alertOpen &&
-                <div className="SearchAlert">
-                    <Alert severity="error"
-                           onClose={handleCloseAlert}
-                           sx={{minWidth: '30%'}}>
-                        {alertMessage}
-                    </Alert>
-                </div>
-            }
         </div>
     );
 };

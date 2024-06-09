@@ -76,7 +76,7 @@ const Login = () => {
     return (<div className="Login">
         <div className="LoginContainer">
             <div className="LoginTitle">
-                <LocalHospitalIcon className="NavbarIcon" sx={{fontSize: 80}}/>
+                <LocalHospitalIcon className="NavbarIcon" sx={{fontSize: 80, color:"#33691e"}}/>
             </div>
             <div className="LoginTitle">
                 <h2>Hôpital Mignon</h2>
@@ -106,6 +106,7 @@ const Login = () => {
                         <OutlinedInput
                             id="outlined-adornment-password"
                             type={showPassword ? 'text' : 'password'}
+                            sx={{pr:2.2}}
                             endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton

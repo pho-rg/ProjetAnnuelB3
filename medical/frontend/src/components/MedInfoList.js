@@ -27,6 +27,7 @@ const MedInfoList = (props) => {
     const handleAdd = () => {
         if (newItem.toString().length <= 40 && newItem.toString().length > 0 && !props.list.includes(newItem.toString())) {
             props.setList([...props.list, newItem.toString()]);
+            props.enableSave(true);
         }
     }
 
@@ -45,6 +46,7 @@ const MedInfoList = (props) => {
         props.setList(props.list.filter((value, index)=>{
             return index !== indexToRemove;
         }));
+        props.enableSave(true);
     };
 
     //_____Affichage_____//

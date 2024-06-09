@@ -1,5 +1,24 @@
 .PatientSpace {
     display: flex;
     flex-direction: column;
+    margin-top: 1%;
+    margin-bottom: 2%;
+}
+.PatientInfoContainerOverview, .PatientHistoryContainerOverview {
+    display: flex;
+    flex-direction: column;
     align-items: center;
+}
+.selectServiceIcon{
+    margin-right: 2%;
+}
+.selectService{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    background-color: white;
+    margin-top: 1%;
+    margin-left: 13%;
+    width: 30%;
 }

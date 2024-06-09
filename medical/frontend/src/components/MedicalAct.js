@@ -34,7 +34,7 @@ const MedicalAct = (props) => {
         setAlertOpen(false);
     }
     // UseState de gestion du bouton sauvegarder
-    const [saveEnable, setSaveEnable] = useState(false);
+    const [enableSave, setSaveEnable] = useState(false);
 
     //_____Evènements_____//
     // Gestion de l'affichage des intitulés
@@ -53,10 +53,20 @@ const MedicalAct = (props) => {
     // Enregistrement du nouvel acte médical
     const handleSave = () => {
         setSaveEnable(false); // griser l'enregistrement
-        if (controlChange()) { // contrôles de saisie
-            setAlertOpen(false) // masquage de l'alerte erreur
+        // contrôles de saisie
+        if (controlChange()) {
+            setAlertOpen(false); // masquage de l'alerte erreur
             // TODO requete API
+            // Test de succès
+            if (true) {
+                // Gestion du masquage nouvel acte médical et message de succès dans PatientHistory
+                props.handleSuccess();
+            } else {
+                setAlertMessage("Erreur à l'ajout de l'acte médical, réessayez.");
+                setAlertOpen(true);
+            }
         } else {
+            // Affichage de la cause de l'echec du contrôle
             setAlertOpen(true);
         }
     };
@@ -245,7 +255,7 @@ const MedicalAct = (props) => {
                                 <Button variant="contained"
                                         endIcon={<SaveIcon/>}
                                         onClick={handleSave}
-                                        disabled={!saveEnable}
+                                        disabled={!enableSave}
                                 >
                                     Enregistrer
                                 </Button>

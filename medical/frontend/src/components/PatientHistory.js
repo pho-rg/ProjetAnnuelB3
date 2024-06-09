@@ -2,12 +2,13 @@
 import React, {useState} from 'react';
 import MedicalAct from './MedicalAct';
 import '../style/PatientHistory.css'
-import {Button, MenuItem, Select, Typography} from "@mui/material";
+import {Alert, Button, MenuItem, Select, Typography} from "@mui/material";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import MedicalActList from "./MedicalActList";
 import EditOffIcon from "@mui/icons-material/EditOff";
 import ImportExportIcon from '@mui/icons-material/ImportExport';
 import CoPresentIcon from '@mui/icons-material/CoPresent';
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
 
 const PatientHistory = (props) => {
     //_____Variables_____//
@@ -15,10 +16,14 @@ const PatientHistory = (props) => {
     const [newMedicalAct, setNewMedicalAct] = useState(false);
     // UseState de tri séléctionné
     const [selectedSort, setSelectedSort] = useState(1);
+    // UseState message de succès d'ajout ; echec géré dans MedicalAct
+    const [alertText, setAlertText] = useState("");
+    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
     //_____Evènement_____//
     // Gestion de l'ajout d'un nouvel acte médical
     const handleAdd = () => {
+        setShowSuccessAlert(false);
         setNewMedicalAct(prevState => !prevState);
     };
 
@@ -26,6 +31,13 @@ const PatientHistory = (props) => {
     const handleChange = (event) => {
         setSelectedSort(event.target.value);
     };
+
+    // Gestion du succès de l'ajout d'un acte médical
+    const handleSuccess = () => {
+        setNewMedicalAct(false);
+        setAlertText("Nouvel acte médical ajouté avec succès.")
+        setShowSuccessAlert(true);
+    }
 
     //_____Affichage_____//
     return (<div className="PatientHistory">
@@ -54,8 +66,21 @@ const PatientHistory = (props) => {
                 </div>
                 <div className="PatientHistoryAddedMedicalAct">
                     {/* Si bouton d'ajout cliqué, affichage d'un composant MedicalAct de type create*/}
-                    {newMedicalAct && <MedicalAct type="create" data={{}}/>}
+                    {newMedicalAct && <MedicalAct type="create"
+                                                  data={{}}
+                                                  handleSuccess={handleSuccess}/>}
                 </div>
+                {showSuccessAlert &&
+                    <div className="MedicalActAddedAlertSuccess">
+                        <Alert icon={false} severity="success" onClose={() => {setShowSuccessAlert(false)}}
+                               sx={{width: '100%', justifyContent: 'center'}}>
+                            <div className="medInfoAlertSuccessTitle">
+                                <TaskAltIcon fontSize="medium"/>
+                                <Typography variant="body1" sx={{pl: 1}}>Succès</Typography>
+                            </div>
+                            <Typography variant="body2" sx={{mt: 1.5}}>{alertText}</Typography>
+                        </Alert>
+                    </div>}
                 <div className="PatientHistorySortContainer">
                     <div className="PatientHistorySortLabel">
                         <ImportExportIcon sx={{fontSize: 30}}/>

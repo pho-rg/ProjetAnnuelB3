@@ -1,12 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import '../style/MedInfoList.css';
 import {
-    Avatar,
     IconButton,
-    InputAdornment,
     List,
     ListItem,
-    ListItemAvatar,
     ListItemText,
     TextField,
     Typography
@@ -16,19 +13,24 @@ import HeartBrokenIcon from '@mui/icons-material/HeartBroken';
 import MasksIcon from '@mui/icons-material/Masks';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import Divider from "@mui/material/Divider";
 
 const MedInfoList = (props) => {
-    const [dense, setDense] = React.useState(false);
-    const [secondary, setSecondary] = React.useState(false);
+    //_____Variables_____//
+    const [newItem, setNewItem] = useState("");
 
-    function generate(element) {
-        return [0, 1, 2].map((value) =>
-            React.cloneElement(element, {
-                key: value,
-            }),
-        );
+    //_____Evènement_____//
+    const handleChange = (event) => {
+        if (event.target.value.length <= 40) {
+            setNewItem(event.target.value);
+        }
     }
+    const handleAdd = () => {
+        if (newItem.toString().length <= 40 && newItem.toString().length > 0 && !props.list.includes(newItem.toString())) {
+            props.setList([...props.list, newItem.toString()]);
+        }
+    }
+
+    //_____Fonctions_____//
     const titleIcon = () => {switch(props.title){
         case "Pathologies":
             return <HeartBrokenIcon fontSize="medium" sx={{color: '#204213', height: "30px", width: "auto"}}/>
@@ -38,8 +40,14 @@ const MedInfoList = (props) => {
             return <MasksIcon fontSize="medium" sx={{color: '#204213', height: "30px", width: "auto"}}/>
         default:
             return ""
-    }}
+    }};
+    const removeListItem = (indexToRemove) => {
+        props.setList(props.list.filter((value, index)=>{
+            return index !== indexToRemove;
+        }));
+    };
 
+    //_____Affichage_____//
     return (
         <div className="MedInfoList">
             <div className="listTitleRow">
@@ -48,32 +56,46 @@ const MedInfoList = (props) => {
             </div>
             <div className="listAddRow">
                 <TextField
-                    variant="outlined"
-                    size="small"
-                    placeholder="Ajouter"
-                    fullWidth
-                />
-                <IconButton aria-label="add" size="large">
+                        variant="outlined"
+                        size="small"
+                        placeholder="Ajouter"
+                        fullWidth
+                        value={newItem}
+                        onChange={handleChange}/>
+                <IconButton aria-label="add" size="large" onClick={handleAdd}>
                     <AddCircleOutlineIcon fontSize="inherit" sx={{color: '#204213'}}/>
                 </IconButton>
             </div>
             {/*<Divider sx={{mb: 1}}/>*/}
             <div className="listBody">
-                <List dense={dense}>
-                    {generate(
-                        <div className="listItem">
-                            <ListItem
-                                secondaryAction={
-                                    <IconButton edge="end" aria-label="delete">
-                                        <DeleteIcon sx={{color: '#b32525'}}/>
-                                    </IconButton>
-                                }>
+                <List>
+                    {props.list.length > 0 ? (props.list.map((item, index) => (
+                            <div className="listItem" key={index}>
+                                <ListItem
+                                    secondaryAction={
+                                        <div onClick={() => {
+                                            removeListItem(index)
+                                        }}>
+                                            <IconButton edge="end">
+                                                <DeleteIcon sx={{color: '#b32525'}}/>
+                                            </IconButton>
+                                        </div>
+                                    }>
+                                        <ListItemText
+                                            primary={item}
+                                            className="listAddRowField"
+                                        />
+                                </ListItem>
+                            </div>))
+                    ) : (<div className="listNoItem">
+                            <ListItem>
                                 <ListItemText
-                                    primary={props.title.substring(0,props.title.length-1)}
+                                    primary={"Aucune "+props.title.substring(0,props.title.length-1).toLowerCase()}
                                 />
                             </ListItem>
                         </div>
-                    )}
+                    )
+                    }
                 </List>
             </div>
         </div>

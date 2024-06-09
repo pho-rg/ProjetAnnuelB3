@@ -4,21 +4,23 @@ import '../style/SearchForm.css';
 import ContactPageIcon from '@mui/icons-material/ContactPage';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
-import EventIcon from '@mui/icons-material/Event';
 import PersonIcon from '@mui/icons-material/Person';
 import {Alert, Button, TextField} from "@mui/material";
 import {searchService} from "../_services/search.service";
 
 const SearchForm = () => {
+    //_____Variables_____//
     const navigate = useNavigate();
+    const [alertMessage, setAlertMessage] = useState("")
+    const [alertOpen, setAlertOpen] = useState(false);
     const [searchData, setSearchData] = useState({
         nir:"",
         nom:"",
         prenom:"",
         date:""
     });
-    const [alertMessage, setAlertMessage] = useState("")
-    const [alertOpen, setAlertOpen] = useState(false);
+
+    //_____Evènement_____//
     const handleCloseAlert = () => {setAlertOpen(false);}
     const handleChange = (event) => {
         if (controlChange(event)) { // contrôles de saisie
@@ -29,19 +31,6 @@ const SearchForm = () => {
             });
         }
     };
-    const controlChange = (event) => {
-        // contrôles de saisie en fonction du champs
-        switch (event.target.name) {
-            case "nir":
-                return (event.target.value.match(/^[0-9]*$/) && event.target.value.length < 16);
-            case "nom":
-                return (event.target.value.length <= 32 && event.target.value.match(/^[A-Za-zÀ-ÖØ-öø-ÿ ,.'-]*$/i))
-            case "prenom":
-                return (event.target.value.length <= 32 && event.target.value.match(/^[A-Za-zÀ-ÖØ-öø-ÿ ,.'-]*$/i))
-            default:
-                return true;
-        }
-    }
     const handleKeyDown = (event) => {
         // touche entree pressee -> bouton associé activé
         if (event.key === "Enter") {
@@ -82,12 +71,28 @@ const SearchForm = () => {
         } else if (!searchService.isDateValid(searchData.date)) {
             setAlertMessage("La date de naissance renseignée est invalide.");
             setAlertOpen(true);
-        // Redirection vers le résultat de la recherche
+            // Redirection vers le résultat de la recherche
         } else {
             navigate(`/search/result/${searchData.nom}/${searchData.prenom}/${searchData.date}`)
         }
     }
 
+    //_____Fonctions_____//
+    const controlChange = (event) => {
+        // contrôles de saisie en fonction du champs
+        switch (event.target.name) {
+            case "nir":
+                return (event.target.value.match(/^[0-9]*$/) && event.target.value.length < 16);
+            case "nom":
+                return (event.target.value.length <= 32 && event.target.value.match(/^[A-Za-zÀ-ÖØ-öø-ÿ ,.'-]*$/i));
+            case "prenom":
+                return (event.target.value.length <= 32 && event.target.value.match(/^[A-Za-zÀ-ÖØ-öø-ÿ ,.'-]*$/i));
+            default:
+                return true;
+        }
+    }
+
+    //_____Affichage_____//
     return (
         <div className="SearchForm">
             <div className="SearchInputs">

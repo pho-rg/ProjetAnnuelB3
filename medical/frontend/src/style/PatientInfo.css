@@ -40,6 +40,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    justify-content: space-between;
 }
 
 .adminInfoGlobalRow{
@@ -51,23 +52,45 @@
 .adminInfo{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     margin-bottom: 4%;
 }
 
-.newFileAlert{
+.medInfoAlert{
     display: flex;
     justify-content: center;
     width: 100%;
+    margin-top: 3%;
 }
 
-.newFileAlertTitle{
+.medInfoAlertTitle{
     display: flex;
     padding: 1%;
     padding-bottom: 3%;
     justify-content: center;
     align-items: center;
     flex-direction: row;
+}
+
+.medInfoAlertSuccess, .medInfoAlertError{
+    display: flex;
+    width: 100%;
+    margin-top: 3%;
+    border-radius: 4px;
+}
+
+.medInfoAlertSuccessTitle, .medInfoAlertErrorTitle{
+    display: flex;
+    padding: 1% 1% 3%;
+    flex-direction: row;
+}
+
+.medInfoAlertSuccess{
+    border: 1px solid #204213;
+}
+
+.medInfoAlertError{
+    border: 1px solid #5c292a;
 }
 
 .InfoFieldColored{
@@ -127,9 +150,10 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    width: 100%;
 }
 .medInfoButtonsContainer{
-    width: 30%;
+    width: fit-content;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -169,4 +193,16 @@
 .medInfoList{
     background-color: white;
     width: 30%;
+    height: fit-content;
+}
+.confirmDialog{
+    padding: 2%;
+}
+.confirmDialogTitle{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: 1%;
+    margin-bottom: 2%;
+    border-bottom: 2px solid #204213;
 }

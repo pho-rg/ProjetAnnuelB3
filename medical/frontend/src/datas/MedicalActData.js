@@ -41,7 +41,7 @@ export const medicalActData = [
     {
         id:5,
         service:'Chirurgie',
-        nir:'104021730625477',
+        nir:'141068078200557',
         date: '09/06/2024',
         intitule_acte: 'Opération de la main droite sans anésthésie',
         nom_medecin: 'Dr Maboul',

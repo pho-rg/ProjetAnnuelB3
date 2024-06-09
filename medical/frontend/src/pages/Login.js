@@ -72,8 +72,6 @@ const Login = () => {
         }
     }
 
-    //_____Contrôles_____//
-
     //_____Affichage_____//
     return (<div className="Login">
         <div className="LoginContainer">

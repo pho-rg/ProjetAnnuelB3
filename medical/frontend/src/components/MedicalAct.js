@@ -33,6 +33,8 @@ const MedicalAct = (props) => {
     const handleCloseAlert = () => {
         setAlertOpen(false);
     }
+    // UseState de gestion du bouton sauvegarder
+    const [saveEnable, setSaveEnable] = useState(false);
 
     //_____Evènements_____//
     // Gestion de l'affichage des intitulés
@@ -42,17 +44,18 @@ const MedicalAct = (props) => {
     // Detection d'un champ modifié sur un type create
     const handleChange = (event) => {
         setAlertOpen(false); // masquage de l'alerte erreur
+        setSaveEnable(true); // permettre l'enregistrement
         setNewMedicalActData({
             ...newMedicalActData,
             [event.target.name]: event.target.value
         });
     };
     // Enregistrement du nouvel acte médical
-    const saveNewMedicalAct = () => {
+    const handleSave = () => {
+        setSaveEnable(false); // griser l'enregistrement
         if (controlChange()) { // contrôles de saisie
-            // TODO requete API fenetre validation message succes
-            setAlertOpen(false)
-            console.log(newMedicalActData);
+            setAlertOpen(false) // masquage de l'alerte erreur
+            // TODO requete API
         } else {
             setAlertOpen(true);
         }
@@ -95,8 +98,7 @@ const MedicalAct = (props) => {
     return (<div className="MedicalAct">
             {/* Composant repliable*/}
             <Accordion
-                sx={{width: '100%', '&:hover': {bgcolor: 'white'}}}
-                defaultExpanded={props.type === "create"}
+                sx={{width: '100%'}}
                 // Si MedicalAct>create ou MedicalAct>display label affichés alors on dépli
                 expanded={props.type === "create" || showLabel}
             >
@@ -242,7 +244,8 @@ const MedicalAct = (props) => {
                             <div className="MedicalActSaveChange">
                                 <Button variant="contained"
                                         endIcon={<SaveIcon/>}
-                                        onClick={saveNewMedicalAct}
+                                        onClick={handleSave}
+                                        disabled={!saveEnable}
                                 >
                                     Enregistrer
                                 </Button>

@@ -22,6 +22,7 @@ const PatientHistory = (props) => {
         setNewMedicalAct(prevState => !prevState);
     };
 
+    // Gestion de tri de la liste des actes médicaux
     const handleChange = (event) => {
         setSelectedSort(event.target.value);
     };
@@ -63,7 +64,6 @@ const PatientHistory = (props) => {
                         variant={"standard"}
                         sx={{minWidth: '20%'}}
                         value={selectedSort}
-                        label="Trier par"
                         onChange={handleChange}
                         MenuProps={{
                             disableScrollLock: true,

@@ -53,30 +53,26 @@ const Login = () => {
     // Click bouton pour se connecter
     const handleLogin = (event) => {
         event.preventDefault();
-        if (controleEmail() && accountService.login(credentials)) {
+        if (accountService.isEmailValid(credentials.email) && accountService.login(credentials)) {
             navigate('/search');
         } else {
             setAlertMessage(" Identifiants incorrects");
             setAlertOpen(true);
         }
     }
-    // Appuie Entrer pour se connecter
+    // Gestion des touches
     const handleKeyDown = (event) => {
+        // Entrer pour se connecter
         if (event.key === "Enter") {
             handleLogin(event)
+        }
+        // empecher les espaces
+        else if (event.key === " ") {
+            event.preventDefault();
         }
     }
 
     //_____Contrôles_____//
-    // Controle du format de l'email
-    const controleEmail = () => {
-        console.log(credentials.email);
-        return credentials.email.match(/^\S+@\S+\.\S+$/);
-    }
-    // Controle de la saisie en fonction des champs
-    const controlPassword = (event) => {
-        return credentials.password.match(/^\S*$/);
-    }
 
     //_____Affichage_____//
     return (<div className="Login">

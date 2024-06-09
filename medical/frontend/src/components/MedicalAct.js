@@ -9,6 +9,8 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import DownloadIcon from '@mui/icons-material/Download';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import SaveIcon from "@mui/icons-material/Save";
+import {medicalActService} from "../_services/medicalAct.service";
+
 
 const MedicalAct = (props) => {
     //_____Variables_____//
@@ -48,21 +50,45 @@ const MedicalAct = (props) => {
     // Enregistrement du nouvel acte médical
     const saveNewMedicalAct = () => {
         if (controlChange()) { // contrôles de saisie
-            // TODO requete API
+            // TODO requete API fenetre validation message succes
             setAlertOpen(false)
             console.log(newMedicalActData);
         } else {
-            setAlertMessage("Saisie incorrecte, tous les champs doivent ête complétés.");
             setAlertOpen(true);
         }
     };
 
     //_____Contrôles_____
     const controlChange = (event) => {
-        return (newMedicalActData.date.trim() !== "" &&
-            newMedicalActData.intitule_acte.trim() !== "" &&
-            newMedicalActData.nom_medecin.trim() !== "" &&
-            newMedicalActData.description.trim() !== "");
+        // Contrôle existance dossier médical
+        if (!medicalActService.medFileExists(props.nir)) {
+            setAlertMessage("Le dossier médical n'existe pas pour ce patient, créez le ci-dessus.");
+            return false;
+        }
+        // Controle des champs
+        else if (!medicalActService.isDateValid(newMedicalActData.date)) {
+            setAlertMessage("Saisie incorrecte, la date n'est pas une date valide.");
+            setAlertOpen(true);
+            return false;
+        } else if (!medicalActService.isOldDate(newMedicalActData.date)) {
+            setAlertMessage("La date de l'acte est trop ancienne, ouvrez un incident.");
+            setAlertOpen(true);
+            return false;
+        } else if (!medicalActService.isIntituleValide(newMedicalActData.intitule_acte)) {
+            setAlertMessage("Saisie incorrecte, l'intitulé de l'acte est manquant.");
+            setAlertOpen(true);
+            return false;
+        } else if (!medicalActService.isNomValide(newMedicalActData.nom_medecin)) {
+            setAlertMessage("Saisie incorrecte, le nom du médecin est manquant.");
+            setAlertOpen(true);
+            return false;
+        } else if (!medicalActService.isDescValide(newMedicalActData.description)) {
+            setAlertMessage("Saisie incorrecte, la description de l'acte est manquante.");
+            setAlertOpen(true);
+            return false;
+        } else {
+            return true;
+        }
     };
 
     //_____Affichage_____//
@@ -97,18 +123,27 @@ const MedicalAct = (props) => {
                                         variant="body1"
                                         sx={{mb: 1, color: '#204213'}}>
                                         Date</Typography>)}
-                                    <TextField
+                                    {/* Champ de type date pour create*/}
+                                    {props.type === "create" && <TextField
                                         className="InfoFieldGlobal"
                                         name="date"
-                                        // Si MedicalAct>display on grise le champ
-                                        disabled={props.type === "display"}
-                                        //type={props.type === "create" && "date"}
+                                        type="date"
                                         InputLabelProps={{shrink: true}}
                                         placeholder="Date du jour"
-                                        value={props.type === "display" ? props.data.date : newMedicalActData.date}
+                                        value={newMedicalActData.date}
                                         variant="standard"
                                         onChange={handleChange}
-                                    />
+                                    />}
+                                    {/* Champ de type string pour display*/}
+                                    {props.type === "display" && <TextField
+                                        className="InfoFieldGlobal"
+                                        name="date"
+                                        disabled
+                                        InputLabelProps={{shrink: true}}
+                                        placeholder="Date du jour"
+                                        value={props.data.date}
+                                        variant="standard"
+                                    />}
                                 </div>
                             </div>
                             <div className="MedicalActName">
@@ -165,7 +200,9 @@ const MedicalAct = (props) => {
                                 </div>
                             </div>
                             <div className="MedicalActLogo">
-                                <DownloadIcon sx={{color: '#204213', height: "30px", width: "auto"}}/>
+                                {/*dev non prioritaire, a afficher sur le type display*/}
+                                {props.type === "none" && <DownloadIcon sx={{color: '#204213',
+                                    height: "30px", width: "auto"}}/>}
                             </div>
                         </div>
                         <div className="MedicalActInfoBodyRow">

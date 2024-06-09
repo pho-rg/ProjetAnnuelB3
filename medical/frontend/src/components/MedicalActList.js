@@ -11,7 +11,7 @@ const MedicalActList = (props) => {
     //_____Affichage_____//
     return (<div className="MedicalActList">
             {/* pour chaque élément, mappage et injection des données dans un acte médical*/}
-            {medicalActData.length > 10 ? (medicalActData.map((act) => (
+            {medicalActData.length > 0 ? (medicalActData.map((act) => (
                     <MedicalAct
                         type="display"
                         key={act.id}

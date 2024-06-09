@@ -65,10 +65,13 @@ const PatientHistory = (props) => {
                         value={selectedSort}
                         label="Trier par"
                         onChange={handleChange}
+                        MenuProps={{
+                            disableScrollLock: true,
+                        }}
                     >
-                        <MenuItem value={1}>date récente</MenuItem>
-                        <MenuItem value={2}>date ancienne</MenuItem>
-                        <MenuItem value={3}>nom du médecin</MenuItem>
+                        <MenuItem value={1}>Actes récents</MenuItem>
+                        <MenuItem value={2}>Actes anciens</MenuItem>
+                        <MenuItem value={3}>Nom du médecin</MenuItem>
                     </Select>
                 </div>
                 <div className="PatientHistoryMedicalActList">

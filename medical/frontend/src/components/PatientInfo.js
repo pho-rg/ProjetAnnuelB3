@@ -90,7 +90,7 @@ const PatientInfo = (props) => {
                 setAlertText(n=>"Les changements ont bien été enregistrés.");
                 setShowSuccessAlert(true); // si réussite
             } else {
-                setAlertText(n=>"Erreur lors de la modification du profil médical.");
+                setAlertText(n=>"Une erreur est survenue lors de la modification du profil médical.");
                 setShowErrorAlert(true); // masquage de l'alerte erreur
             }
         }
@@ -267,11 +267,11 @@ const PatientInfo = (props) => {
                 </div>
                 {adminInfoButton()}
             </div>
-            {(props.type!=="search")?
+            {(props.type!=="search") &&
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <div className="medInfoContainer">
                         <Divider/>
-                        {props.type === "create" ?
+                        {props.type === "create" &&
                             <div className="medInfoAlert">
                                 <Alert icon={false} severity="info" sx={{width: '100%', justifyContent: 'center'}}>
                                     <div className="medInfoAlertTitle">
@@ -282,7 +282,7 @@ const PatientInfo = (props) => {
                                         Veuillez renseigner ci-dessous le profil médical du patient.
                                     </Typography>
                                 </Alert>
-                            </div> : <></>}
+                            </div>}
                         <div className="medInfo">
                             <div className="medInfoTitle">
                                 <LocalHospitalOutlinedIcon
@@ -355,7 +355,7 @@ const PatientInfo = (props) => {
                                     </div>
                                     <div className="medInfoButtonsContainer">
                                         <div className="medInfoButtons">
-                                            {(props.type === "display" && unsavedChanges) ?
+                                            {(props.type === "display" && unsavedChanges) &&
                                                 <div className="medResetChange">
                                                     <Button variant="contained"
                                                             color="error"
@@ -364,11 +364,11 @@ const PatientInfo = (props) => {
                                                     >
                                                         Annuler
                                                     </Button>
-                                                </div> : <></>
+                                                </div>
                                             }
                                             <div className="medSaveChange">
                                                 <Button variant="contained"
-                                                        disabled={unsavedChanges ? false : true}
+                                                        disabled={!unsavedChanges}
                                                         endIcon={<SaveIcon/>}
                                                         onClick={handleClickOpenDialog}
                                                 >
@@ -427,7 +427,7 @@ const PatientInfo = (props) => {
                                         />
                                     </div>
                                 </div>
-                                {showErrorAlert ?
+                                {showErrorAlert &&
                                     <div className="medInfoAlertError">
                                         <Alert icon={false} severity="error" onClose={() => {setShowErrorAlert(false)}}
                                                sx={{width: '100%', justifyContent: 'center'}}>
@@ -437,8 +437,8 @@ const PatientInfo = (props) => {
                                             </div>
                                             <Typography variant="body2" sx={{mt: 1.5}}>{alertText}</Typography>
                                         </Alert>
-                                    </div> : <></>}
-                                {showSuccessAlert ?
+                                    </div>}
+                                {showSuccessAlert &&
                                     <div className="medInfoAlertSuccess">
                                         <Alert icon={false} severity="success" onClose={() => {setShowSuccessAlert(false)}}
                                                sx={{width: '100%', justifyContent: 'center'}}>
@@ -448,7 +448,7 @@ const PatientInfo = (props) => {
                                             </div>
                                             <Typography variant="body2" sx={{mt: 1.5}}>{alertText}</Typography>
                                         </Alert>
-                                    </div> : <></>}
+                                    </div>}
                             </div>
                             <div className="medInfoListRow">
                                 <div className="medInfoList">
@@ -469,7 +469,7 @@ const PatientInfo = (props) => {
                             </div>
                         </div>
                     </div>
-                </Collapse> : <></>}
+                </Collapse>}
         </div>
 );
 };

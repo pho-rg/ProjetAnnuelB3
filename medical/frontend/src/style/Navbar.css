@@ -11,9 +11,9 @@
     width: 100%;
 }
 
-.navbarSplit, .navBarHospital, .navBarDoctor {
+.navbarSplit, .navBarHospital, .navBarDoctor, .navbarLogout {
     margin-left: 0.5%;
-    margin-right: 0.5%;
+    margin-right: 1%;
     flex-direction: row;
     align-items: center;
     display: flex;
@@ -32,4 +32,17 @@
     color: #c6e8a3;
     padding-left: 1%;
     padding-right: 1%;
+}
+
+.logoutDialog {
+    padding: 2%;
+}
+
+.logoutDialogTitle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: 1%;
+    margin-bottom: 2%;
+    border-bottom: 2px solid #204213;
 }

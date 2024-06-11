@@ -1,17 +1,37 @@
 // Composant de la barre de navigation
-import React from 'react';
+import React, {useState} from 'react';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import '../style/Navbar.css'
+import '../style/Navbar.css';
+import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
+import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
+import WarningIcon from "@mui/icons-material/Warning";
+import {useNavigate} from "react-router-dom";
 
 const Navbar = () => {
     //_____Variables_____//
     // TODO -> recup nom hopital avec accountService
-    //const fullHospitalName = 'Hôpital ' + accountService.getHospitalName();
+    // Const fullHospitalName = 'Hôpital ' + accountService.getHospitalName();
     const fullHospitalName = 'Hôpital Mignon';
     // TODO -> recup nom utilisateur avec accountService
-    //const fullUserName = 'Dr ' + accountService.getUserName();
+    // Const fullUserName = 'Dr ' + accountService.getUserName();
     const fullUserName = 'Dr Cohen';
+    // Gestion de la fenetre de deconnexion
+    const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+    // Const de changement de page
+    const navigate = useNavigate();
+
+    //_____Evenement_____//
+    const handleClickOpenDialog = () => {
+        setOpenConfirmDialog(true);
+    };
+    const handleCloseDialog = () => {
+        setOpenConfirmDialog(false);
+    };
+    const handleConfirmLogout = () => {
+        // TODO retirer le token
+        navigate('/login');
+    }
 
     //_____Affichage_____//
     return (
@@ -26,6 +46,40 @@ const Navbar = () => {
                 <div className="navBarDoctor">
                     <h3>{fullUserName}</h3>
                     <AccountCircleIcon className="navbarIcon" fontSize="large"/>
+                </div>
+                <div className="navBarLogout">
+                    <MeetingRoomIcon
+                        className="navbarIcon"
+                        sx={{fontSize: 35, cursor: 'pointer' }}
+                        onClick={handleClickOpenDialog}/>
+                    <Dialog
+                        open={openConfirmDialog}
+                        onClose={handleCloseDialog}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                    >
+                        <div className="logoutDialog">
+                            <DialogTitle id="alert-dialog-title" sx={{color: '#204213'}}>
+                                <div className="logoutDialogTitle">
+                                    <WarningIcon sx={{mr:1.5}}/>
+                                    Déconnexion
+                                </div>
+                            </DialogTitle>
+                            <DialogContent>
+                                <DialogContentText id="alert-dialog-description">
+                                    Vous allez être déconnecté.
+                                </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button variant="contained" color="error"
+                                        onClick={handleCloseDialog}>Annuler</Button>
+                                <Button variant="contained" onClick={handleConfirmLogout}
+                                        autoFocus sx={{ml:"3% !important"}}>
+                                    Confirmer
+                                </Button>
+                            </DialogActions>
+                        </div>
+                    </Dialog>
                 </div>
             </div>
         </div>

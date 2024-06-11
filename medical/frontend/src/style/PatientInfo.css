@@ -208,11 +208,11 @@
     height: fit-content;
 }
 
-.confirmDialog{
+.logoutDialog{
     padding: 2%;
 }
 
-.confirmDialogTitle{
+.logoutDialogTitle{
     display: flex;
     flex-direction: row;
     align-items: center;

@@ -4,12 +4,22 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AccordionDetails from "@mui/material/AccordionDetails";
-import {AccordionActions, Alert, Button, InputAdornment, TextField, Typography} from "@mui/material";
+import {
+    AccordionActions,
+    Alert,
+    Button, Dialog, DialogActions,
+    DialogContent, DialogContentText,
+    DialogTitle,
+    InputAdornment,
+    TextField,
+    Typography
+} from "@mui/material";
 import DescriptionIcon from '@mui/icons-material/Description';
 import DownloadIcon from '@mui/icons-material/Download';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import SaveIcon from "@mui/icons-material/Save";
 import {medicalActService} from "../_services/medicalAct.service";
+import WarningIcon from "@mui/icons-material/Warning";
 
 
 const MedicalAct = (props) => {
@@ -35,6 +45,8 @@ const MedicalAct = (props) => {
     }
     // UseState de gestion du bouton sauvegarder
     const [enableSave, setSaveEnable] = useState(false);
+    // Gestion de la fenetre de deconnexion
+    const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
     //_____Evènements_____//
     // Gestion de l'affichage des intitulés
@@ -50,26 +62,36 @@ const MedicalAct = (props) => {
             [event.target.name]: event.target.value
         });
     };
-    // Enregistrement du nouvel acte médical
-    const handleSave = () => {
-        setSaveEnable(false); // griser l'enregistrement
-        // contrôles de saisie
+    // Ouverture de la fenetre de confirmation
+    const handleClickOpenDialog = () => {
         if (controlChange()) {
-            setAlertOpen(false); // masquage de l'alerte erreur
-            // TODO requete API
-            // Test de succès
-            if (true) {
-                // Gestion du masquage nouvel acte médical et message de succès dans PatientHistory
-                props.handleSuccess();
-            } else {
-                setAlertMessage("Erreur à l'ajout de l'acte médical, réessayez.");
-                setAlertOpen(true);
-            }
+            setOpenConfirmDialog(true);
         } else {
             // Affichage de la cause de l'echec du contrôle
             setAlertOpen(true);
         }
+        ;
     };
+    const handleCloseDialog = () => {
+        setOpenConfirmDialog(false);
+    };
+    // Enregistrement du nouvel acte médical
+    const handleConfirmSave = () => {
+        setSaveEnable(false); // griser l'enregistrement
+        setAlertOpen(false); // masquage de l'alerte erreur
+        // TODO requete API
+        // Test de succès
+        if (true) {
+            // Gestion du masquage nouvel acte médical et message de succès dans PatientHistory
+            setOpenConfirmDialog(false);
+            props.handleSuccess();
+        } else {
+            setOpenConfirmDialog(false);
+            setAlertMessage("Erreur à l'ajout de l'acte médical, réessayez.");
+            setSaveEnable(true);
+            setAlertOpen(true);
+        }
+    }
 
     //_____Contrôles_____
     const controlChange = (event) => {
@@ -213,8 +235,10 @@ const MedicalAct = (props) => {
                             </div>
                             <div className="MedicalActLogo">
                                 {/*dev non prioritaire, a afficher sur le type display*/}
-                                {props.type === "none" && <DownloadIcon sx={{color: '#204213',
-                                    height: "30px", width: "auto"}}/>}
+                                {props.type === "none" && <DownloadIcon sx={{
+                                    color: '#204213',
+                                    height: "30px", width: "auto"
+                                }}/>}
                             </div>
                         </div>
                         <div className="MedicalActInfoBodyRow">
@@ -254,7 +278,7 @@ const MedicalAct = (props) => {
                             <div className="MedicalActSaveChange">
                                 <Button variant="contained"
                                         endIcon={<SaveIcon/>}
-                                        onClick={handleSave}
+                                        onClick={handleClickOpenDialog}
                                         disabled={!enableSave}
                                 >
                                     Enregistrer
@@ -263,6 +287,50 @@ const MedicalAct = (props) => {
                         </div>
                     </div>
                 </AccordionActions>}
+                <Dialog
+                    open={openConfirmDialog}
+                    onClose={handleCloseDialog}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <div className="logoutDialog">
+                        <DialogTitle id="alert-dialog-title" sx={{color: '#204213'}}>
+                            <div className="logoutDialogTitle">
+                                <WarningIcon sx={{mr: 1.5}}/>
+                                Enregistrer un acte médical
+                            </div>
+                        </DialogTitle>
+                        <DialogContent>
+                            <Typography>
+                                {"Ajouter l'acte médical " + newMedicalActData.intitule_acte + " à la date du " + newMedicalActData.date + "."}
+                            </Typography>
+                            <Typography>
+                                {"Praticien: " + newMedicalActData.nom_medecin + "."}
+                            </Typography>
+                            <Typography>
+                                <span style={{ fontWeight: 'bold' }}>Description:</span> {newMedicalActData.description.length < 20
+                                ? newMedicalActData.description
+                                : newMedicalActData.description.substring(0, 40) + "..."}
+                            </Typography>
+                            <Typography>
+                                {"___"}
+                            </Typography>
+                            <Typography variant={'h6'}>
+                                {"Une fois ajouté il ne pourra pas être supprimé."}
+                            </Typography>
+                            <DialogContentText id="alert-dialog-description">
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button variant="contained" color="error"
+                                    onClick={handleCloseDialog}>Annuler</Button>
+                            <Button variant="contained" onClick={handleConfirmSave}
+                                    autoFocus sx={{ml: "3% !important"}}>
+                                Confirmer
+                            </Button>
+                        </DialogActions>
+                    </div>
+                </Dialog>
             </Accordion>
         </div>
     )

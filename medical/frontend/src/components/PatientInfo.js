@@ -380,9 +380,9 @@ const PatientInfo = (props) => {
                                                     aria-labelledby="alert-dialog-title"
                                                     aria-describedby="alert-dialog-description"
                                                 >
-                                                    <div className="confirmDialog">
+                                                    <div className="logoutDialog">
                                                         <DialogTitle id="alert-dialog-title" sx={{color: '#204213'}}>
-                                                            <div className="confirmDialogTitle">
+                                                            <div className="logoutDialogTitle">
                                                                 <WarningIcon sx={{mr:1.5}}/>
                                                                 Confirmation
                                                             </div>

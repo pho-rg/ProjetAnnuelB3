@@ -1,10 +1,9 @@
 // import tokenGenerator from './controllers/token-generator-dev';
-import * as config from "./config.json";
-import express from "express";
-import bodyParser from "body-parser";
-import cors from "cors";
-import testUser from "./src/routes/testMongoDB-route"
-
+import * as config from './config.json';
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import testUser from './src/routes/testMongoDB-route';
 
 const app = express();
 const portHost = config.HOST;
@@ -26,14 +25,14 @@ app.use(bodyParser.json());
 
 ///// 2
 app.use(cors());
-app.use(testUser)
+app.use(testUser);
 
-app.post("/", (request: express.Request, response: express.Response) => {
+app.post('/', (request: express.Request, response: express.Response) => {
   response.send(request.body);
 });
 
-app.get("/", (request: express.Request, response: express.Response) => {
-  response.send("medical");
+app.get('/', (request: express.Request, response: express.Response) => {
+  response.send('medical');
 });
 
 app.listen(portHost);

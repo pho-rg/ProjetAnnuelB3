@@ -1,8 +1,8 @@
 // import tokenGenerator from './controllers/token-generator-dev';
-import * as config from "./config.json";
-import express from "express";
-import bodyParser from "body-parser";
-import cors from "cors";
+import * as config from './config.json';
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
 const app = express();
 const portHost = config.HOST;
 const API_URL = config.API;
@@ -24,13 +24,12 @@ app.use(bodyParser.json());
 ///// 2
 app.use(cors());
 
-app.post("/", (request: express.Request, response: express.Response) => {
+app.post('/', (request: express.Request, response: express.Response) => {
   response.send(request.body);
-  console.log("oui oui baguette je suis dans l'administration");
 });
 
-app.get("/", (request: express.Request, response: express.Response) => {
-  response.send("admin");
+app.get('/', (request: express.Request, response: express.Response) => {
+  response.send('admin');
 });
 
 app.listen(portHost);

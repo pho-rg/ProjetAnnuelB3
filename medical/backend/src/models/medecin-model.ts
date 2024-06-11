@@ -9,7 +9,6 @@ interface IMedecin extends Document {
     email: string;
     adresseProfessionnelle: string;
     numeroLicence: string;
-    anneesExperience: number;
     qualifications: string;
     affiliations: string;
     serviceID: Schema.Types.ObjectId;
@@ -24,7 +23,6 @@ const medecinSchema = new Schema<IMedecin>({
     email: { type: String, required: true },
     adresseProfessionnelle: { type: String, required: true },
     numeroLicence: { type: String, required: true },
-    anneesExperience: { type: Number, required: true },
     qualifications: { type: String, required: true },
     affiliations: { type: String, required: true },
     serviceID: { type: Schema.Types.ObjectId, ref: 'Service', required: true },

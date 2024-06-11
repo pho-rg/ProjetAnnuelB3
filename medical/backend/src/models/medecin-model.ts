@@ -1,10 +1,8 @@
 import { Schema, model, Document } from 'mongoose';
+import {IUtilisateur} from './utilisateur-model';
 
 // 1. Create an interface representing a document in MongoDB.
 interface IMedecin extends Document {
-    nom: string;
-    prenom: string;
-    dateNaissance: Date;
     sexe: string;
     specialite: string;
     telephone: string;
@@ -15,13 +13,11 @@ interface IMedecin extends Document {
     qualifications: string;
     affiliations: string;
     serviceID: Schema.Types.ObjectId;
+    utilisateurId: Schema.Types.ObjectId | IUtilisateur;
 }
 
 // 2. Create a Schema corresponding to the document interface.
 const medecinSchema = new Schema<IMedecin>({
-    nom: { type: String, required: true },
-    prenom: { type: String, required: true },
-    dateNaissance: { type: Date, required: true },
     sexe: { type: String, required: true },
     specialite: { type: String, required: true },
     telephone: { type: String, required: true },

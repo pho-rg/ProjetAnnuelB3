@@ -37,7 +37,6 @@ const PatientInfo = (props) => {
     const [pathologies, setPathologies] = useState(["Diabète", "Rhume"]);
     const [operations, setOperations] = useState(["Appendicite", "Dents de sagesse", "Amputation"]);
     const [allergies, setAllergies] = useState([]);
-    const [expanded, setExpanded] = useState(props.type === "create");
     const [unsavedChanges, setUnsavedChanges] = useState(false);
     const [alertText, setAlertText] = useState("");
     const [showErrorAlert, setShowErrorAlert] = useState(false);
@@ -65,9 +64,6 @@ const PatientInfo = (props) => {
     };
     const handleCloseDialog = () => {
         setOpenConfirmDialog(false);
-    };
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
     };
     const handleCancel = () => {
         // appel à l'API pour récupérer les valeurs bdd
@@ -126,20 +122,7 @@ const PatientInfo = (props) => {
     const adminInfoButton = () => {
         switch (props.type) {
             case "display":
-                return (
-                    <div className="adminInfoButton">
-                        <Typography variant="body2" sx={{color: '#204213', mb: 1}}>
-                            {expanded ? "Réduire" : "Profil admnistratif"}
-                        </Typography>
-                        <ExpandMore
-                            expand={expanded}
-                            onClick={handleExpandClick}
-                            aria-expanded={expanded}
-                            aria-label="Afficher tout">
-                            <ExpandMoreIcon sx={{color: '#204213', height: "40px", width: "auto", margin: 'auto'}}/>
-                        </ExpandMore>
-                    </div>
-                );
+                return(<></>);
             case "search":
                 return (
                     <div className="adminInfoButton">
@@ -155,124 +138,120 @@ const PatientInfo = (props) => {
                 return(<></>);
         }
     }
-    const ExpandMore = styled((props) => {
-        const { expand, ...other } = props;
-        return <IconButton {...other} />;
-    })(({ theme, expand }) => ({
-        transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-        marginLeft: '0',
-        transition: theme.transitions.create('transform', {
-            duration: theme.transitions.duration.shortest,
-        }),
-    }));
 
     //_____Affichage_____//
     return (
         <div className="PatientInfo">
-            <div className="adminInfo">
-                <div className="adminInfoLogo">
-                    <ContactEmergencyIcon sx={{color: '#204213', height: "150px", width: "auto"}}/>
-                </div>
-                <div className="adminInfoNir">
-                    <div className="adminInfoField">
-                        <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Numéro NIR</Typography>
-                        <TextField
-                            className="InfoFieldColored"
-                            disabled
-                            value={props.nir}
-                            InputProps={{
-                                endAdornment: (
-                                    <InputAdornment position="end">
-                                        <ContactPageIcon sx={{color: '#204213'}}/>
-                                    </InputAdornment>
-                                ),
-                            }}
-                            variant="outlined"
-                        />
+            {(props.type === "search") &&
+                <div className="generalInfo">
+                    <div className="adminInfoLogo">
+                        <ContactEmergencyIcon sx={{color: '#204213', height: "150px", width: "auto"}}/>
                     </div>
-                </div>
-                <div className="adminInfoGlobal">
+                    <div className="adminInfoNir">
+                        <div className="adminInfoField">
+                            <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Numéro NIR</Typography>
+                            <TextField
+                                className="InfoFieldColored"
+                                disabled
+                                value={props.nir}
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <ContactPageIcon sx={{color: '#204213'}}/>
+                                        </InputAdornment>
+                                    ),
+                                }}
+                                variant="outlined"
+                            />
+                        </div>
+                    </div>
+                    <div className="adminInfoGlobal">
 
-                    <div className="adminInfoGlobalRow">
-                        <div className="adminInfoField">
-                            <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Prénom</Typography>
-                            <TextField
-                                className="InfoFieldColored"
-                                disabled
-                                value={patientData.prenom}
-                                InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <Person sx={{color: '#204213'}}/>
-                                        </InputAdornment>
-                                    ),
-                                }}
-                                variant="outlined"
-                            />
+                        <div className="adminInfoGlobalRow">
+                            <div className="adminInfoField">
+                                <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Prénom</Typography>
+                                <TextField
+                                    className="InfoFieldColored"
+                                    disabled
+                                    value={patientData.prenom}
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <Person sx={{color: '#204213'}}/>
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    variant="outlined"
+                                />
+                            </div>
+                            <div className="adminInfoField">
+                                <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Nom de famille</Typography>
+                                <TextField
+                                    className="InfoFieldColored"
+                                    disabled
+                                    value={patientData.nom}
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <SupervisorAccountIcon sx={{color: '#204213'}}/>
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    variant="outlined"
+                                />
+                            </div>
                         </div>
-                        <div className="adminInfoField">
-                            <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Nom de famille</Typography>
-                            <TextField
-                                className="InfoFieldColored"
-                                disabled
-                                value={patientData.nom}
-                                InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <SupervisorAccountIcon sx={{color: '#204213'}}/>
-                                        </InputAdornment>
-                                    ),
-                                }}
-                                variant="outlined"
-                            />
+                        <div className="adminInfoGlobalRow">
+                            <div className="adminInfoField">
+                                <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Sexe</Typography>
+                                <TextField
+                                    className="InfoFieldColored"
+                                    disabled
+                                    value={patientData.sexe.substring(0, 1).toUpperCase() + patientData.sexe.substring(1).toLowerCase()}
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                {patientData.sexe === "HOMME" ? <MaleIcon sx={{color: '#204213'}}/> :
+                                                    <FemaleIcon sx={{color: '#204213'}}/>}
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    variant="outlined"
+                                />
+                            </div>
+                            <div className="adminInfoField">
+                                <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Date de
+                                    naissance</Typography>
+                                <TextField
+                                    className="InfoFieldColored"
+                                    disabled
+                                    type="date"
+                                    value={patientData.date}
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <Event sx={{color: '#204213'}}/>
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    variant="outlined"
+                                />
+                            </div>
                         </div>
                     </div>
-                    <div className="adminInfoGlobalRow">
-                        <div className="adminInfoField">
-                            <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Sexe</Typography>
-                            <TextField
-                                className="InfoFieldColored"
-                                disabled
-                                value={patientData.sexe.substring(0, 1).toUpperCase() + patientData.sexe.substring(1).toLowerCase()}
-                                InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            {patientData.sexe === "HOMME" ? <MaleIcon sx={{color: '#204213'}}/> :
-                                                <FemaleIcon sx={{color: '#204213'}}/>}
-                                        </InputAdornment>
-                                    ),
-                                }}
-                                variant="outlined"
-                            />
+                    {adminInfoButton()}
+                </div>}
+            {(props.type === "display" || props.type === "create" ) &&
+                <div className="medInfoContainer">
+                    <div className="medInfo">
+                        <div className="medInfoTitle">
+                            <SourceIcon
+                                sx={{color: '#204213', height: "60px", width: "auto", mr: 2}}/>
+                            <Typography variant="h4" sx={{color: '#204213'}}>Profil administratif</Typography>
                         </div>
-                        <div className="adminInfoField">
-                            <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Date de naissance</Typography>
-                            <TextField
-                                className="InfoFieldColored"
-                                disabled
-                                type="date"
-                                value={patientData.date}
-                                InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <Event sx={{color: '#204213'}}/>
-                                        </InputAdornment>
-                                    ),
-                                }}
-                                variant="outlined"
-                            />
-                        </div>
-                    </div>
-                </div>
-                {adminInfoButton()}
-            </div>
-            {(props.type!=="search") &&
-                <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    <div className="medInfoContainer">
-                        <Divider/>
                         {props.type === "create" &&
                             <div className="medInfoAlert">
-                                <Alert icon={false} severity="info" sx={{width: '100%', justifyContent: 'center'}}>
+                                <Alert icon={false} severity="info" sx={{width: '100%', justifyContent: 'center', mb:3  }}>
                                     <div className="medInfoAlertTitle">
                                         <PersonAddAlt1Icon fontSize="medium"/>
                                         <Typography variant="body1" sx={{pl: 1}}>Nouveau patient</Typography>
@@ -282,65 +261,59 @@ const PatientInfo = (props) => {
                                     </Typography>
                                 </Alert>
                             </div>}
-                        <div className="medInfo">
-                            <div className="medInfoTitle">
-                                <SourceIcon
-                                    sx={{color: '#204213', height: "60px", width: "auto", mr: 2}}/>
-                                <Typography variant="h4" sx={{color: '#204213'}}>Profil administratif</Typography>
-                            </div>
-                            <div className="medInfoData">
-                                <div className="medInfoButtonsRow">
-                                    <div className="medInfoRowFirst">
-                                        <div className="medInfoField">
+                        <div className="medInfoData">
+                            <div className="medInfoButtonsRow">
+                                <div className="medInfoRowFirst">
+                                    <div className="medInfoField">
                                         <Typography variant="body1"
-                                                        sx={{mb: 1, color: '#204213'}}>Taille</Typography>
-                                            <TextField
-                                                className="infoField"
-                                                type="number"
-                                                name="taille"
-                                                value={patientData.taille}
-                                                onChange={handleChange}
-                                                InputProps={{
-                                                    endAdornment: (
-                                                        <InputAdornment position="end">
-                                                            <Typography variant="body1"
-                                                                        sx={{color: '#204213'}}>cm</Typography>
-                                                        </InputAdornment>
-                                                    ),
-                                                }}
-                                                variant="outlined"
-                                            />
-                                        </div>
-                                        <div className="medInfoField">
-                                            <Typography variant="body1"
-                                                        sx={{mb: 1, color: '#204213'}}>Poids</Typography>
-                                            <TextField
-                                                className="infoField"
-                                                type="number"
-                                                name="poids"
-                                                value={patientData.poids}
-                                                onChange={handleChange}
-                                                InputProps={{
-                                                    endAdornment: (
-                                                        <InputAdornment position="end">
-                                                            <Typography variant="body1"
-                                                                        sx={{color: '#204213'}}>kg</Typography>
-                                                        </InputAdornment>
-                                                    ),
-                                                }}
-                                                variant="outlined"
-                                            />
-                                        </div>
-                                        <div className="medInfoField">
-                                            <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Groupe
-                                                sanguin</Typography>
-                                            <Select
-                                                className="infoField"
-                                                fullWidth
-                                                name="grp_sanguin"
-                                                value={patientData.grp_sanguin}
-                                                onChange={handleChange}
-                                                MenuProps={{
+                                                    sx={{mb: 1, color: '#204213'}}>Taille</Typography>
+                                        <TextField
+                                            className="infoField"
+                                            type="number"
+                                            name="taille"
+                                            value={patientData.taille}
+                                            onChange={handleChange}
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <Typography variant="body1"
+                                                                    sx={{color: '#204213'}}>cm</Typography>
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            variant="outlined"
+                                        />
+                                    </div>
+                                    <div className="medInfoField">
+                                        <Typography variant="body1"
+                                                    sx={{mb: 1, color: '#204213'}}>Poids</Typography>
+                                        <TextField
+                                            className="infoField"
+                                            type="number"
+                                            name="poids"
+                                            value={patientData.poids}
+                                            onChange={handleChange}
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <Typography variant="body1"
+                                                                    sx={{color: '#204213'}}>kg</Typography>
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            variant="outlined"
+                                        />
+                                    </div>
+                                    <div className="medInfoField">
+                                        <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Groupe
+                                            sanguin</Typography>
+                                        <Select
+                                            className="infoField"
+                                            fullWidth
+                                            name="grp_sanguin"
+                                            value={patientData.grp_sanguin}
+                                            onChange={handleChange}
+                                            MenuProps={{
                                                     disableScrollLock: true,
                                                 }}
                                             >
@@ -409,39 +382,85 @@ const PatientInfo = (props) => {
                                         </div>
                                     </div>
                                 </div>
-
-                                <div className="medInfoRow">
-                                    <div className="medInfoFieldFull">
-                                        <Typography variant="body1"
-                                                    sx={{mb: 1, color: '#204213'}}>Remarques&nbsp;&nbsp;(1 500 caractères max.)</Typography>
-                                        <TextField
-                                            className="infoField"
-                                            name="remarques"
-                                            sx={{width: '100%'}}
-                                            multiline
-                                            rows={6}
-                                            value={patientData.remarques}
-                                            onChange={handleChange}
-                                            variant="outlined"
-                                        />
-                                    </div>
+                            <div className="medInfoRow">
+                                <div className="medInfoField">
+                                    <Typography variant="body1"
+                                                sx={{mb: 1, color: '#204213'}}>test</Typography>
+                                    <TextField
+                                        className="infoField"
+                                        name="taille"
+                                        value={patientData.taille}
+                                        onChange={handleChange}
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <Typography variant="body1"
+                                                                sx={{color: '#204213'}}>cm</Typography>
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                        variant="outlined"
+                                    />
                                 </div>
-                                {showErrorAlert &&
-                                    <div className="medInfoAlertError">
-                                        <Alert icon={false} severity="error" onClose={() => {setShowErrorAlert(false)}}
-                                               sx={{width: '100%', justifyContent: 'center'}}>
-                                            <div className="medInfoAlertErrorTitle">
-                                                <ReportIcon fontSize="medium"/>
-                                                <Typography variant="body1" sx={{pl: 1}}>Erreur</Typography>
-                                            </div>
-                                            <Typography variant="body2" sx={{mt: 1.5}}>{alertText}</Typography>
-                                        </Alert>
-                                    </div>}
-                                {showSuccessAlert &&
-                                    <div className="medInfoAlertSuccess">
-                                        <Alert icon={false} severity="success" onClose={() => {setShowSuccessAlert(false)}}
-                                               sx={{width: '100%', justifyContent: 'center'}}>
-                                            <div className="medInfoAlertSuccessTitle">
+                                <div className="medInfoField">
+                                    <Typography variant="body1"
+                                                sx={{mb: 1, color: '#204213'}}>test</Typography>
+                                    <TextField
+                                        className="infoField"
+                                        name="taille"
+                                        value={patientData.taille}
+                                        onChange={handleChange}
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <Typography variant="body1"
+                                                                sx={{color: '#204213'}}>cm</Typography>
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                        variant="outlined"
+                                    />
+                                </div>
+                                <div className="medInfoField">
+                                    <Typography variant="body1"
+                                                sx={{mb: 1, color: '#204213'}}>test</Typography>
+                                    <TextField
+                                        className="infoField"
+                                        name="taille"
+                                        value={patientData.taille}
+                                        onChange={handleChange}
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <Typography variant="body1"
+                                                                sx={{color: '#204213'}}>cm</Typography>
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                        variant="outlined"
+                                    />
+                                </div>
+                            </div>
+                            {showErrorAlert &&
+                                <div className="medInfoAlertError">
+                                    <Alert icon={false} severity="error" onClose={() => {
+                                        setShowErrorAlert(false)
+                                    }}
+                                           sx={{width: '100%', justifyContent: 'center'}}>
+                                        <div className="medInfoAlertErrorTitle">
+                                            <ReportIcon fontSize="medium"/>
+                                            <Typography variant="body1" sx={{pl: 1}}>Erreur</Typography>
+                                        </div>
+                                        <Typography variant="body2" sx={{mt: 1.5}}>{alertText}</Typography>
+                                    </Alert>
+                                </div>}
+                            {showSuccessAlert &&
+                                <div className="medInfoAlertSuccess">
+                                    <Alert icon={false} severity="success" onClose={() => {
+                                        setShowSuccessAlert(false)
+                                    }}
+                                           sx={{width: '100%', justifyContent: 'center'}}>
+                                        <div className="medInfoAlertSuccessTitle">
                                                 <TaskAltIcon fontSize="medium"/>
                                                 <Typography variant="body1" sx={{pl: 1}}>Succès</Typography>
                                             </div>
@@ -450,8 +469,7 @@ const PatientInfo = (props) => {
                                     </div>}
                             </div>
                         </div>
-                    </div>
-                </Collapse>}
+                    </div>}
         </div>
 );
 };

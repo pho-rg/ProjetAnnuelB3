@@ -1,8 +1,8 @@
 .PatientInfo{
     display: flex;
     flex-direction: column;
-    background-color: #f2ffed;
-    border: 1px solid #204213;
+    background-color: #edf4ff;
+    border: 1px solid #6FA2F8;
     border-radius: 7px;
     width: 70%;
     padding-left: 2%;
@@ -93,7 +93,7 @@
 }
 
 .medInfoAlertSuccess{
-    border: 1px solid #204213;
+    border: 1px solid #6FA2F8;
 }
 
 .medInfoAlertError{
@@ -134,7 +134,7 @@
     align-items: center;
     margin-bottom: 2%;
     padding-bottom: 1%;
-    border-bottom: 3px solid #204213;
+    border-bottom: 3px solid #6FA2F8;
     width: 50%;
 }
 
@@ -218,5 +218,5 @@
     align-items: center;
     padding-bottom: 1%;
     margin-bottom: 2%;
-    border-bottom: 2px solid #204213;
+    border-bottom: 2px solid #6FA2F8;
 }

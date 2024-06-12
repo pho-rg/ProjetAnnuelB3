@@ -13,7 +13,7 @@ const adminFileExists = (nir) => {
 };
 
 const medFileExists = (nir) => {
-    return false;
+    return true;
     // requete API de vérif si le patient a un dossier médical
 };
 

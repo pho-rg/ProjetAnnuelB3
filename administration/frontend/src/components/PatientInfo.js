@@ -126,11 +126,11 @@ const PatientInfo = (props) => {
             case "search":
                 return (
                     <div className="adminInfoButton">
-                        <Typography variant="body2" sx={{color: '#204213', mb: 1}}>
+                        <Typography variant="body2" sx={{color: '#6FA2F8', mb: 1}}>
                             Espace du patient
                         </Typography>
                         <IconButton aria-label="Voir le profil administratif" onClick={()=>{navigate(`/patient-overview/${props.nir}`)}}>
-                            <ArrowForwardIcon sx={{color: '#204213', height: "40px", width: "auto", margin: 'auto'}}/>
+                            <ArrowForwardIcon sx={{color: '#6FA2F8', height: "40px", width: "auto", margin: 'auto'}}/>
                         </IconButton>
                     </div>
                 );
@@ -145,11 +145,11 @@ const PatientInfo = (props) => {
             {(props.type === "search") &&
                 <div className="generalInfo">
                     <div className="adminInfoLogo">
-                        <ContactEmergencyIcon sx={{color: '#204213', height: "150px", width: "auto"}}/>
+                        <ContactEmergencyIcon sx={{color: '#6FA2F8', height: "150px", width: "auto"}}/>
                     </div>
                     <div className="adminInfoNir">
                         <div className="adminInfoField">
-                            <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Numéro NIR</Typography>
+                            <Typography variant="body1" sx={{mb: 1, color: '#6FA2F8'}}>Numéro NIR</Typography>
                             <TextField
                                 className="InfoFieldColored"
                                 disabled
@@ -157,7 +157,7 @@ const PatientInfo = (props) => {
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment position="end">
-                                            <ContactPageIcon sx={{color: '#204213'}}/>
+                                            <ContactPageIcon sx={{color: '#6FA2F8'}}/>
                                         </InputAdornment>
                                     ),
                                 }}
@@ -169,7 +169,7 @@ const PatientInfo = (props) => {
 
                         <div className="adminInfoGlobalRow">
                             <div className="adminInfoField">
-                                <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Prénom</Typography>
+                                <Typography variant="body1" sx={{mb: 1, color: '#6FA2F8'}}>Prénom</Typography>
                                 <TextField
                                     className="InfoFieldColored"
                                     disabled
@@ -177,7 +177,7 @@ const PatientInfo = (props) => {
                                     InputProps={{
                                         endAdornment: (
                                             <InputAdornment position="end">
-                                                <Person sx={{color: '#204213'}}/>
+                                                <Person sx={{color: '#6FA2F8'}}/>
                                             </InputAdornment>
                                         ),
                                     }}
@@ -185,7 +185,7 @@ const PatientInfo = (props) => {
                                 />
                             </div>
                             <div className="adminInfoField">
-                                <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Nom de famille</Typography>
+                                <Typography variant="body1" sx={{mb: 1, color: '#6FA2F8'}}>Nom de famille</Typography>
                                 <TextField
                                     className="InfoFieldColored"
                                     disabled
@@ -193,7 +193,7 @@ const PatientInfo = (props) => {
                                     InputProps={{
                                         endAdornment: (
                                             <InputAdornment position="end">
-                                                <SupervisorAccountIcon sx={{color: '#204213'}}/>
+                                                <SupervisorAccountIcon sx={{color: '#6FA2F8'}}/>
                                             </InputAdornment>
                                         ),
                                     }}
@@ -203,7 +203,7 @@ const PatientInfo = (props) => {
                         </div>
                         <div className="adminInfoGlobalRow">
                             <div className="adminInfoField">
-                                <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Sexe</Typography>
+                                <Typography variant="body1" sx={{mb: 1, color: '#6FA2F8'}}>Sexe</Typography>
                                 <TextField
                                     className="InfoFieldColored"
                                     disabled
@@ -211,8 +211,8 @@ const PatientInfo = (props) => {
                                     InputProps={{
                                         endAdornment: (
                                             <InputAdornment position="end">
-                                                {patientData.sexe === "HOMME" ? <MaleIcon sx={{color: '#204213'}}/> :
-                                                    <FemaleIcon sx={{color: '#204213'}}/>}
+                                                {patientData.sexe === "HOMME" ? <MaleIcon sx={{color: '#6FA2F8'}}/> :
+                                                    <FemaleIcon sx={{color: '#6FA2F8'}}/>}
                                             </InputAdornment>
                                         ),
                                     }}
@@ -220,7 +220,7 @@ const PatientInfo = (props) => {
                                 />
                             </div>
                             <div className="adminInfoField">
-                                <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Date de
+                                <Typography variant="body1" sx={{mb: 1, color: '#6FA2F8'}}>Date de
                                     naissance</Typography>
                                 <TextField
                                     className="InfoFieldColored"
@@ -230,7 +230,7 @@ const PatientInfo = (props) => {
                                     InputProps={{
                                         endAdornment: (
                                             <InputAdornment position="end">
-                                                <Event sx={{color: '#204213'}}/>
+                                                <Event sx={{color: '#6FA2F8'}}/>
                                             </InputAdornment>
                                         ),
                                     }}
@@ -246,8 +246,8 @@ const PatientInfo = (props) => {
                     <div className="medInfo">
                         <div className="medInfoTitle">
                             <SourceIcon
-                                sx={{color: '#204213', height: "60px", width: "auto", mr: 2}}/>
-                            <Typography variant="h4" sx={{color: '#204213'}}>Profil administratif</Typography>
+                                sx={{color: '#6FA2F8', height: "60px", width: "auto", mr: 2}}/>
+                            <Typography variant="h4" sx={{color: '#6FA2F8'}}>Profil administratif</Typography>
                         </div>
                         {props.type === "create" &&
                             <div className="medInfoAlert">
@@ -266,7 +266,7 @@ const PatientInfo = (props) => {
                                 <div className="medInfoRowFirst">
                                     <div className="medInfoField">
                                         <Typography variant="body1"
-                                                    sx={{mb: 1, color: '#204213'}}>Taille</Typography>
+                                                    sx={{mb: 1, color: '#6FA2F8'}}>Taille</Typography>
                                         <TextField
                                             className="infoField"
                                             type="number"
@@ -277,7 +277,7 @@ const PatientInfo = (props) => {
                                                 endAdornment: (
                                                     <InputAdornment position="end">
                                                         <Typography variant="body1"
-                                                                    sx={{color: '#204213'}}>cm</Typography>
+                                                                    sx={{color: '#6FA2F8'}}>cm</Typography>
                                                     </InputAdornment>
                                                 ),
                                             }}
@@ -286,7 +286,7 @@ const PatientInfo = (props) => {
                                     </div>
                                     <div className="medInfoField">
                                         <Typography variant="body1"
-                                                    sx={{mb: 1, color: '#204213'}}>Poids</Typography>
+                                                    sx={{mb: 1, color: '#6FA2F8'}}>Poids</Typography>
                                         <TextField
                                             className="infoField"
                                             type="number"
@@ -297,7 +297,7 @@ const PatientInfo = (props) => {
                                                 endAdornment: (
                                                     <InputAdornment position="end">
                                                         <Typography variant="body1"
-                                                                    sx={{color: '#204213'}}>kg</Typography>
+                                                                    sx={{color: '#6FA2F8'}}>kg</Typography>
                                                     </InputAdornment>
                                                 ),
                                             }}
@@ -305,7 +305,7 @@ const PatientInfo = (props) => {
                                         />
                                     </div>
                                     <div className="medInfoField">
-                                        <Typography variant="body1" sx={{mb: 1, color: '#204213'}}>Groupe
+                                        <Typography variant="body1" sx={{mb: 1, color: '#6FA2F8'}}>Groupe
                                             sanguin</Typography>
                                         <Select
                                             className="infoField"
@@ -353,7 +353,7 @@ const PatientInfo = (props) => {
                                                     aria-describedby="alert-dialog-description"
                                                 >
                                                     <div className="logoutDialog">
-                                                        <DialogTitle id="alert-dialog-title" sx={{color: '#204213'}}>
+                                                        <DialogTitle id="alert-dialog-title" sx={{color: '#6FA2F8'}}>
                                                             <div className="logoutDialogTitle">
                                                                 <WarningIcon sx={{mr:1.5}}/>
                                                                 Confirmation
@@ -385,7 +385,7 @@ const PatientInfo = (props) => {
                             <div className="medInfoRow">
                                 <div className="medInfoField">
                                     <Typography variant="body1"
-                                                sx={{mb: 1, color: '#204213'}}>test</Typography>
+                                                sx={{mb: 1, color: '#6FA2F8'}}>test</Typography>
                                     <TextField
                                         className="infoField"
                                         name="taille"
@@ -395,7 +395,7 @@ const PatientInfo = (props) => {
                                             endAdornment: (
                                                 <InputAdornment position="end">
                                                     <Typography variant="body1"
-                                                                sx={{color: '#204213'}}>cm</Typography>
+                                                                sx={{color: '#6FA2F8'}}>cm</Typography>
                                                 </InputAdornment>
                                             ),
                                         }}
@@ -404,7 +404,7 @@ const PatientInfo = (props) => {
                                 </div>
                                 <div className="medInfoField">
                                     <Typography variant="body1"
-                                                sx={{mb: 1, color: '#204213'}}>test</Typography>
+                                                sx={{mb: 1, color: '#6FA2F8'}}>test</Typography>
                                     <TextField
                                         className="infoField"
                                         name="taille"
@@ -414,7 +414,7 @@ const PatientInfo = (props) => {
                                             endAdornment: (
                                                 <InputAdornment position="end">
                                                     <Typography variant="body1"
-                                                                sx={{color: '#204213'}}>cm</Typography>
+                                                                sx={{color: '#6FA2F8'}}>cm</Typography>
                                                 </InputAdornment>
                                             ),
                                         }}
@@ -423,7 +423,7 @@ const PatientInfo = (props) => {
                                 </div>
                                 <div className="medInfoField">
                                     <Typography variant="body1"
-                                                sx={{mb: 1, color: '#204213'}}>test</Typography>
+                                                sx={{mb: 1, color: '#6FA2F8'}}>test</Typography>
                                     <TextField
                                         className="infoField"
                                         name="taille"
@@ -433,7 +433,7 @@ const PatientInfo = (props) => {
                                             endAdornment: (
                                                 <InputAdornment position="end">
                                                     <Typography variant="body1"
-                                                                sx={{color: '#204213'}}>cm</Typography>
+                                                                sx={{color: '#6FA2F8'}}>cm</Typography>
                                                 </InputAdornment>
                                             ),
                                         }}

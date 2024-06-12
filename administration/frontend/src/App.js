@@ -3,11 +3,11 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import AdminRouter from "./components/AdminRouter";
 import Login from "./pages/Login";
 import {ThemeProvider} from "@mui/material";
-import medicalTheme from "./medicalTheme";
+import administrationTheme from "./administrationTheme";
 
 function App() {
   return (
-    <ThemeProvider theme={medicalTheme}>
+    <ThemeProvider theme={administrationTheme}>
         <div className="App">
           <BrowserRouter>
             <Routes>

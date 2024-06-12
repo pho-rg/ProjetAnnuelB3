@@ -14,7 +14,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: 1px #33691e solid;
+    border: 1px #6FA2F8 solid;
     border-radius: 10px;
     background-color: white;
     display: flex;
@@ -25,7 +25,7 @@
 }
 
 .LoginTitle {
-    color: #33691e;
+    color: #6FA2F8;
     display: flex;
     justify-content: center;
     text-align: center;
@@ -49,7 +49,7 @@
 .LoginButton {
     margin-top: 8%;
     text-align: center;
-    color: #33691e;
+    color: #6FA2F8;
 }
 
 .LoginAlert {

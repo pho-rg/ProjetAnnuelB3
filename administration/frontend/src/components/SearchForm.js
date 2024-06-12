@@ -94,7 +94,7 @@ const SearchForm = (props) => {
         <div className="SearchForm">
             <div className="searchInputs">
                 <div className="nirSearch">
-                    <div className="nirSearchItem"><ContactPageIcon fontSize="large" sx={{color:'#204213'}}/></div>
+                    <div className="nirSearchItem"><ContactPageIcon fontSize="large" sx={{color:'#6FA2F8'}}/></div>
                     <div className="nirSearchItem">
                         <TextField value={searchData.nir}
                                    label="Numéro NIR"
@@ -114,7 +114,7 @@ const SearchForm = (props) => {
                 <div className="searchSeparator"><span>ou</span></div>
                 <div className="nameSearch">
                     <div className="nameSearchItem">
-                        <PersonIcon fontSize="large" sx={{color: '#204213'}}/></div>
+                        <PersonIcon fontSize="large" sx={{color: '#6FA2F8'}}/></div>
                         <div className="nameSearchItem">
                             <TextField value={searchData.prenom}
                                        label="Prénom"

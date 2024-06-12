@@ -76,7 +76,7 @@ const Login = () => {
     return (<div className="Login">
         <div className="LoginContainer">
             <div className="LoginTitle">
-                <LocalHospitalIcon className="navbarIcon" sx={{fontSize: 80, color:"#33691e"}}/>
+                <LocalHospitalIcon className="navbarIcon" sx={{fontSize: 80, color:"#6FA2F8"}}/>
             </div>
             <div className="LoginTitle">
                 <h2>Hôpital Mignon</h2>

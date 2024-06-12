@@ -44,13 +44,13 @@ const Navbar = () => {
             </div>
             <div className="navbarSplit">
                 <div className="navBarDoctor">
-                    <h3>{fullUserName}</h3>
                     <AccountCircleIcon className="navbarIcon" fontSize="large"/>
+                    <h3>{fullUserName}</h3>
                 </div>
                 <div className="navBarLogout">
                     <MeetingRoomIcon
                         className="navbarIcon"
-                        sx={{fontSize: 35, cursor: 'pointer' }}
+                        sx={{fontSize: 35, cursor: 'pointer', mt:'15%'}}
                         onClick={handleClickOpenDialog}/>
                     <Dialog
                         open={openConfirmDialog}
@@ -59,7 +59,7 @@ const Navbar = () => {
                         aria-describedby="alert-dialog-description"
                     >
                         <div className="logoutDialog">
-                            <DialogTitle id="alert-dialog-title" sx={{color: '#204213'}}>
+                            <DialogTitle id="alert-dialog-title" sx={{color: '#6FA2F8'}}>
                                 <div className="logoutDialogTitle">
                                     <WarningIcon sx={{mr:1.5}}/>
                                     Déconnexion

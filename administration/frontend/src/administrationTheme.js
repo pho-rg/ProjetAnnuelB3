@@ -1,28 +1,29 @@
 import { createTheme } from '@mui/material/styles';
 import { frFR } from '@mui/material/locale';
-import {lightGreen} from '@mui/material/colors';
+import {lightBlue, lightGreen} from '@mui/material/colors';
 
-const medicalTheme = createTheme({
+const administrationTheme = createTheme({
     palette: {
         primary: {
-            main: lightGreen[400],
-            contrastText: '#ffffff',
+            //main: lightBlue['#6FA2F8'],
+            main: '#6FA2F8',
+            contrastText: 'white',
         },
         secondary: {
-            main: lightGreen[700],
-            contrastText: '#ffffff',
+            main: '#88AFED',
+            contrastText: 'white',
         },
         error: {
             main: '#d12a2a',
             contrastText: '#ffffff',
         },
         default: {
-            main: lightGreen[400],
+            main: '#6FA2F8',
         },
         text: {
-            primary : '#33691e',
-            secondary : '#295418',
-            disabled : '#204213',
+            primary : '#A1BAE2',
+            secondary : '#88AFED',
+            disabled : '#6FA2F8',
         },
     },
     typography: {
@@ -39,4 +40,4 @@ const medicalTheme = createTheme({
     }
 }, frFR);
 
-export default medicalTheme;
+export default administrationTheme;

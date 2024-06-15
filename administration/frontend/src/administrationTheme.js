@@ -21,9 +21,9 @@ const administrationTheme = createTheme({
             main: '#6FA2F8',
         },
         text: {
-            primary : '#A1BAE2',
+            primary : '#6FA2F8',
             secondary : '#88AFED',
-            disabled : '#6FA2F8',
+            disabled : '#A1BAE2',
         },
     },
     typography: {

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import '../style/PatientInfo.css'
+import '../style/PatientInfo.css';
+import {patientInfoService} from "../_services/patientInfo.service";
 import ContactEmergencyIcon from '@mui/icons-material/ContactEmergency';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import EditOffIcon from '@mui/icons-material/EditOff';
 import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
@@ -11,18 +11,16 @@ import Person from '@mui/icons-material/Person';
 import SourceIcon from '@mui/icons-material/Source';
 import ReportIcon from '@mui/icons-material/Report';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
-import Divider from '@mui/material/Divider';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import WarningIcon from '@mui/icons-material/Warning';
 import {
     Alert, Button,
-    Collapse, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+    Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
     IconButton,
     InputAdornment,
     MenuItem,
     Select,
-    styled,
     TextField,
     Typography
 } from "@mui/material";
@@ -42,20 +40,21 @@ const PatientInfo = (props) => {
     // Texte du message d'alerte
     const [alertText, setAlertText] = useState("");
     // Ajout / retrait de la div de message d'alerte
-    const [showErrorAlert, setShowErrorAlert] = useState(false);
+    const [showErrorAlert, setShowErrorAlert] = useState();
     // Ajout / retrait de la div de message de succès
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
     // Ouverture / fermeture de la fenetre de confirmation
     const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+    const [justAdded, setJustAdded] = useState(false);
     // Données patient
     const [patientData, setPatientData] = useState({
         // partie administrative
         nir: props.nir,
-        nom: "AUBRY--POUGET",
-        prenom: "Luigi",
+        nom: "Org",
+        prenom: "Ph",
         date: "2004-02-18",
         sexe: "HOMME",
-        telephone: "06 25 12 19 98",
+        telephone: "0625121998",
         adresse: "25 rue du Laurier 40300 Mont de Marsan",
         email: "l.aubry@gmail.com",
         mutuelle: "Maif",
@@ -63,22 +62,30 @@ const PatientInfo = (props) => {
         remarques: "Le mec est complètement fou c'est une dinguerie... ratio"
     });
 
+    console.log(patientData);
+
     //_____Evènement_____//
     // Gestion des changements sur les infos patient
     const handleChange = (event) => {
-        if (controlChange(event)) { // contrôles de saisie
-            setShowErrorAlert(false); // masquage de l'alerte erreur
-            setShowSuccessAlert(false); // masquage de l'alerte succès
-            setUnsavedChanges(true); // affichage des boutons Annuler/Enregistrer
-            setPatientData({
-                ...patientData,
-                [event.target.name]: event.target.value
-            });
-        }
+        setShowErrorAlert(false); // masquage de l'alerte erreur
+        setShowSuccessAlert(false); // masquage de l'alerte succès
+        setUnsavedChanges(true); // affichage des boutons Annuler/Enregistrer
+        setPatientData({
+            ...patientData,
+            [event.target.name]: event.target.value
+        });
     };
     // Gestion de la fenetre de confirmation
     const handleClickOpenDialog = () => {
-        setOpenConfirmDialog(true);
+        if (controlChange()) {
+            // Si saisie valide appel de la fenetre de confirmation
+            setOpenConfirmDialog(true);
+        } else {
+            // Masquage boutton enregistrer
+            setUnsavedChanges(false);
+            // Affichage de la cause de l'echec du contrôle
+            setShowErrorAlert(true);
+        }
     };
     const handleCloseDialog = () => {
         setOpenConfirmDialog(false);
@@ -92,18 +99,19 @@ const PatientInfo = (props) => {
     const handleSave = () => {
         let error = false;
         if (props.type === "create") {
-            // appel à l'API pour créer le profil médical
+            // appel à l'API pour créer le profil administratif
             if (!error) {
                 // TODO back rediriger une fois API ok
                 //navigate(`/patient-overview/${props.nir}`); // on passe sur le PatientOverview
                 setAlertText(n => "Succès de la création du profil administratif.");
                 setShowSuccessAlert(true);
+                setJustAdded(true);
             } else {
                 setAlertText(n => "Une erreur est survenue lors de la création du profil administratif.");
                 setShowErrorAlert(true);
             }
         } else {
-            // appel à l'API pour modifier le profil médical
+            // appel à l'API pour modifier le profil administratif
             if (!error) {
                 setAlertText(n => "Les changements ont bien été enregistrés.");
                 setShowSuccessAlert(true); // si réussite
@@ -119,30 +127,31 @@ const PatientInfo = (props) => {
     //_____Fonctions_____//
     const controlChange = (event) => {
         // contrôles de saisie en fonction du champs
-        switch (event.target.name) {
-            case "nom":
-                return event.target.value.length <= 30;
-            case "prenom":
-                return event.target.value.length <= 30;
-            case "date":
-                return event.target.value.length !== 10;
-            case "sexe":
-                return event.target.value.length !== 5;
-            case "telephone":
-                return event.target.value.length !== 10;
-            case "adresse":
-                return event.target.value.length <= 150;
-            case "email":
-                return event.target.value.length <= 50;
-            case "mutuelle":
-                return event.target.value.length <= 30;
-            case "remarques":
-                return event.target.value.length <= 1500;
-            default:
-                return false;
+        if (!patientInfoService.isNomValide(patientData.nom)) {
+            setAlertText("Saisie incorrecte, le nom n'est pas valide.");
+            return false;
+        } else if (!patientInfoService.isPrenomValide(patientData.prenom)) {
+            setAlertText("Saisie incorrecte, le prénom n'est pas valide.");
+            return false;
+        } else if (!patientInfoService.isDateValide(patientData.date)) {
+            setAlertText("Saisie incorrecte, la date n'est pas valide.");
+            return false;
+        } else if (!patientInfoService.isAdresseValide(patientData.adresse)) {
+            setAlertText("Saisie incorrecte, l'adresse n'est pas valide.");
+            return false;
+        } else if (!patientInfoService.isEmailValide(patientData.email)) {
+            setAlertText("Saisie incorrecte, l'email n'est pas valide.");
+            return false;
+        } else if (!patientInfoService.isTelephoneValide(patientData.telephone)) {
+            setAlertText("Saisie incorrecte, le téléphone n'est pas valide.");
+            return false;
+        } else if (!patientInfoService.isRemarqueValide(patientData.remarques)) {
+            setAlertText("Saisie incorrecte, les remarques sont trop longues.");
+            return false;
+        } else {
+            return true;
         }
     }
-
 
     //_____Element_____//
     // Bouton de la fiche patient en mode résultat recherche, lien vers patient-overview
@@ -294,9 +303,9 @@ const PatientInfo = (props) => {
                                     </Typography>
                                 </Alert>
                             </div>}
-                        {/* Champs de saisie profil adminnistratif*/}
+                        {/* Champs de saisie profil administratif*/}
                         <div className="fullAdminInfoData">
-                            <div className="fullAdminInfoRow">
+                            <div className="fullAdminInfoFirstRow">
                                 <div className="fullAdminInfoField">
                                     <Typography variant="body1" sx={{mb: 1, color: '#6FA2F8'}}>Nom</Typography>
                                     <TextField
@@ -305,6 +314,8 @@ const PatientInfo = (props) => {
                                         value={patientData.nom}
                                         onChange={handleChange}
                                         variant="outlined"
+                                        sx={{width: "100%"}}
+                                        disabled={justAdded}
                                     />
                                 </div>
                                 <div className="fullAdminInfoField">
@@ -315,6 +326,8 @@ const PatientInfo = (props) => {
                                         value={patientData.prenom}
                                         onChange={handleChange}
                                         variant="outlined"
+                                        sx={{width: "100%"}}
+                                        disabled={justAdded}
                                     />
                                 </div>
                                 <div className="fullAdminInfoField">
@@ -325,10 +338,13 @@ const PatientInfo = (props) => {
                                         value={props.nir}
                                         variant="outlined"
                                         disabled
+                                        sx={{width: "100%"}}
                                     />
                                 </div>
                                 <div className="fullAdminInfoField">
-                                    <PersonIcon className="PatientInfoIcon" sx={{fontSize: 80}}/>
+                                    <div className="PatientInfoIcon">
+                                        <PersonIcon sx={{fontSize: 80, color: "#6FA2F8"}}/>
+                                    </div>
                                 </div>
                             </div>
                             <div className="fullAdminInfoRow">
@@ -343,6 +359,8 @@ const PatientInfo = (props) => {
                                         MenuProps={{
                                             disableScrollLock: true,
                                         }}
+                                        sx={{width: "100%"}}
+                                        disabled={justAdded}
                                     >
                                         {gender.map((gender, index) => {
                                             return (
@@ -357,9 +375,11 @@ const PatientInfo = (props) => {
                                     <TextField
                                         className="infoField"
                                         name="date"
-                                        value={props.date}
+                                        value={patientData.date}
                                         onChange={handleChange}
                                         variant="outlined"
+                                        sx={{width: "100%"}}
+                                        disabled={justAdded}
                                     />
                                 </div>
                                 <div className="fullAdminInfoField">
@@ -367,21 +387,25 @@ const PatientInfo = (props) => {
                                     <TextField
                                         className="infoField"
                                         name="mutuelle"
-                                        value={props.mutuelle}
+                                        value={patientData.mutuelle}
                                         onChange={handleChange}
                                         variant="outlined"
+                                        sx={{width: "100%"}}
+                                        disabled={justAdded}
                                     />
                                 </div>
                             </div>
                             <div className="fullAdminInfoRow">
-                                <div className="fullAdminInfoField">
+                                <div className="fullAdminInfoFieldDouble">
                                     <Typography variant="body1" sx={{mb: 1, color: '#6FA2F8'}}>Adresse</Typography>
                                     <TextField
                                         className="infoField"
                                         name="adresse"
-                                        value={props.adresse}
+                                        value={patientData.adresse}
                                         onChange={handleChange}
                                         variant="outlined"
+                                        sx={{width: "100%"}}
+                                        disabled={justAdded}
                                     />
                                 </div>
                                 <div className="fullAdminInfoField">
@@ -389,9 +413,11 @@ const PatientInfo = (props) => {
                                     <TextField
                                         className="infoField"
                                         name="email"
-                                        value={props.email}
+                                        value={patientData.email}
                                         onChange={handleChange}
                                         variant="outlined"
+                                        sx={{width: "100%"}}
+                                        disabled={justAdded}
                                     />
                                 </div>
                                 <div className="fullAdminInfoField">
@@ -399,14 +425,16 @@ const PatientInfo = (props) => {
                                     <TextField
                                         className="infoField"
                                         name="telephone"
-                                        value={props.telephone}
+                                        value={patientData.telephone}
                                         onChange={handleChange}
                                         variant="outlined"
+                                        sx={{width: "100%"}}
+                                        disabled={justAdded}
                                     />
                                 </div>
                             </div>
                             <div className="fullAdminInfoRow">
-                                <div className="fullAdminInfoField">
+                                <div className="fullAdminInfoFieldSolo">
                                     <Typography variant="body1" sx={{mb: 1, color: '#6FA2F8'}}>Remarques</Typography>
                                     <TextField
                                         className="infoField"
@@ -414,67 +442,67 @@ const PatientInfo = (props) => {
                                         sx={{width: '100%'}}
                                         multiline
                                         rows={6}
-                                        value={props.remarques}
+                                        value={patientData.remarques}
                                         onChange={handleChange}
                                         variant="outlined"
+                                        sx={{width: "100%"}}
+                                        disabled={justAdded}
                                     />
                                 </div>
                             </div>
-                            <div className="fullAdminInfoRow">
-                                <div className="fullAdminInfoButtonsContainer">
-                                    <div className="fullAdminInfoButtons">
-                                        {(props.type === "display" && unsavedChanges) &&
-                                            <div className="fullAdminResetChange">
-                                                <Button variant="contained"
-                                                        color="error"
-                                                        endIcon={<EditOffIcon/>}
-                                                        onClick={handleCancel}
-                                                >
-                                                    Annuler
-                                                </Button>
-                                            </div>
-                                        }
-                                        <div className="fullAdminSaveChange">
+                            <div className="fullAdminInfoButtonsContainer">
+                                <div className="fullAdminInfoButtons">
+                                    {(props.type === "display" && unsavedChanges) &&
+                                        <div className="fullAdminResetChange">
                                             <Button variant="contained"
-                                                    disabled={!unsavedChanges}
-                                                    endIcon={<SaveIcon/>}
-                                                    onClick={handleClickOpenDialog}
+                                                    color="error"
+                                                    endIcon={<EditOffIcon/>}
+                                                    onClick={handleCancel}
                                             >
-                                                Enregistrer
+                                                Annuler
                                             </Button>
-                                            <Dialog
-                                                open={openConfirmDialog}
-                                                onClose={handleCloseDialog}
-                                                aria-labelledby="alert-dialog-title"
-                                                aria-describedby="alert-dialog-description"
-                                            >
-                                                <div className="logoutDialog">
-                                                    <DialogTitle id="alert-dialog-title" sx={{color: '#6FA2F8'}}>
-                                                        <div className="logoutDialogTitle">
-                                                            <WarningIcon sx={{mr: 1.5}}/>
-                                                            Confirmation
-                                                        </div>
-                                                    </DialogTitle>
-                                                    <DialogContent>
-                                                        <DialogContentText id="alert-dialog-description">
-                                                            {props.type === "create" ?
-                                                                "Créer le profil médical de "
-                                                                + patientData.prenom + " " + patientData.nom + " ?" :
-                                                                "Êtes-vous sûr de vouloir modifier le profil médical de "
-                                                                + patientData.prenom + " " + patientData.nom + " ?"}
-                                                        </DialogContentText>
-                                                    </DialogContent>
-                                                    <DialogActions>
-                                                        <Button variant="contained" color="error"
-                                                                onClick={handleCloseDialog}>Annuler</Button>
-                                                        <Button variant="contained" onClick={handleSave}
-                                                                autoFocus sx={{ml: "3% !important"}}>
-                                                            Continuer
-                                                        </Button>
-                                                    </DialogActions>
-                                                </div>
-                                            </Dialog>
                                         </div>
+                                    }
+                                    <div className="fullAdminSaveChange">
+                                        <Button variant="contained"
+                                                disabled={!unsavedChanges}
+                                                endIcon={<SaveIcon/>}
+                                                onClick={handleClickOpenDialog}
+                                        >
+                                            Enregistrer
+                                        </Button>
+                                        <Dialog
+                                            open={openConfirmDialog}
+                                            onClose={handleCloseDialog}
+                                            aria-labelledby="alert-dialog-title"
+                                            aria-describedby="alert-dialog-description"
+                                        >
+                                            <div className="logoutDialog">
+                                                <DialogTitle id="alert-dialog-title" sx={{color: '#6FA2F8'}}>
+                                                    <div className="logoutDialogTitle">
+                                                        <WarningIcon sx={{mr: 1.5}}/>
+                                                        Confirmation
+                                                    </div>
+                                                </DialogTitle>
+                                                <DialogContent>
+                                                    <DialogContentText id="alert-dialog-description">
+                                                        {props.type === "create" ?
+                                                            "Créer le profil médical de "
+                                                            + patientData.prenom + " " + patientData.nom + " ?" :
+                                                            "Êtes-vous sûr de vouloir modifier le profil médical de "
+                                                            + patientData.prenom + " " + patientData.nom + " ?"}
+                                                    </DialogContentText>
+                                                </DialogContent>
+                                                <DialogActions>
+                                                    <Button variant="contained" color="error"
+                                                            onClick={handleCloseDialog}>Annuler</Button>
+                                                    <Button variant="contained" onClick={handleSave}
+                                                            autoFocus sx={{ml: "3% !important"}}>
+                                                        Continuer
+                                                    </Button>
+                                                </DialogActions>
+                                            </div>
+                                        </Dialog>
                                     </div>
                                 </div>
                             </div>
@@ -495,10 +523,14 @@ const PatientInfo = (props) => {
                             {/* Affichage du message de succès de l'ajout*/}
                             {showSuccessAlert &&
                                 <div className="fullAdminInfoAlertSuccess">
-                                    <Alert icon={false} severity="success" onClose={() => {
-                                        setShowSuccessAlert(false)
-                                    }}
-                                           sx={{width: '100%', justifyContent: 'center'}}>
+                                    <Alert
+                                        icon={false}
+                                        severity="success"
+                                        sx={{width: '100%', justifyContent: 'left'}}
+                                        onClose={() => {
+                                            setShowSuccessAlert(false)
+                                        }}
+                                    >
                                         <div className="fullAdminInfoAlertSuccessTitle">
                                             <TaskAltIcon fontSize="medium"/>
                                             <Typography variant="body1" sx={{pl: 1}}>Succès</Typography>

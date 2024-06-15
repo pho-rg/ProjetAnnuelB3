@@ -11,13 +11,6 @@
     align-items: stretch;
 }
 
-.adminInfoField, .fullAdminInfoField, .fullAdminInfoFieldFull{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding-right: 1%;
-}
-
 .adminInfoNir, .adminInfoLogo, .adminInfoButton, .adminInfoGlobal{
     display: flex;
     justify-content: center;
@@ -29,9 +22,10 @@
 }
 
 .PatientInfoIcon {
-    color: #6FA2F8;
     padding-left: 1%;
     padding-right: 1%;
+    text-align: right;
+    width: 100%;
 }
 
 .adminInfoButton{
@@ -88,7 +82,7 @@
 .fullAdminInfoAlertSuccess, .fullAdminInfoAlertError{
     display: flex;
     width: 100%;
-    margin-top: 3%;
+    margin-bottom: 2%;
     border-radius: 4px;
 }
 
@@ -100,6 +94,7 @@
 
 .fullAdminInfoAlertSuccess{
     border: 1px solid #6FA2F8;
+    margin-left: 1%;
 }
 
 .fullAdminInfoAlertError{
@@ -149,15 +144,39 @@
     padding-right: 0;
 }
 
-.fullAdminInfoRow, .fullAdminInfoRowFirst{
+.fullAdminInfoFirstRow, .fullAdminInfoRow  {
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-top: 2%;
 }
 
-.fullAdminInfoRowFirst{
-    width: 70%;
+.fullAdminInfoFirstRow {
+    justify-content: space-between;
+}
+
+.fullAdminInfoRow {
+    justify-content: flex-start;
+}
+
+.adminInfoField, .fullAdminInfoField, .fullAdminInfoFieldFull,
+.fullAdminInfoFieldSolo, .fullAdminInfoFieldDouble {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 1%;
+}
+
+.fullAdminInfoFieldSolo {
+    width: 100%;
+}
+
+.fullAdminInfoFieldDouble {
+    flex: 2;
+}
+
+.fullAdminInfoFieldNext {
+    margin-left: 1%;
 }
 
 .fullAdminInfoButtonsRow {
@@ -168,13 +187,12 @@
 }
 
 .fullAdminInfoButtonsContainer{
-    width: fit-content;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     justify-content: flex-end;
-    padding-right: 2%;
-    padding-bottom: 1%;
+    margin-top: 2%;
+    margin-bottom: 1%;
 }
 
 .fullAdminInfoButtons{
@@ -185,7 +203,7 @@
 }
 
 .fullAdminSaveChange{
-    margin-left: 5%;
+    margin-left: 2%;
 }
 
 .infoField{

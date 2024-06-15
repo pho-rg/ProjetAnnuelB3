@@ -13,11 +13,6 @@ const PatientRegister = (props) => {
     const [alertOpen, setAlertOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
     const adminFileExists = searchService.adminFileExists(currentPatientNIR);
-
-    //_____Evenement_____//
-    // Gestion du message d'erreur
-
-
     //_____Contrôle_____//
     // Si le dossier admin existe pour ce patient, on redirige vers patient-overview
     useEffect(() => {
@@ -31,7 +26,7 @@ const PatientRegister = (props) => {
         <div className="PatientRegister">
             <SearchForm setAlertOpen={setAlertOpen} setAlertMessage={setAlertMessage}/>
             <div className="PatientInfoContainer">
-                <PatientInfo nir={props.nir} type="create"/>
+                <PatientInfo nir={currentPatientNIR} type="create"/>
             </div>
         </div>
     );

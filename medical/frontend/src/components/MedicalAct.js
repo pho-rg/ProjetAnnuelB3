@@ -70,7 +70,6 @@ const MedicalAct = (props) => {
             // Affichage de la cause de l'echec du contrôle
             setAlertOpen(true);
         }
-        ;
     };
     const handleCloseDialog = () => {
         setOpenConfirmDialog(false);
@@ -103,23 +102,18 @@ const MedicalAct = (props) => {
         // Controle des champs
         else if (!medicalActService.isDateValid(newMedicalActData.date)) {
             setAlertMessage("Saisie incorrecte, la date n'est pas une date valide.");
-            setAlertOpen(true);
             return false;
         } else if (!medicalActService.isOldDate(newMedicalActData.date)) {
             setAlertMessage("La date de l'acte est trop ancienne, ouvrez un incident.");
-            setAlertOpen(true);
             return false;
         } else if (!medicalActService.isIntituleValide(newMedicalActData.intitule_acte)) {
             setAlertMessage("Saisie incorrecte, l'intitulé de l'acte est manquant.");
-            setAlertOpen(true);
             return false;
         } else if (!medicalActService.isNomValide(newMedicalActData.nom_medecin)) {
             setAlertMessage("Saisie incorrecte, le nom du médecin est manquant.");
-            setAlertOpen(true);
             return false;
         } else if (!medicalActService.isDescValide(newMedicalActData.description)) {
             setAlertMessage("Saisie incorrecte, la description de l'acte est manquante.");
-            setAlertOpen(true);
             return false;
         } else {
             return true;

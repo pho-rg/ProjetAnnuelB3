@@ -3,6 +3,7 @@ import {Route, Routes} from "react-router-dom";
 import Search from "../pages/Search";
 import SearchResult from "../pages/SearchResult";
 
+// Routage
 const SearchRouter = () => {
     return (
         <Routes>

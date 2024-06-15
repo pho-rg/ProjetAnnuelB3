@@ -1,6 +1,5 @@
 import { createTheme } from '@mui/material/styles';
 import { frFR } from '@mui/material/locale';
-import {lightBlue, lightGreen} from '@mui/material/colors';
 
 const administrationTheme = createTheme({
     palette: {

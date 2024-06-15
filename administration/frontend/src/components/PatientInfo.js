@@ -34,13 +34,13 @@ const PatientInfo = (props) => {
     // Redirection
     const navigate = useNavigate();
     // Tableau de genre
-    const gender = ["HOMME", "FEMME"];
-    // Affichage / masquage des boutons annuler et enregistrer
+    const patientGender = ["HOMME", "FEMME"];
+    // Affichage/masquage des boutons annuler et enregistrer
     const [unsavedChanges, setUnsavedChanges] = useState(false);
     // Texte du message d'alerte
     const [alertText, setAlertText] = useState("");
     // Ajout / retrait de la div de message d'alerte
-    const [showErrorAlert, setShowErrorAlert] = useState();
+    const [showErrorAlert, setShowErrorAlert] = useState(false);
     // Ajout / retrait de la div de message de succès
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
     // Ouverture / fermeture de la fenetre de confirmation
@@ -103,20 +103,20 @@ const PatientInfo = (props) => {
             if (!error) {
                 // TODO back rediriger une fois API ok
                 //navigate(`/patient-overview/${props.nir}`); // on passe sur le PatientOverview
-                setAlertText(n => "Succès de la création du profil administratif.");
+                setAlertText("Succès de la création du profil administratif.");
                 setShowSuccessAlert(true);
                 setJustAdded(true);
             } else {
-                setAlertText(n => "Une erreur est survenue lors de la création du profil administratif.");
+                setAlertText("Une erreur est survenue lors de la création du profil administratif.");
                 setShowErrorAlert(true);
             }
         } else {
             // appel à l'API pour modifier le profil administratif
             if (!error) {
-                setAlertText(n => "Les changements ont bien été enregistrés.");
+                setAlertText("Les changements ont bien été enregistrés.");
                 setShowSuccessAlert(true); // si réussite
             } else {
-                setAlertText(n => "Une erreur est survenue lors de la modification du profil médical.");
+                setAlertText("Une erreur est survenue lors de la modification du profil médical.");
                 setShowErrorAlert(true); // masquage de l'alerte erreur
             }
         }
@@ -125,7 +125,7 @@ const PatientInfo = (props) => {
     };
 
     //_____Fonctions_____//
-    const controlChange = (event) => {
+    const controlChange = () => {
         // contrôles de saisie en fonction du champs
         if (!patientInfoService.isNomValide(patientData.nom)) {
             setAlertText("Saisie incorrecte, le nom n'est pas valide.");
@@ -362,10 +362,10 @@ const PatientInfo = (props) => {
                                         sx={{width: "100%"}}
                                         disabled={justAdded}
                                     >
-                                        {gender.map((gender, index) => {
+                                        {patientGender.map((patientGender, index) => {
                                             return (
                                                 <MenuItem key={index}
-                                                          value={gender}>{gender}</MenuItem>)
+                                                          value={patientGender}>{patientGender}</MenuItem>)
                                         })}
                                     </Select>
                                 </div>
@@ -439,7 +439,6 @@ const PatientInfo = (props) => {
                                     <TextField
                                         className="infoField"
                                         name="remarques"
-                                        sx={{width: '100%'}}
                                         multiline
                                         rows={6}
                                         value={patientData.remarques}

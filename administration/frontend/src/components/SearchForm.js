@@ -43,7 +43,6 @@ const SearchForm = (props) => {
         if (!searchService.isNirValid(searchData.nir)) {
             props.setAlertMessage("Le numéro NIR renseigné est invalide.");
             props.setAlertOpen(true);
-            return;
         }
         // Redirection vers patient overview si dossier existant
         else if (searchService.adminFileExists(searchData.nir)) {
@@ -71,7 +70,7 @@ const SearchForm = (props) => {
         }
     }
 
-    //_____Fonctions_____//
+    //_____Fonction_____//
     const controlChange = (event) => {
         // contrôles de saisie en fonction du champs
         switch (event.target.name) {

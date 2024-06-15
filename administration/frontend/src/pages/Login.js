@@ -18,7 +18,7 @@ import {accountService} from '../_services/account.service';
 
 
 const Login = () => {
-    //_____Variables_____
+    //_____Variables_____//
     // Hook de navigation
     const navigate = useNavigate();
 

@@ -7,43 +7,32 @@ import '../style/PatientRegister.css';
 import PatientInfo from "../components/PatientInfo";
 
 const PatientRegister = (props) => {
+    //_____Variables_____//
     const navigate = useNavigate();
     const {currentPatientNIR} = useParams();
     const [alertOpen, setAlertOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
     const adminFileExists = searchService.adminFileExists(currentPatientNIR);
-    const [adminFileNotExistsAlert, setAdminFileNotExistsAlert] = useState(!adminFileExists);
+
+    //_____Evenement_____//
+    // Gestion du message d'erreur
+
+
+    //_____Contrôle_____//
+    // Si le dossier admin existe pour ce patient, on redirige vers patient-overview
     useEffect(() => {
-        if (alertMessage !== "") {
-            setAdminFileNotExistsAlert(false);
-        }
-    }, [alertMessage]);
-    useEffect(() => {
-        if (searchService.medFileExists(currentPatientNIR)){
+        if (searchService.adminFileExists(currentPatientNIR)){
             navigate(`/patient-overview/${currentPatientNIR}`);
         }
     });
 
-    const handleCloseAlert = () => {
-        setAdminFileNotExistsAlert(false);
-        setAlertOpen(false);
-    }
-
+    //_____Affichage_____
     return (
         <div className="PatientRegister">
             <SearchForm setAlertOpen={setAlertOpen} setAlertMessage={setAlertMessage}/>
-            { (alertOpen || adminFileNotExistsAlert) &&
-                <div className="noAdminFileAlert">
-                    <Alert severity="error"
-                           onClose={handleCloseAlert}
-                           sx={{minWidth: '30%'}}>
-                        {adminFileNotExistsAlert ?
-                            "Une erreur est survenue lors de la récupération du dossier administratif." :
-                            alertMessage}
-                    </Alert>
-                </div>
-            }
-            {adminFileExists && <div className="PatientInfoContainer"><PatientInfo nir={props.nir} type="create"/></div>}
+            <div className="PatientInfoContainer">
+                <PatientInfo nir={props.nir} type="create"/>
+            </div>
         </div>
     );
 };

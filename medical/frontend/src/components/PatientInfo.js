@@ -34,7 +34,7 @@ import {useNavigate} from "react-router-dom";
 const PatientInfo = (props) => {
     //_____Variables_____//
     const navigate = useNavigate();
-    const bloodGroups = ["O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-"]
+    const bloodGroups = ["O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-"];
     const [pathologies, setPathologies] = useState(["Diabète", "Rhume"]);
     const [operations, setOperations] = useState(["Appendicite", "Dents de sagesse", "Amputation"]);
     const [allergies, setAllergies] = useState([]);

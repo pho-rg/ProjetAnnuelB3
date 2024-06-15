@@ -11,7 +11,7 @@
     align-items: stretch;
 }
 
-.adminInfoField, .medInfoField, .medInfoFieldFull{
+.adminInfoField, .fullAdminInfoField, .fullAdminInfoFieldFull{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -26,6 +26,12 @@
 
 .adminInfoNir{
     padding-right: 7%;
+}
+
+.PatientInfoIcon {
+    color: #6FA2F8;
+    padding-left: 1%;
+    padding-right: 1%;
 }
 
 .adminInfoButton{
@@ -63,14 +69,14 @@
     margin-bottom: 4%;
 }
 
-.medInfoAlert{
+.fullAdminInfoAlert{
     display: flex;
     justify-content: center;
     width: 100%;
     margin-top: 3%;
 }
 
-.medInfoAlertTitle{
+.fullAdminInfoAlertTitle{
     display: flex;
     padding: 1%;
     padding-bottom: 3%;
@@ -79,24 +85,24 @@
     flex-direction: row;
 }
 
-.medInfoAlertSuccess, .medInfoAlertError{
+.fullAdminInfoAlertSuccess, .fullAdminInfoAlertError{
     display: flex;
     width: 100%;
     margin-top: 3%;
     border-radius: 4px;
 }
 
-.medInfoAlertSuccessTitle, .medInfoAlertErrorTitle{
+.fullAdminInfoAlertSuccessTitle, .fullAdminInfoAlertErrorTitle{
     display: flex;
     padding: 1% 1% 3%;
     flex-direction: row;
 }
 
-.medInfoAlertSuccess{
+.fullAdminInfoAlertSuccess{
     border: 1px solid #6FA2F8;
 }
 
-.medInfoAlertError{
+.fullAdminInfoAlertError{
     border: 1px solid #5c292a;
 }
 
@@ -104,13 +110,13 @@
     background-color: #f5f5f5;
 }
 
-.medInfoContainer{
+.fullAdminInfoContainer{
     display: flex;
     flex-direction: column;
     width: 100%;
 }
 
-.medInfo{
+.fullAdminInfo{
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -118,7 +124,7 @@
     border-radius: 0.5em;
 }
 
-.medInfoData{
+.fullAdminInfoData{
     display: flex;
     flex-direction: column;
     justify-content: left;
@@ -127,7 +133,7 @@
     padding-right: 1%;
 }
 
-.medInfoTitle{
+.fullAdminInfoTitle{
     display: flex;
     flex-direction: row;
     justify-content: left;
@@ -138,30 +144,30 @@
     width: 50%;
 }
 
-.medInfoFieldFull{
+.fullAdminInfoFieldFull{
     width: 100%;
     padding-right: 0;
 }
 
-.medInfoRow, .medInfoRowFirst{
+.fullAdminInfoRow, .fullAdminInfoRowFirst{
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-top: 2%;
 }
 
-.medInfoRowFirst{
+.fullAdminInfoRowFirst{
     width: 70%;
 }
 
-.medInfoButtonsRow {
+.fullAdminInfoButtonsRow {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
 }
 
-.medInfoButtonsContainer{
+.fullAdminInfoButtonsContainer{
     width: fit-content;
     display: flex;
     flex-direction: column;
@@ -171,14 +177,14 @@
     padding-bottom: 1%;
 }
 
-.medInfoButtons{
+.fullAdminInfoButtons{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
 }
 
-.medSaveChange{
+.fullAdminSaveChange{
     margin-left: 5%;
 }
 
@@ -189,23 +195,6 @@
 
 .infoFieldLabel{
     overflow: hidden;
-}
-
-.medInfoListRow{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-top: 4%;
-    margin-bottom: 2%;
-    width: 98%;
-    padding-left: 1%;
-    padding-right: 1%;
-}
-
-.medInfoList{
-    background-color: white;
-    width: 30%;
-    height: fit-content;
 }
 
 .logoutDialog{

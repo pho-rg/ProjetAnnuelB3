@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import SearchForm from "../components/SearchForm";
 import {searchService} from "../_services/search.service";
 import {Alert} from "@mui/material";
@@ -7,11 +7,21 @@ import '../style/PatientOverview.css';
 import PatientInfo from "../components/PatientInfo";
 
 const PatientOverview = () => {
+    const navigate = useNavigate();
     const [alertOpen, setAlertOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
     const {currentPatientNIR} = useParams();
     const medFileExists = searchService.medFileExists(currentPatientNIR);
     const [medFileNotExistsAlert, setMedFileNotExistsAlert] = useState(!medFileExists);
+
+    //_____Contrôle_____//
+    // Si le dossier admin n'existe pas pour ce patient, on redirige vers patient-register
+    useEffect(() => {
+        if (!searchService.adminFileExists(currentPatientNIR)){
+            navigate(`/patient-register/${currentPatientNIR}`);
+        }
+    });
+
     useEffect(() => {
         if (alertMessage !== "") {
             setMedFileNotExistsAlert(false);

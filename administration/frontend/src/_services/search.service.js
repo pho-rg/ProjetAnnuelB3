@@ -8,13 +8,13 @@ const isNirValid = (nir) => {
     } else return (97 - (parseInt(nir.substring(0, 13)) % 97) === parseInt(nir.substring(13)));
 };
 const adminFileExists = (nir) => {
-    return true;
+    return nir === "104021730625478";
     // requete API de vérif si le patient a un dossier administratif
 };
 
+// TODO enlever
 const medFileExists = (nir) => {
-    return true;
-    // requete API de vérif si le patient a un dossier médical
+    return nir === "104021730625478";
 };
 
 const isNameValid = (name) => {
@@ -28,5 +28,5 @@ const isDateValid = (date) => {
     }
 }
 export const searchService = {
-    adminFileExists, medFileExists, isNirValid, isNameValid, isDateValid
+    adminFileExists, isNirValid, isNameValid, isDateValid, medFileExists
 }

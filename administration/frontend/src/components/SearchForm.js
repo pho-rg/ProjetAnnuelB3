@@ -39,22 +39,19 @@ const SearchForm = (props) => {
         }
     }
     const handleAccess = () => {
-        // Contrôle validité nir et existence du dossier administratif
+        // Contrôle validité nir
         if (!searchService.isNirValid(searchData.nir)) {
             props.setAlertMessage("Le numéro NIR renseigné est invalide.");
             props.setAlertOpen(true);
             return;
         }
-        else if (!searchService.adminFileExists(searchData.nir)) {
-            props.setAlertMessage("Aucun dossier administratif n'existe pour ce numéro NIR, il doit être créé avant l'ouverture d'un dossier médical.");
-            props.setAlertOpen(true);
-            return;
+        // Redirection vers patient overview si dossier existant
+        else if (searchService.adminFileExists(searchData.nir)) {
+            navigate(`/patient-overview/${searchData.nir}`);
         }
         // Redirection vers la bonne page Patient
-        if (!searchService.medFileExists(searchData.nir)) {
+        else {
             navigate(`/patient-register/${searchData.nir}`);
-        } else {
-            navigate(`/patient-overview/${searchData.nir}`);
         }
     }
     const handleSearch = () => {

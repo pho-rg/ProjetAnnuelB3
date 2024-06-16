@@ -17,7 +17,7 @@ const personnelAdmingetOne = async (
         console.log(id);
 
         // Exécuter une requête SQL
-        const [rows] = await connection.execute<RowDataPacket[]>("SELECT * FROM personnel_administratif WHERE id_administratif ="+[id]+"");
+        const [rows] = await connection.execute<RowDataPacket[]>('SELECT * FROM personnel_administratif WHERE id_administratif = ?',[id]);
 
         if (rows.length === 0) {
             // Si aucun résultat n'est trouvé, renvoyer une erreur 404

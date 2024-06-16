@@ -1,8 +1,17 @@
 import express from 'express';
-import {personnelAdmingetOne} from "../controllers/admin-controllers";
+import {personnelAdmingetOne} from "../controllers/personnelAdmin-controllers";
+import {dossierAdmingetOne, dossierAdminPost} from "../controllers/dossierAdmin-controllers";
 
 const router = express.Router();
 
-router.get('/persAdmin/', personnelAdmingetOne);
+
+//Personnels
+router.get('/persAdmin/:id', personnelAdmingetOne);
+
+
+
+//Dossiers
+router.get('/dossAdmin/:id', dossierAdmingetOne);
+router.post('/dossAdmin/post', dossierAdminPost);
 
 export = router;

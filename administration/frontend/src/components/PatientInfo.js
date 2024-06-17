@@ -92,8 +92,13 @@ const PatientInfo = (props) => {
     };
     // Annulation des changement et remise des valeurs initiales
     const handleCancel = () => {
-        // appel à l'API pour récupérer les valeurs bdd
-        setUnsavedChanges(false);
+        if (props.type === "create") {
+            // Si annulation de la création patient, on revient sur recherche
+            navigate("/search/");
+        } else {
+            // appel à l'API pour récupérer les valeurs bdd
+            setUnsavedChanges(false);
+        }
     };
     // Mise à jour des infos patient
     const handleSave = () => {
@@ -292,7 +297,7 @@ const PatientInfo = (props) => {
                         {/* Bannière d'information type création*/}
                         {props.type === "create" &&
                             <div className="fullAdminInfoAlert">
-                                <Alert icon={false} severity="info"
+                                <Alert icon={false} severity="warning"
                                        sx={{width: '100%', justifyContent: 'center', mb: 3}}>
                                     <div className="fullAdminInfoAlertTitle">
                                         <PersonAddAlt1Icon fontSize="medium"/>
@@ -347,7 +352,7 @@ const PatientInfo = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="fullAdminInfoRow">
+                            <div className="fullAdminInfoSecondRow">
                                 <div className="fullAdminInfoField">
                                     <Typography variant="body1" sx={{mb: 1, color: '#6FA2F8'}}>Sexe</Typography>
                                     <Select
@@ -451,7 +456,7 @@ const PatientInfo = (props) => {
                             </div>
                             <div className="fullAdminInfoButtonsContainer">
                                 <div className="fullAdminInfoButtons">
-                                    {(props.type === "display" && unsavedChanges) &&
+                                    {unsavedChanges &&
                                         <div className="fullAdminResetChange">
                                             <Button variant="contained"
                                                     color="error"

@@ -1,4 +1,5 @@
 // Service de  gestion de la connexion utilisateur
+import Axios from './caller.service'
 
 // Vérification format email
 const isEmailValid = (email) => {
@@ -7,8 +8,8 @@ const isEmailValid = (email) => {
 
 // Vérification des identifiants de connexion
 const login = (credentials) => {
-    // TODO requete API
-    return credentials.email === 'y@y.y' && credentials.password === 'yy';
+    // Appel API
+    return Axios.post('/auth/login/', credentials)
 }
 
 // Sauvegarder le token

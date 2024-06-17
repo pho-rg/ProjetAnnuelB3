@@ -15,7 +15,6 @@ import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import MailIcon from '@mui/icons-material/Mail';
 import {useNavigate} from "react-router-dom";
 import {accountService} from '../_services/account.service';
-import axios from 'axios';
 
 const Login = () => {
     //_____Variables_____//
@@ -54,15 +53,18 @@ const Login = () => {
     const handleLogin = (event) => {
         event.preventDefault();
         if (accountService.isEmailValid(credentials.email)) {
-            console.log(credentials);
-            axios.post("http://localhost:8888/auth/login", credentials)
+            // TODO provisoire
+            accountService.saveToken("abc");
+            console.log(localStorage.getItem('token'));
+            navigate('/search');
+            // TODO back
+            /*accountService.login(credentials)
                 .then(res => {
                     console.log(res);
-                    // TODO back
                     accountService.saveToken(res.data.access_token)
                     //navigate('/search');
                 })
-                .catch(error => console.log(error))
+                .catch(error => console.log(error))*/
         } else {
             setAlertMessage(" Identifiants incorrects");
             setAlertOpen(true);

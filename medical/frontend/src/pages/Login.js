@@ -53,8 +53,19 @@ const Login = () => {
     // Click bouton pour se connecter
     const handleLogin = (event) => {
         event.preventDefault();
-        if (accountService.isEmailValid(credentials.email) && accountService.login(credentials)) {
+        if (accountService.isEmailValid(credentials.email)) {
+            // TODO provisoire
+            accountService.saveToken("abc");
+            console.log(localStorage.getItem('token'));
             navigate('/search');
+            // TODO back
+            /*accountService.login(credentials)
+                .then(res => {
+                    console.log(res);
+                    accountService.saveToken(res.data.access_token)
+                    //navigate('/search');
+                })
+                .catch(error => console.log(error))*/
         } else {
             setAlertMessage(" Identifiants incorrects");
             setAlertOpen(true);

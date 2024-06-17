@@ -1,3 +1,5 @@
+.idea
+
 medical/backend/dist
 medical/backend/node_modules
 medical/backend/config.json

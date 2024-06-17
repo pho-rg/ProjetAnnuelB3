@@ -1,0 +1,33 @@
+.MedInfoList{
+    display: flex;
+    flex-direction: column;
+    padding: 4%;
+    border: 1px solid #c4c4c4;
+    border-radius: 4px;
+}
+.listTitleRow{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 5%;
+    padding-right: 15%;
+    padding-bottom: 2%;
+    border-bottom: 2px solid #204213;
+    width: min-content;
+}
+.listAddRow{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.listItem{
+    border: 1px solid #c4c4c4;
+    border-radius: 4px;
+    margin-bottom: 2%;
+}
+.listAddRowField{
+    overflow: hidden;
+}

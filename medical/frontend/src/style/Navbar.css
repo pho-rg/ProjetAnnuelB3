@@ -1,0 +1,49 @@
+.Navbar {
+    padding-top: 0.3%;
+    padding-bottom: 0.3%;
+    color: #c6e8a3;
+    background-color: #284c16;
+    border-bottom: solid 2px #c6e8a3;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+.navbarSplit, .navBarHospital, .navBarDoctor, .navbarLogout {
+    margin-left: 0.5%;
+    margin-right: 1%;
+    flex-direction: row;
+    align-items: center;
+    display: flex;
+    width: 100%;
+}
+
+.navBarHospital {
+    justify-content: flex-start;
+}
+
+.navBarDoctor {
+    justify-content: end;
+    margin-right: 5%;
+}
+
+.navbarIcon {
+    color: #c6e8a3;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+.logoutDialog {
+    padding: 2%;
+}
+
+.logoutDialogTitle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: 1%;
+    margin-bottom: 2%;
+    border-bottom: 2px solid #204213;
+}

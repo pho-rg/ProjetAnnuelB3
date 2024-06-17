@@ -1,0 +1,70 @@
+.PatientHistory {
+    display: flex;
+    flex-direction: column;
+    background-color: #f2ffed;
+    border: 1px solid #204213;
+    border-radius: 7px;
+    width: 70%;
+    padding: 2%;
+    margin-top: 1%;
+}
+
+.patientHistoryBody {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.patientHistoryTitle{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    margin-bottom: 5%;
+    padding-bottom: 1%;
+    border-bottom: 3px solid #204213;
+    width: 40%;
+}
+
+
+.patientHistoryLabel {
+    color: #204213;
+}
+
+.patientHistoryBodyLabel {
+    color: #33691e;
+    margin-bottom: 2%;
+    padding-bottom: 1%;
+    border-bottom: 1px solid #33691e;
+    width: 30%;
+}
+
+.patientHistoryButton {
+    margin-bottom: 2%;
+}
+
+.patientHistoryMedicalActList {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+.patientHistoryAddedMedicalAct  {
+    width: 85%;
+}
+
+.patientHistorySortContainer {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    width: 80%;
+    align-items: flex-start;
+}
+
+.medicalActAddedAlertSuccess {
+    display: flex;
+    width: 80%;
+    margin-bottom: 3%;
+    border-radius: 4px;
+}

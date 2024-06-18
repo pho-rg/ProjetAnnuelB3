@@ -5,11 +5,14 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import testUser from './src/routes/testMongoDB-route';
 import utilisateur from './src/routes/utilisateur-route';
+import dossierMedical from  './src/routes/dossierMedical-route'
+import service from  './src/routes/service-route'
 
 
 const app = express();
 const portHost = config.HOST;
 const API_URL = config.API;
+
 
 app.use(bodyParser.json());
 
@@ -29,6 +32,8 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(testUser);
 app.use(utilisateur);
+app.use(dossierMedical);
+app.use(service);
 
 
 app.post('/', (request: express.Request, response: express.Response) => {

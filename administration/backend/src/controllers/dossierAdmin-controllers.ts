@@ -24,7 +24,8 @@ const dossierAdmingetOne = async (
             return response.status(404).json({ message: 'Dossier administratif non trouvé' });
         }
 
-
+        const dossiertest = rowToIDossierAdmin(rows[0]);
+/*
         const dossierAdmin : IDossierAdmin =  {
             num_secu: rows[0].num_secu,
             nom: rows[0].nom,
@@ -36,10 +37,10 @@ const dossierAdmingetOne = async (
             id_hopital: rows[0].id_hopital,
             id_mutuelle: rows[0].id_mutuelle,
         };
-
+*/
         // Libérer la connexion
         connection.release();
-        response.json(dossierAdmin);
+        response.json(dossiertest);
     } catch (error) {
         console.error('Erreur lors de la récupération du dossier administratif :', error);
         response.status(500).json({ message: 'Erreur serveur' });

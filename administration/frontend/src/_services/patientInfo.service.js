@@ -1,3 +1,6 @@
+import Axios from './caller.service';
+
+//_____Controle des champs_____//
 const isNomValide = (nom) => {
     if (nom.length < 2) {
         return false;
@@ -46,7 +49,12 @@ const isRemarqueValide = (remarque) => {
     return remarque.length < 1500;
 }
 
+//_____API_____//
+const getPatient = (nir) => {
+    return Axios.get('/patients/'+nir);
+}
+
 export const patientInfoService = {
     isNomValide, isPrenomValide, isDateValide, isTelephoneValide, isAdresseValide,
-    isEmailValide, isRemarqueValide
+    isEmailValide, isRemarqueValide, getPatient
 }

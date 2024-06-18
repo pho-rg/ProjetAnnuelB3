@@ -48,7 +48,7 @@ const SearchForm = (props) => {
         else if (searchService.adminFileExists(searchData.nir)) {
             navigate(`/patient-overview/${searchData.nir}`);
         }
-        // Redirection vers la bonne page Patient
+        // Redirection vers création du patient
         else {
             navigate(`/patient-register/${searchData.nir}`);
         }

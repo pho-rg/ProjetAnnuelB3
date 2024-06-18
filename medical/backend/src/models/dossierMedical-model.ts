@@ -63,7 +63,7 @@ const dossierMedicalSchema = new Schema<IDossierMedical>({
   pathologies: { type: [String], required: true },
   operations: { type: [String], required: true },
   allergies: { type: [String], required: true },
-});
+},{ collection: 'dossier_medical' });
 
 const DossierMedical = model<IDossierMedical>(
   'DossierMedical',
@@ -71,3 +71,4 @@ const DossierMedical = model<IDossierMedical>(
 );
 
 export { DossierMedical };
+

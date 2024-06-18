@@ -3,6 +3,7 @@ import {IMedecin} from "./medecin-model";
 
 // 1. Create an interface representing a document in MongoDB.
 interface IService extends Document {
+    _id: Schema.Types.ObjectId,
     nom: string;
     localisation: string;
     telephone: string;

@@ -4,15 +4,17 @@ import express, { response } from 'express';
 import { ifError } from 'assert';
 import { error } from 'console';
 const connectDB = require('../../connectionMedicalDb');
+//const DossierMedical = require('../models/dossierMedical-model');
+const mongoose = require('mongoose');
 
-const dossierMedicalGETONE = async (
+const dossierMedicalNirGETONE = async (
     request: express.Request,
     response: express.Response,
     next: express.NextFunction
 ) => {
     try {
     await connectDB();
-    const result = await DossierMedical.collection.find({});
+    const result = await DossierMedical.collection.findOne({nir:request.params.nir});
     console.log(request.params.nir);
     if (result) {
         console.log(result);
@@ -26,4 +28,4 @@ const dossierMedicalGETONE = async (
 }
 };
 
-export {dossierMedicalGETONE};
+export {dossierMedicalNirGETONE};

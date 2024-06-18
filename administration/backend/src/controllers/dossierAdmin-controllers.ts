@@ -23,7 +23,7 @@ const dossierAdmingetOne = async (
             // Si aucun résultat n'est trouvé, renvoyer une erreur 404
             return response.status(404).json({ message: 'Dossier administratif non trouvé' });
         }
-
+//
         const dossiertest = rowToIDossierAdmin(rows[0]);
 /*
         const dossierAdmin : IDossierAdmin =  {

@@ -4,6 +4,7 @@ import AdminRouter from "./components/AdminRouter";
 import Login from "./pages/Login";
 import {ThemeProvider} from "@mui/material";
 import administrationTheme from "./administrationTheme";
+import AuthGuard from "./components/AuthGuard";
 
 function App() {
   return (
@@ -12,7 +13,11 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path="/login" element={<Login/>}/>
-              <Route path="/*" element={<AdminRouter/>}/>
+              <Route path="/*" element={
+                <AuthGuard>
+                  <AdminRouter/>
+                </AuthGuard>
+              }/>
             </Routes>
           </BrowserRouter>
         </div>

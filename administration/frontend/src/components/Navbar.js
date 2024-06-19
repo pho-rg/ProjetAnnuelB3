@@ -7,6 +7,7 @@ import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
 import WarningIcon from "@mui/icons-material/Warning";
 import {useNavigate} from "react-router-dom";
+import {accountService} from "../_services/account.service";
 
 const Navbar = () => {
     //_____Variables_____//
@@ -29,7 +30,8 @@ const Navbar = () => {
         setOpenConfirmDialog(false);
     };
     const handleConfirmLogout = () => {
-        // TODO retirer le token
+        // Retirer le token
+        accountService.logout();
         navigate('/login');
     }
 

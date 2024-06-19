@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, UseEffect, useEffect, useRef} from 'react';
 import '../style/PatientInfo.css';
 import {patientInfoService} from "../_services/patientInfo.service";
 import ContactEmergencyIcon from '@mui/icons-material/ContactEmergency';
@@ -31,6 +31,8 @@ import {useNavigate} from "react-router-dom";
 
 const PatientInfo = (props) => {
     //_____Variables_____//
+    // Blocage du doublon useEffect
+    const flag = useRef(false);
     // Redirection
     const navigate = useNavigate();
     // Tableau de genre
@@ -61,6 +63,24 @@ const PatientInfo = (props) => {
         hopital: "Croix Rousse",
         remarques: "Le mec est complètement fou c'est une dinguerie... ratio"
     });
+
+    //_____API_____//
+    useEffect(() => {
+        if(flag.current === false) {
+            patientInfoService.getPatient(props.nir)
+                .then(res => {
+                    console.log(res.data);
+                    // TODO back
+                    //setPatientData(res.data);
+                })
+                .catch(err => console.log(err))
+        }
+        // Blocage du doublon useEffect
+        return () => flag.current = true;
+        // Résolution warnning React Hook useEffect has a missing dependency
+        //eslint-disable-next-line react-hooks/exhaustive-deps
+
+    }, []);
 
     console.log(patientData);
 

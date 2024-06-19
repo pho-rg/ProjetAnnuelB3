@@ -30,6 +30,11 @@ const isLogged = () => {
     return !!token;
 }
 
+// Récupérer le token
+const getToken = () => {
+    return localStorage.getItem('token');
+}
+
 export const accountService = {
-    isEmailValid, login, saveToken, logout, isLogged
+    isEmailValid, login, saveToken, logout, isLogged, getToken
 }

@@ -1,0 +1,41 @@
+.SearchForm{
+    display: flex;
+    flex-direction: column;
+    margin-top: 0.7%;
+    margin-bottom: 2%;
+}
+
+.searchInputs{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.nirSearch, .nameSearch{
+    display: flex;
+    flex-direction: row;
+    margin: 1em;
+}
+
+.nirSearchItem, .nameSearchItem {
+    display: block;
+    margin: auto;
+    margin-right: 0.7em;
+}
+
+.searchSeparator{
+    display: block;
+    margin: auto;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.searchAlert {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(20%) sepia(52%) saturate(590%) hue-rotate(59deg) brightness(94%) contrast(96%);
+}

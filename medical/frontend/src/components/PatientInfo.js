@@ -55,7 +55,7 @@ const PatientInfo = (props) => {
         taille: "178",
         poids: "75",
         grp_sanguin: "A+",
-        remarques: "Le mec est complètement fou c'est une dinguerie... ratio",
+        remarques: "Stade de croissance 4",
         pathologies: pathologies,
         operations: operations,
         allergies: allergies

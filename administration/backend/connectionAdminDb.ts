@@ -5,12 +5,12 @@ import mysql from 'mysql2/promise';
 
 const pool = mysql.createPool({
     host: 'localhost',
-    user: 'root',
+    user: 'adminMysql',
     password: '',  // Remplacez par votre mot de passe MariaDB
     database: 'admin',
     waitForConnections: true,
     connectionLimit: 10,
-    queueLimit: 0
+    queueLimit: 0,
 });
 
 // Démarrer le serveur

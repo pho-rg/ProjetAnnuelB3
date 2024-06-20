@@ -23,21 +23,8 @@ const dossierAdmingetOne = async (
             // Si aucun résultat n'est trouvé, renvoyer une erreur 404
             return response.status(404).json({ message: 'Dossier administratif non trouvé' });
         }
-//
         const dossiertest = rowToIDossierAdmin(rows[0]);
-/*
-        const dossierAdmin : IDossierAdmin =  {
-            num_secu: rows[0].num_secu,
-            nom: rows[0].nom,
-            prenom: rows[0].prenom,
-            sexe: rows[0].sexe,
-            date_de_naissance: rows[0].date_de_naissance,
-            telephone: rows[0].telephone,
-            adresse: rows[0].adresse,
-            id_hopital: rows[0].id_hopital,
-            id_mutuelle: rows[0].id_mutuelle,
-        };
-*/
+
         // Libérer la connexion
         connection.release();
         response.json(dossiertest);
@@ -57,11 +44,11 @@ const dossierAdminPost = async (
         const connection = await pool.getConnection();
 
         // Récupérer les données de la requête
-        const { num_secu, nom, prenom, sexe, date_de_naissance, telephone, adresse, id_hopital, id_mutuelle } = request.body;
+        const { num_secu, nom, prenom, sexe, date_naissance, telephone, adresse, id_hopital, id_mutuelle } = request.body;
 
         // Exécuter une requête SQL pour insérer les données
-        const [result] = await connection.execute('INSERT INTO dossier_administratif (num_secu, nom, prenom, sexe, date_de_naissance, telephone, adresse, id_hopital, id_mutuelle) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [num_secu, nom, prenom, sexe, date_de_naissance, telephone, adresse, id_hopital, id_mutuelle]);
+        const [result] = await connection.execute('INSERT INTO dossier_administratif (num_secu, nom, prenom, sexe, date_naissance, telephone, adresse, id_hopital, id_mutuelle) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [num_secu, nom, prenom, sexe, date_naissance, telephone, adresse, id_hopital, id_mutuelle]);
 
         // Libérer la connexion
         connection.release();
@@ -74,4 +61,27 @@ const dossierAdminPost = async (
     }
 };
 
-export {dossierAdmingetOne,dossierAdminPost};
+const dossierAdminPatch = async (request: express.Request,
+                                          response: express.Response,
+                                          next: express.NextFunction ) => {
+    // Récupérer les données de la requête
+    const { num_secu, nom, prenom, sexe, date_naissance, telephone, adresse, id_hopital, id_mutuelle } = request.body;
+    const  id  = request.params.id; //
+
+    try {
+        const connection = await pool.getConnection();
+        // Exécuter une requête SQL pour mettre à jour les données
+        const [result] = await connection.execute('UPDATE dossier_administratif SET num_secu = ?, nom = ?, prenom = ?, sexe = ?, date_naissance = ?, telephone = ?, adresse = ?, id_hopital = ?, id_mutuelle = ? WHERE num_secu = ?',
+            [num_secu, nom, prenom, sexe, date_naissance, telephone, adresse, id_hopital, id_mutuelle,id]);
+
+        connection.release();
+        console.log(`Dossier administratif avec ID: ${id} a été mis à jour`);
+        response.status(200).json({ message: 'Dossier administratif mis à jour avec succès' });
+    } catch (error) {
+        console.error('Erreur lors de la mise à jour du dossier administratif:');
+        response.status(500).json({ message: 'Erreur lors de la mise à jour du dossier administratif' });
+
+    }
+};
+
+export {dossierAdmingetOne,dossierAdminPost,dossierAdminPatch};

@@ -44,11 +44,11 @@ const dossierAdminPost = async (
         const connection = await pool.getConnection();
 
         // Récupérer les données de la requête
-        const { num_secu, nom, prenom, sexe, date_naissance, telephone, adresse, id_hopital, id_mutuelle } = request.body;
+        const { num_secu, nom, prenom, sexe, date_naissance, telephone, email, adresse, remarques, id_hopital, id_mutuelle } = request.body;
 
         // Exécuter une requête SQL pour insérer les données
-        const [result] = await connection.execute('INSERT INTO dossier_administratif (num_secu, nom, prenom, sexe, date_naissance, telephone, adresse, id_hopital, id_mutuelle) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [num_secu, nom, prenom, sexe, date_naissance, telephone, adresse, id_hopital, id_mutuelle]);
+        const [result] = await connection.execute('INSERT INTO dossier_administratif (num_secu, nom, prenom, sexe, date_naissance, telephone, email, adresse, remarques, id_hopital, id_mutuelle) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [num_secu, nom, prenom, sexe, date_naissance, telephone, email, adresse, remarques, id_hopital, id_mutuelle]);
 
         // Libérer la connexion
         connection.release();
@@ -65,14 +65,14 @@ const dossierAdminPatch = async (request: express.Request,
                                           response: express.Response,
                                           next: express.NextFunction ) => {
     // Récupérer les données de la requête
-    const { num_secu, nom, prenom, sexe, date_naissance, telephone, adresse, id_hopital, id_mutuelle } = request.body;
+    const { num_secu, nom, prenom, sexe, date_naissance, telephone, email, adresse, remarques, id_hopital, id_mutuelle } = request.body;
     const  id  = request.params.id; //
 
     try {
         const connection = await pool.getConnection();
         // Exécuter une requête SQL pour mettre à jour les données
-        const [result] = await connection.execute('UPDATE dossier_administratif SET num_secu = ?, nom = ?, prenom = ?, sexe = ?, date_naissance = ?, telephone = ?, adresse = ?, id_hopital = ?, id_mutuelle = ? WHERE num_secu = ?',
-            [num_secu, nom, prenom, sexe, date_naissance, telephone, adresse, id_hopital, id_mutuelle,id]);
+        const [result] = await connection.execute('UPDATE dossier_administratif SET num_secu = ?, nom = ?, prenom = ?, sexe = ?, date_naissance = ?, telephone = ?, email = ?, adresse = ?, remarques = ?, id_hopital = ?, id_mutuelle = ? WHERE num_secu = ?',
+            [num_secu, nom, prenom, sexe, date_naissance, telephone, email, adresse, remarques, id_hopital, id_mutuelle,id]);
 
         connection.release();
         console.log(`Dossier administratif avec ID: ${id} a été mis à jour`);

@@ -9,7 +9,9 @@ interface IDossierAdmin {
     sexe: number;
     date_naissance: Date;
     telephone:string;
+    email:string;
     adresse:string;
+    remarques:string;
     id_mutuelle: number;
     id_hopital: number;
 }
@@ -23,7 +25,9 @@ function rowToIDossierAdmin(row: RowDataPacket): IDossierAdmin {
         sexe: row['sexe'],
         date_naissance: row['date_naissance'],
         telephone:row['telephone'],
+        email:row['email'],
         adresse:row['adresse'],
+        remarques:row['remarques'],
         id_mutuelle: row['id_mutuelle'],
         id_hopital: row['id_hopital']
     };

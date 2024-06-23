@@ -12,6 +12,7 @@ interface IDossierAdmin {
     email:string;
     adresse:string;
     remarques:string;
+    nom_mutuelle:string;
     id_mutuelle: number;
     id_hopital: number;
 }
@@ -23,11 +24,12 @@ function rowToIDossierAdmin(row: RowDataPacket): IDossierAdmin {
         nom: row['nom'],
         prenom: row['prenom'],
         sexe: row['sexe'],
-        date_naissance: row['date_naissance'],
+        date_naissance: row['date_naissance'].toLocaleDateString(),
         telephone:row['telephone'],
         email:row['email'],
         adresse:row['adresse'],
         remarques:row['remarques'],
+        nom_mutuelle:row['nom_mutuelle'],
         id_mutuelle: row['id_mutuelle'],
         id_hopital: row['id_hopital']
     };

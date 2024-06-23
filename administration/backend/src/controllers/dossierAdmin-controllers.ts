@@ -17,7 +17,7 @@ const dossierAdmingetOne = async (
         console.log(id);
 
         // Exécuter une requête SQL
-        const [rows] = await connection.execute<RowDataPacket[]>('SELECT * FROM dossier_administratif WHERE num_secu = ?',[id]);
+        const [rows] = await connection.execute<RowDataPacket[]>('SELECT * FROM dossier_administratif LEFT JOIN mutuelle ON dossier_administratif.id_mutuelle = mutuelle.id_mutuelle WHERE num_secu = ?',[id]);
 
         if (rows.length === 0) {
             // Si aucun résultat n'est trouvé, renvoyer une erreur 404

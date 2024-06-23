@@ -37,6 +37,8 @@ const PatientInfo = (props) => {
     const navigate = useNavigate();
     // Tableau de genre
     const patientGender = ["HOMME", "FEMME"];
+    // Tableau de mutuelle
+    const mutuelleName = ["Santé", "Familial", "Pro"];
     // Affichage/masquage des boutons annuler et enregistrer
     const [unsavedChanges, setUnsavedChanges] = useState(false);
     // Texte du message d'alerte
@@ -54,7 +56,7 @@ const PatientInfo = (props) => {
         nir: props.nir,
         nom: "",
         prenom: "",
-        date: "",
+        date: "2020-11-05",
         sexe: "",
         telephone: "",
         adresse: "",
@@ -72,16 +74,16 @@ const PatientInfo = (props) => {
                     console.log(res.data);
 
                     setPatientData({
-                        nir: res.data.nir,
+                        //nir: props.nir,
                         nom: res.data.nom,
                         prenom: res.data.prenom,
-                        date: res.data.date,
-                        sexe: res.data.sexe === 1 ? "HOMME" : "FEMME",
+                        //date: res.data.date,
+                        sexe: res.data.sexe,
                         telephone: res.data.telephone,
                         adresse: res.data.adresse,
                         email: res.data.email,
                         mutuelle: res.data.mutuelle,
-                        hopital: res.data.hopital,
+                        //hopital: 1,
                         remarques: res.data.remarques
                     });
                 })
@@ -92,7 +94,7 @@ const PatientInfo = (props) => {
         // Résolution warnning React Hook useEffect has a missing dependency
         //eslint-disable-next-line react-hooks/exhaustive-deps
 
-    }, [props.nir]);
+    }, [props.nir, props.type]);
 
     //_____Evènement_____//
     // Gestion des changements sur les infos patient
@@ -104,6 +106,7 @@ const PatientInfo = (props) => {
             ...patientData,
             [event.target.name]: event.target.value
         });
+        console.log(patientData);
     };
     // Gestion de la fenetre de confirmation
     const handleClickOpenDialog = () => {
@@ -126,8 +129,27 @@ const PatientInfo = (props) => {
             // Si annulation de la création patient, on revient sur recherche
             navigate("/search/");
         } else {
-            // appel à l'API pour récupérer les valeurs bdd
             setUnsavedChanges(false);
+            // Remise des valeurs avant changement
+            patientInfoService.getPatient(props.nir)
+                .then(res => {
+                    //console.log(res.data);
+
+                    setPatientData({
+                        //nir: props.nir,
+                        nom: res.data.nom,
+                        prenom: res.data.prenom,
+                        date: res.data.date,
+                        sexe: res.data.sexe,
+                        telephone: res.data.telephone,
+                        adresse: res.data.adresse,
+                        email: res.data.email,
+                        mutuelle: res.data.mutuelle,
+                        //hopital: 1,
+                        remarques: res.data.remarques
+                    });
+                })
+                .catch(err => console.log(err));
         }
     };
     // Mise à jour des infos patient
@@ -296,9 +318,9 @@ const PatientInfo = (props) => {
                             <div className="adminInfoField">
                                 <Typography variant="body1" sx={{mb: 1, color: '#6FA2F8'}}>Date de
                                     naissance</Typography>
+
                                 <TextField
                                     className="InfoFieldColored"
-                                    disabled
                                     type="date"
                                     value={patientData.date}
                                     InputProps={{
@@ -309,6 +331,7 @@ const PatientInfo = (props) => {
                                         ),
                                     }}
                                     variant="outlined"
+                                    disabled={justAdded}
                                 />
                             </div>
                         </div>
@@ -399,8 +422,9 @@ const PatientInfo = (props) => {
                                     >
                                         {patientGender.map((patientGender, index) => {
                                             return (
-                                                <MenuItem key={index}
-                                                          value={patientGender}>{patientGender}</MenuItem>)
+                                                <MenuItem key={index} value={index+1}>
+                                                    {patientGender}
+                                                </MenuItem>)
                                         })}
                                     </Select>
                                 </div>
@@ -410,6 +434,7 @@ const PatientInfo = (props) => {
                                     <TextField
                                         className="infoField"
                                         name="date"
+                                        type="date"
                                         value={patientData.date}
                                         onChange={handleChange}
                                         variant="outlined"
@@ -419,15 +444,24 @@ const PatientInfo = (props) => {
                                 </div>
                                 <div className="fullAdminInfoField">
                                     <Typography variant="body1" sx={{mb: 1, color: '#6FA2F8'}}>Mutuelle</Typography>
-                                    <TextField
+                                    <Select
                                         className="infoField"
+                                        fullWidth
                                         name="mutuelle"
-                                        value={patientData.mutuelle}
+                                        value={patientData.mutuelle || ''}
                                         onChange={handleChange}
-                                        variant="outlined"
+                                        MenuProps={{
+                                            disableScrollLock: true,
+                                        }}
                                         sx={{width: "100%"}}
                                         disabled={justAdded}
-                                    />
+                                    >
+                                        {mutuelleName.map((mutuelleName, index) => (
+                                            <MenuItem key={index} value={index+1}>
+                                                {mutuelleName}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
                                 </div>
                             </div>
                             <div className="fullAdminInfoRow">

@@ -23,7 +23,7 @@ function rowToIDossierAdmin(row: RowDataPacket): IDossierAdmin {
         nom: row['nom'],
         prenom: row['prenom'],
         sexe: row['sexe'],
-        date_naissance: row['date_naissance'],
+        date_naissance: row['date_naissance'].toLocaleDateString(),
         telephone:row['telephone'],
         email:row['email'],
         adresse:row['adresse'],

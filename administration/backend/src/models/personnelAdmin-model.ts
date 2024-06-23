@@ -18,7 +18,7 @@ function rowToIPersonnelAdmin(row: RowDataPacket): IPersonnelAdmin {
         id: row['id'],
         nom: row['nom'],
         prenom: row['prenom'],
-        date_de_naissance: row['date_de_naissance'],
+        date_de_naissance: row['date_de_naissance'].toLocaleDateString(),
         email: row['email'],
         mots_de_passe: row['mots_de_passe'],
         id_service: row['id_service'],

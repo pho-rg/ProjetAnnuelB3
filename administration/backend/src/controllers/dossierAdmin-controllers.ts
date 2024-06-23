@@ -5,6 +5,34 @@ import * as querystring from "node:querystring";
 import {rows} from "mssql";
 import {RowDataPacket} from "mysql2/promise";
 
+const dossierAdminExist = async (
+    request: express.Request,
+    response: express.Response,
+    next: express.NextFunction ) => {
+
+    try {
+        // Obtenir une connexion à partir du pool
+        const connection = await pool.getConnection();
+        const id =  request.params.id;
+        console.log(id);
+
+        // Exécuter une requête SQL
+        const [rows] = await connection.execute<RowDataPacket[]>('SELECT CASE WHEN EXISTS (SELECT 1 FROM dossier_administratif WHERE num_secu = ?) THEN 1 ELSE 2 END AS result',[id]);
+
+        if (rows[0].result === 2) {
+            // Si aucun résultat n'est trouvé, renvoyer une erreur 404
+            return response.status(404).json({"exists" : false , message: 'Dossier administratif inexistant' });
+        }
+
+        // Libérer la connexion
+        connection.release();
+        return response.status(200).json({"exists" : true , message: 'Dossier administratif existant' });
+    } catch (error) {
+        console.error('Erreur lors de la récupération du dossier administratif :', error);
+        response.status(500).json({ message: 'Erreur serveur' });
+    }
+};
+
 const dossierAdmingetOne = async (
     request: express.Request,
     response: express.Response,
@@ -23,11 +51,11 @@ const dossierAdmingetOne = async (
             // Si aucun résultat n'est trouvé, renvoyer une erreur 404
             return response.status(404).json({ message: 'Dossier administratif non trouvé' });
         }
-        const dossiertest = rowToIDossierAdmin(rows[0]);
+        const dossierAdmin = rowToIDossierAdmin(rows[0]);
 
         // Libérer la connexion
         connection.release();
-        response.json(dossiertest);
+        response.json(dossierAdmin);
     } catch (error) {
         console.error('Erreur lors de la récupération du dossier administratif :', error);
         response.status(500).json({ message: 'Erreur serveur' });
@@ -84,4 +112,4 @@ const dossierAdminPatch = async (request: express.Request,
     }
 };
 
-export {dossierAdmingetOne,dossierAdminPost,dossierAdminPatch};
+export {dossierAdminExist,dossierAdmingetOne,dossierAdminPost,dossierAdminPatch};

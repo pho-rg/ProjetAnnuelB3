@@ -1,4 +1,5 @@
 import { RowDataPacket } from 'mysql2/promise';
+import moment, { Moment } from 'moment';
 import {Sexe} from '../utils/customTypes/sexe-type';
 
 // Interface représentant un document dans MySQL
@@ -7,7 +8,7 @@ interface IDossierAdmin {
     nom: string;
     prenom: string;
     sexe: number;
-    date_naissance: Date;
+    date_naissance: string;
     telephone:string;
     email:string;
     adresse:string;
@@ -24,7 +25,7 @@ function rowToIDossierAdmin(row: RowDataPacket): IDossierAdmin {
         nom: row['nom'],
         prenom: row['prenom'],
         sexe: row['sexe'],
-        date_naissance: row['date_naissance'].toLocaleDateString(),
+        date_naissance: moment(row['date_naissance'], 'DD MM YYYY').format('YYYY-MM-DD'),
         telephone:row['telephone'],
         email:row['email'],
         adresse:row['adresse'],

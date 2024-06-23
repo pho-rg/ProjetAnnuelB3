@@ -62,7 +62,7 @@ const PatientInfo = (props) => {
         adresse: "",
         email: "",
         id_mutuelle: "",
-        id_hopital: "",
+        id_hopital: 1,
         remarques: ""
     });
 
@@ -71,7 +71,7 @@ const PatientInfo = (props) => {
         if (props.type !== "create" && flag.current === false) {
             patientInfoService.getAdminFile(props.nir)
                 .then(res => {
-                    console.log(res.data);
+                    //console.log(res.data);
 
                     setPatientData({
                         num_secu: props.nir,
@@ -155,24 +155,22 @@ const PatientInfo = (props) => {
     };
     // Mise à jour des infos patient
     const handleSave = () => {
-        let error = false;
         if (props.type === "create") {
-            // appel à l'API pour créer le profil administratif
-            if (!error) {
-                // TODO back rediriger une fois API ok
-                //navigate(`/patient-overview/${props.nir}`); // on passe sur le PatientOverview
-                setAlertText("Succès de la création du profil administratif.");
-                setShowSuccessAlert(true);
-                setJustAdded(true);
-            } else {
-                setAlertText("Une erreur est survenue lors de la création du profil administratif.");
-                setShowErrorAlert(true);
-            }
+            patientInfoService.postAdminFile(patientData)
+                .then(res => {
+                    console.log(res);
+                    setAlertText("Succès de la création du profil administratif.");
+                    setShowSuccessAlert(true);
+                    setJustAdded(true);
+                })
+                .catch(err => {
+                    console.log(err);
+                    setAlertText("Une erreur est survenue lors de la création du profil administratif.");
+                    setShowErrorAlert(true);
+                });
         } else {
             patientInfoService.patchAdminFile(patientData)
                 .then(res => {
-                    console.log(patientData);
-                    console.log("patch here");
                     console.log(res);
                     setAlertText("Les changements ont bien été enregistrés.");
                     setShowSuccessAlert(true); // si réussite
@@ -453,7 +451,7 @@ const PatientInfo = (props) => {
                                     <Select
                                         className="infoField"
                                         fullWidth
-                                        name="id_smutuelle"
+                                        name="id_mutuelle"
                                         value={patientData.id_mutuelle || ''}
                                         onChange={handleChange}
                                         MenuProps={{

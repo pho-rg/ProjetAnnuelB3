@@ -55,11 +55,15 @@ const getAdminFile = (nir) => {
     return Axios.get('/dossAdmin/'+nir);
 }
 
+const postAdminFile = (patientData) => {
+    return Axios.post('/dossAdmin/post', patientData);
+}
+
 const patchAdminFile = (patientData) => {
     return Axios.patch('/dossAdmin/patch/'+patientData.num_secu, patientData);
 }
 
 export const patientInfoService = {
     isNomValide, isPrenomValide, isDateValide, isTelephoneValide, isAdresseValide,
-    isEmailValide, isRemarqueValide, getAdminFile, patchAdminFile
+    isEmailValide, isRemarqueValide, getAdminFile, postAdminFile, patchAdminFile
 }

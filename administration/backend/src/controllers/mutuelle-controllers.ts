@@ -1,6 +1,6 @@
 import {pool} from '../../connectionAdminDb'
 import {IMutuelle , rowToIMutuelle} from "../models/mutuelle-model";
-import express from "express";
+import express, {json} from "express";
 import * as querystring from "node:querystring";
 import {rows} from "mssql";
 import {RowDataPacket} from "mysql2/promise";
@@ -15,7 +15,7 @@ const mutuelleGetAll = async ( request: express.Request,
 
         // Exécuter une requête SQL
         const [rows] = await connection.execute<RowDataPacket[]>('SELECT * FROM mutuelle');
-        const mutuelles = new Set<IMutuelle>();
+        let mutuelles = new Set<IMutuelle>();
         if (rows.length === 0) {
             // Si aucun résultat n'est trouvé, renvoyer une erreur 404
             return response.status(404).json({ message: 'Aucune mutuelle trouvé' });

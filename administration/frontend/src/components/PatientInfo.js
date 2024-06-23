@@ -38,7 +38,7 @@ const PatientInfo = (props) => {
     // Tableau de genre
     const patientGender = ["HOMME", "FEMME"];
     // Tableau de mutuelle
-    const mutuelleName = ["Santé", "Familial", "Pro"];
+    const [mutuelleList, setMutuelleList] = useState([]);
     // Affichage/masquage des boutons annuler et enregistrer
     const [unsavedChanges, setUnsavedChanges] = useState(false);
     // Texte du message d'alerte
@@ -56,7 +56,7 @@ const PatientInfo = (props) => {
         num_secu: props.nir,
         nom: "",
         prenom: "",
-        date_naissance: "2020-11-05",
+        date_naissance: "",
         sexe: "",
         telephone: "",
         adresse: "",
@@ -67,18 +67,33 @@ const PatientInfo = (props) => {
     });
 
     //_____API_____//
+    // Appel API pour la liste des mutuelles
+    useEffect(() => {
+        const fetchMutuelles = async () => {
+            try {
+                const response = await patientInfoService.getAllMutuelle();
+                setMutuelleList(response.data);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        fetchMutuelles();
+    }, []);
+
+    // Appel API pour les infos du patient
     useEffect(() => {
         if (props.type !== "create" && flag.current === false) {
             patientInfoService.getAdminFile(props.nir)
                 .then(res => {
-                    //console.log(res.data);
+                    console.log(res.data);
 
                     setPatientData({
                         num_secu: props.nir,
                         nom: res.data.nom,
                         prenom: res.data.prenom,
-                        //date_naissance: res.data.date_naissance,
-                        date_naissance: "2020-11-05",
+                        date_naissance: res.data.date_naissance,
+                        //date_naissance: "2020-11-05",
                         sexe: res.data.sexe,
                         telephone: res.data.telephone,
                         adresse: res.data.adresse,
@@ -133,14 +148,14 @@ const PatientInfo = (props) => {
             // Remise des valeurs avant changement
             patientInfoService.getAdminFile(props.nir)
                 .then(res => {
-                    //console.log(res.data);
+                    console.log(res.data);
 
                     setPatientData({
                         num_secu: props.nir,
                         nom: res.data.nom,
                         prenom: res.data.prenom,
-                        //date_naissance: res.data.date_naissance,
-                        date_naissance: "2020-11-05",
+                        date_naissance: res.data.date_naissance,
+                        //date_naissance: "2020-11-05",
                         sexe: res.data.sexe,
                         telephone: res.data.telephone,
                         adresse: res.data.adresse,
@@ -460,10 +475,9 @@ const PatientInfo = (props) => {
                                         sx={{width: "100%"}}
                                         disabled={justAdded}
                                     >
-                                        {mutuelleName.map((mutuelleName, index) => (
-                                            //key=mutuelleName.id
-                                            <MenuItem key={index} value={index+1}>
-                                                {mutuelleName}
+                                        {mutuelleList.map((mutuelle) => (
+                                            <MenuItem key={mutuelle.id_mutuelle} value={mutuelle.id_mutuelle}>
+                                                {mutuelle.nom_mutuelle}
                                             </MenuItem>
                                         ))}
                                     </Select>

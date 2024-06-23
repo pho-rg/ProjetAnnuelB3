@@ -49,6 +49,7 @@ const SearchForm = (props) => {
             navigate(`/patient-overview/${searchData.nir}`);
             // TODO fix bug
             window.location.reload();
+            //console.log("admin exists")
 
         }
         // Redirection vers création du patient
@@ -56,9 +57,10 @@ const SearchForm = (props) => {
             navigate(`/patient-register/${searchData.nir}`);
             // TODO fix bug
             window.location.reload();
-
+            //console.log("admin does not exist")
         }
     }
+
     const handleSearch = () => {
         // Contrôle de validité des champs de recherche
         if (!searchService.isNameValid(searchData.nom)) {

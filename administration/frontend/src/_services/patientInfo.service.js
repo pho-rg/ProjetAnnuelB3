@@ -51,8 +51,12 @@ const isRemarqueValide = (remarque) => {
 }
 
 //_____API_____//
+const getAllMutuelle = (mutuelleList) => {
+    return Axios.get('mutuelle/getAll', mutuelleList);
+}
+
 const getAdminFile = (nir) => {
-    return Axios.get('/dossAdmin/'+nir);
+    return Axios.get('/dossAdmin/getOne/'+nir);
 }
 
 const postAdminFile = (patientData) => {
@@ -65,5 +69,5 @@ const patchAdminFile = (patientData) => {
 
 export const patientInfoService = {
     isNomValide, isPrenomValide, isDateValide, isTelephoneValide, isAdresseValide,
-    isEmailValide, isRemarqueValide, getAdminFile, postAdminFile, patchAdminFile
+    isEmailValide, isRemarqueValide, getAllMutuelle, getAdminFile, postAdminFile, patchAdminFile
 }

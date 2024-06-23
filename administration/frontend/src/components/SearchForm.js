@@ -47,10 +47,16 @@ const SearchForm = (props) => {
         // Redirection vers patient overview si dossier existant
         else if (searchService.adminFileExists(searchData.nir)) {
             navigate(`/patient-overview/${searchData.nir}`);
+            // TODO fix bug
+            window.location.reload();
+
         }
         // Redirection vers création du patient
         else {
             navigate(`/patient-register/${searchData.nir}`);
+            // TODO fix bug
+            window.location.reload();
+
         }
     }
     const handleSearch = () => {

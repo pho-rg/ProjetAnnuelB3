@@ -1,3 +1,4 @@
+import { accountService } from "./account.service";
 import Axios from './caller.service';
 
 //_____Controle des champs_____//
@@ -51,7 +52,7 @@ const isRemarqueValide = (remarque) => {
 
 //_____API_____//
 const getPatient = (nir) => {
-    return Axios.get('/patients/'+nir);
+    return Axios.get('/dossAdmin/'+nir);
 }
 
 export const patientInfoService = {

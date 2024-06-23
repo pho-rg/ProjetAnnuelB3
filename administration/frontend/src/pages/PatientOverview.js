@@ -12,8 +12,6 @@ const PatientOverview = () => {
     const [alertOpen, setAlertOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
     const {currentPatientNIR} = useParams();
-    const medFileExists = searchService.medFileExists(currentPatientNIR);
-    const [medFileNotExistsAlert, setMedFileNotExistsAlert] = useState(!medFileExists);
 
     //_____Contrôle_____//
     // Si le dossier admin n'existe pas pour ce patient, on redirige vers patient-register
@@ -21,34 +19,25 @@ const PatientOverview = () => {
         if (!searchService.adminFileExists(currentPatientNIR)){
             navigate(`/patient-register/${currentPatientNIR}`);
         }
-    });
-
-    useEffect(() => {
-        if (alertMessage !== "") {
-            setMedFileNotExistsAlert(false);
-        }
-    }, [alertMessage]);
+    }, [alertMessage, currentPatientNIR, navigate]);
 
     const handleCloseAlert = () => {
-        setMedFileNotExistsAlert(false);
         setAlertOpen(false);
-    }
+    };
 
     return (
         <div className="PatientOverview">
             <SearchForm setAlertOpen={setAlertOpen} setAlertMessage={setAlertMessage}/>
-            { (alertOpen || medFileNotExistsAlert) &&
-                <div className="noMedFileAlert">
+            { alertOpen &&
+                <div className="noAdminFileAlert">
                     <Alert severity="error"
                            onClose={handleCloseAlert}
                            sx={{minWidth: '30%'}}>
-                        {medFileNotExistsAlert ?
-                            "Une erreur est survenue lors de la récupération du dossier médical." :
-                            alertMessage}
+                        {alertMessage}
                     </Alert>
                 </div>
             }
-            {medFileExists && <div className="PatientInfoContainer"><PatientInfo nir={currentPatientNIR} type="display" /></div>}
+            <div className="PatientInfoContainer"><PatientInfo nir={currentPatientNIR} type="display" /></div>
         </div>
     );
 };

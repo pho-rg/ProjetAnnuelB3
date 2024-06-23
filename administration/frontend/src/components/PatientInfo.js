@@ -52,37 +52,47 @@ const PatientInfo = (props) => {
     const [patientData, setPatientData] = useState({
         // partie administrative
         nir: props.nir,
-        nom: "Org",
-        prenom: "Ph",
-        date: "2004-02-18",
-        sexe: "HOMME",
-        telephone: "0625121998",
-        adresse: "25 rue du Laurier 40300 Mont de Marsan",
-        email: "l.aubry@gmail.com",
-        mutuelle: "Maif",
-        hopital: "Croix Rousse",
-        remarques: "Le mec est complètement fou c'est une dinguerie... ratio"
+        nom: "",
+        prenom: "",
+        date: "",
+        sexe: "",
+        telephone: "",
+        adresse: "",
+        email: "",
+        mutuelle: "",
+        hopital: "",
+        remarques: ""
     });
 
     //_____API_____//
     useEffect(() => {
-        if(flag.current === false) {
+        if (props.type !== "create" && flag.current === false) {
             patientInfoService.getPatient(props.nir)
                 .then(res => {
                     console.log(res.data);
-                    // TODO back
-                    //setPatientData(res.data);
+
+                    setPatientData({
+                        nir: res.data.nir,
+                        nom: res.data.nom,
+                        prenom: res.data.prenom,
+                        date: res.data.date,
+                        sexe: res.data.sexe === 1 ? "HOMME" : "FEMME",
+                        telephone: res.data.telephone,
+                        adresse: res.data.adresse,
+                        email: res.data.email,
+                        mutuelle: res.data.mutuelle,
+                        hopital: res.data.hopital,
+                        remarques: res.data.remarques
+                    });
                 })
-                .catch(err => console.log(err))
+                .catch(err => console.log(err));
         }
         // Blocage du doublon useEffect
         return () => flag.current = true;
         // Résolution warnning React Hook useEffect has a missing dependency
         //eslint-disable-next-line react-hooks/exhaustive-deps
 
-    }, []);
-
-    console.log(patientData);
+    }, [props.nir]);
 
     //_____Evènement_____//
     // Gestion des changements sur les infos patient

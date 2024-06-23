@@ -53,37 +53,38 @@ const PatientInfo = (props) => {
     // Données patient
     const [patientData, setPatientData] = useState({
         // partie administrative
-        nir: props.nir,
+        num_secu: props.nir,
         nom: "",
         prenom: "",
-        date: "2020-11-05",
+        date_naissance: "2020-11-05",
         sexe: "",
         telephone: "",
         adresse: "",
         email: "",
-        mutuelle: "",
-        hopital: "",
+        id_mutuelle: "",
+        id_hopital: "",
         remarques: ""
     });
 
     //_____API_____//
     useEffect(() => {
         if (props.type !== "create" && flag.current === false) {
-            patientInfoService.getPatient(props.nir)
+            patientInfoService.getAdminFile(props.nir)
                 .then(res => {
                     console.log(res.data);
 
                     setPatientData({
-                        //nir: props.nir,
+                        num_secu: props.nir,
                         nom: res.data.nom,
                         prenom: res.data.prenom,
-                        //date: res.data.date,
+                        //date_naissance: res.data.date_naissance,
+                        date_naissance: "2020-11-05",
                         sexe: res.data.sexe,
                         telephone: res.data.telephone,
                         adresse: res.data.adresse,
                         email: res.data.email,
-                        mutuelle: res.data.mutuelle,
-                        //hopital: 1,
+                        id_mutuelle: res.data.id_mutuelle,
+                        id_hopital: 1,
                         remarques: res.data.remarques
                     });
                 })
@@ -106,7 +107,6 @@ const PatientInfo = (props) => {
             ...patientData,
             [event.target.name]: event.target.value
         });
-        console.log(patientData);
     };
     // Gestion de la fenetre de confirmation
     const handleClickOpenDialog = () => {
@@ -131,21 +131,22 @@ const PatientInfo = (props) => {
         } else {
             setUnsavedChanges(false);
             // Remise des valeurs avant changement
-            patientInfoService.getPatient(props.nir)
+            patientInfoService.getAdminFile(props.nir)
                 .then(res => {
                     //console.log(res.data);
 
                     setPatientData({
-                        //nir: props.nir,
+                        num_secu: props.nir,
                         nom: res.data.nom,
                         prenom: res.data.prenom,
-                        date: res.data.date,
+                        //date_naissance: res.data.date_naissance,
+                        date_naissance: "2020-11-05",
                         sexe: res.data.sexe,
                         telephone: res.data.telephone,
                         adresse: res.data.adresse,
                         email: res.data.email,
-                        mutuelle: res.data.mutuelle,
-                        //hopital: 1,
+                        id_mutuelle: res.data.id_mutuelle,
+                        id_hopital: res.data.id_hopital,
                         remarques: res.data.remarques
                     });
                 })
@@ -168,14 +169,19 @@ const PatientInfo = (props) => {
                 setShowErrorAlert(true);
             }
         } else {
-            // appel à l'API pour modifier le profil administratif
-            if (!error) {
-                setAlertText("Les changements ont bien été enregistrés.");
-                setShowSuccessAlert(true); // si réussite
-            } else {
-                setAlertText("Une erreur est survenue lors de la modification du profil médical.");
-                setShowErrorAlert(true); // masquage de l'alerte erreur
-            }
+            patientInfoService.patchAdminFile(patientData)
+                .then(res => {
+                    console.log(patientData);
+                    console.log("patch here");
+                    console.log(res);
+                    setAlertText("Les changements ont bien été enregistrés.");
+                    setShowSuccessAlert(true); // si réussite
+                })
+                .catch(err => {
+                    console.log(err);
+                    setAlertText("Une erreur est survenue lors de la modification du profil médical.");
+                    setShowErrorAlert(true); // masquage de l'alerte erreur
+                });
         }
         handleCloseDialog();
         setUnsavedChanges(false);
@@ -190,7 +196,7 @@ const PatientInfo = (props) => {
         } else if (!patientInfoService.isPrenomValide(patientData.prenom)) {
             setAlertText("Saisie incorrecte, le prénom n'est pas valide.");
             return false;
-        } else if (!patientInfoService.isDateValide(patientData.date)) {
+        } else if (!patientInfoService.isDateValide(patientData.date_naissance)) {
             setAlertText("Saisie incorrecte, la date n'est pas valide.");
             return false;
         } else if (!patientInfoService.isAdresseValide(patientData.adresse)) {
@@ -322,7 +328,7 @@ const PatientInfo = (props) => {
                                 <TextField
                                     className="InfoFieldColored"
                                     type="date"
-                                    value={patientData.date}
+                                    value={patientData.date_naissance}
                                     InputProps={{
                                         endAdornment: (
                                             <InputAdornment position="end">
@@ -433,9 +439,9 @@ const PatientInfo = (props) => {
                                         naissance</Typography>
                                     <TextField
                                         className="infoField"
-                                        name="date"
+                                        name="date_naissance"
                                         type="date"
-                                        value={patientData.date}
+                                        value={patientData.date_naissance}
                                         onChange={handleChange}
                                         variant="outlined"
                                         sx={{width: "100%"}}
@@ -447,8 +453,8 @@ const PatientInfo = (props) => {
                                     <Select
                                         className="infoField"
                                         fullWidth
-                                        name="mutuelle"
-                                        value={patientData.mutuelle || ''}
+                                        name="id_smutuelle"
+                                        value={patientData.id_mutuelle || ''}
                                         onChange={handleChange}
                                         MenuProps={{
                                             disableScrollLock: true,
@@ -457,6 +463,7 @@ const PatientInfo = (props) => {
                                         disabled={justAdded}
                                     >
                                         {mutuelleName.map((mutuelleName, index) => (
+                                            //key=mutuelleName.id
                                             <MenuItem key={index} value={index+1}>
                                                 {mutuelleName}
                                             </MenuItem>

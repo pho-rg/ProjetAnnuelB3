@@ -51,11 +51,15 @@ const isRemarqueValide = (remarque) => {
 }
 
 //_____API_____//
-const getPatient = (nir) => {
+const getAdminFile = (nir) => {
     return Axios.get('/dossAdmin/'+nir);
+}
+
+const patchAdminFile = (patientData) => {
+    return Axios.patch('/dossAdmin/patch/'+patientData.num_secu, patientData);
 }
 
 export const patientInfoService = {
     isNomValide, isPrenomValide, isDateValide, isTelephoneValide, isAdresseValide,
-    isEmailValide, isRemarqueValide, getPatient
+    isEmailValide, isRemarqueValide, getAdminFile, patchAdminFile
 }

@@ -9,7 +9,7 @@ const isEmailValid = (email) => {
 // Vérification des identifiants de connexion
 const login = (credentials) => {
     // Appel API
-    return Axios.post('/auth/login/', credentials)
+    return Axios.post('/login/', credentials)
 }
 
 // Sauvegarder le token

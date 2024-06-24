@@ -28,7 +28,7 @@ const adminFileExists = (nir) => {
 };
 
 /*const adminFileExists = (nir) => {
-    return Axios.get('/dossAdmin/exist/' + nir)
+    return Axios.get('/dossAdmin/exists/' + nir)
         .then(res => {
             if (res.status === 200) {
                 console.log('dossAdmin exists');
@@ -50,9 +50,8 @@ const adminFileExists = (nir) => {
 };*/
 
 const getAdminSearch = (nom, prenom) => {
-    //return Axios.get('/dossAdmin/search?nom='+nom+'&'+prenom);
-    return ["107102509803594", "108051202210801", "194070502211575"];
-}
+    return Axios.get('/dossAdmin/search?nom='+nom+'&prenom='+prenom);
+};
 
 export const searchService = {
     isNirValid, isNameValid, isDateValid, adminFileExists, getAdminSearch

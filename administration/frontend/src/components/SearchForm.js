@@ -94,6 +94,8 @@ const SearchForm = (props) => {
             // Redirection vers le résultat de la recherche
         } else {
             navigate(`/search/result/${searchData.nom}/${searchData.prenom}/${searchData.date}`)
+            // TODO fix bug
+            window.location.reload();
         }
     }
 

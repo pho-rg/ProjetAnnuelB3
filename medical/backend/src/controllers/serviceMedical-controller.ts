@@ -11,7 +11,7 @@ const serviceGET = async (
     next: express.NextFunction
 ) => {
     try {
-    await connectDB();
+
     const result = await Service.find();
     console.log(request.params.nir);
     if (result) {

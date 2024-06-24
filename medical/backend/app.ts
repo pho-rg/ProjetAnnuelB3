@@ -8,14 +8,13 @@ import utilisateur from './src/routes/utilisateur-route';
 import dossierMedical from  './src/routes/dossierMedical-route'
 import service from  './src/routes/service-route'
 
-
 const app = express();
 const portHost = config.HOST;
 const API_URL = config.API;
-
+const connectDB = require("./connectionMedicalDb");
 
 app.use(bodyParser.json());
-
+connectDB();
 ///// 1
 // app.use(
 //   (req: express.Request, res: express.Response, next: express.NextFunction) => {

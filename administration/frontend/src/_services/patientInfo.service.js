@@ -1,3 +1,4 @@
+import { accountService } from "./account.service";
 import Axios from './caller.service';
 
 //_____Controle des champs_____//
@@ -50,11 +51,23 @@ const isRemarqueValide = (remarque) => {
 }
 
 //_____API_____//
-const getPatient = (nir) => {
-    return Axios.get('/patients/'+nir);
+const getAllMutuelle = (mutuelleList) => {
+    return Axios.get('mutuelle/getAll', mutuelleList);
+}
+
+const getAdminFile = (nir) => {
+    return Axios.get('/dossAdmin/getOne/'+nir);
+}
+
+const postAdminFile = (patientData) => {
+    return Axios.post('/dossAdmin/post', patientData);
+}
+
+const patchAdminFile = (patientData) => {
+    return Axios.patch('/dossAdmin/patch/'+patientData.num_secu, patientData);
 }
 
 export const patientInfoService = {
     isNomValide, isPrenomValide, isDateValide, isTelephoneValide, isAdresseValide,
-    isEmailValide, isRemarqueValide, getPatient
+    isEmailValide, isRemarqueValide, getAllMutuelle, getAdminFile, postAdminFile, patchAdminFile
 }

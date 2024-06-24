@@ -28,7 +28,7 @@ const Login = () => {
     // Objet des infos de connexion (email, mdp)
     const [credentials, setCredentials] = useState({
         email: '',
-        password: ''
+        mots_de_passe: ''
     });
 
     // Bool d'affichage/masquage du mdp
@@ -54,17 +54,22 @@ const Login = () => {
         event.preventDefault();
         if (accountService.isEmailValid(credentials.email)) {
             // TODO provisoire
-            accountService.saveToken("abc");
-            console.log(localStorage.getItem('token'));
-            navigate('/search');
+            //accountService.saveToken("abc");
+            //console.log(localStorage.getItem('token'));
+            //navigate('/search');
             // TODO back
-            /*accountService.login(credentials)
+            console.log(credentials);
+            accountService.login(credentials)
                 .then(res => {
                     console.log(res);
-                    accountService.saveToken(res.data.access_token)
-                    //navigate('/search');
+                    accountService.saveToken(res.data.token)
+                    navigate('/search');
                 })
-                .catch(error => console.log(error))*/
+                .catch(error => {
+                    console.log(error)
+                    setAlertMessage(" Identifiants incorrects");
+                    setAlertOpen(true);
+                })
         } else {
             setAlertMessage(" Identifiants incorrects");
             setAlertOpen(true);
@@ -131,8 +136,8 @@ const Login = () => {
                                 </InputAdornment>
                             }
                             label="Mot de passe"
-                            name="password"
-                            value={credentials.password}
+                            name="mots_de_passe"
+                            value={credentials.mots_de_passe}
                             onChange={handleChange}
                             onKeyDown={handleKeyDown}
                         />

@@ -22,7 +22,6 @@ const userConnexion = async (
 
     try {
 
-        await connectDB();
         const email = request.body.email;
         const mots_de_passe = request.body.mots_de_passe;
 

@@ -8,7 +8,6 @@ interface IPersonnelAdmin {
     prenom: string;
     date_naissance: string ;
     email: string;
-    mots_de_passe: string;
     id_service: number;
     nom_service:string;
     id_hopital: number;
@@ -23,7 +22,6 @@ function rowToIPersonnelAdmin(row: RowDataPacket): IPersonnelAdmin {
         prenom: row['prenom'],
         date_naissance: moment(row['date_naissance'], 'DD MM YYYY').format('YYYY-MM-DD'),
         email: row['email'],
-        mots_de_passe:"",
         id_service: row['id_service'],
         nom_service: row['nom_service'],
         id_hopital: row['id_hopital'],

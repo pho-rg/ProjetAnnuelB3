@@ -13,7 +13,7 @@ const dossierMedicalNirGETONE = async (
     next: express.NextFunction
 ) => {
     try {
-    await connectDB();
+
     const result = await DossierMedical.collection.findOne({nir:request.params.nir});
     console.log(request.params.nir);
     if (result) {

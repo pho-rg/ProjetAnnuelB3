@@ -17,24 +17,22 @@ const router = express.Router();
 const jwt = jsonwebtoken
 
 //Login
-router.post('/login',userConnexion);
+router.post('/login', userConnexion);
 
 
 //Personnels
-router.get('/persAdmin/:email',checkTokenValid,personnelAdmingetOne);
-
+router.get('/persAdmin/:email', checkTokenValid, personnelAdmingetOne);
 
 
 //Dossiers
-router.get('/dossAdmin/exist/:id',checkTokenValid,dossierAdminExist)
-router.get('/dossAdmin/getOne/:id',checkTokenValid, dossierAdmingetOne);
-router.get('/dossAdmin/search',checkTokenValid, dossierAdminSearch);
-router.post('/dossAdmin/post',checkTokenValid, dossierAdminPost);
-router.patch('/dossAdmin/patch/:id',checkTokenValid, dossierAdminPatch);
-
+router.get('/dossAdmin/exist/:id', checkTokenValid, dossierAdminExist)
+router.get('/dossAdmin/getOne/:id', checkTokenValid, dossierAdmingetOne);
+router.get('/dossAdmin/search', checkTokenValid, dossierAdminSearch);
+router.post('/dossAdmin/post', checkTokenValid, dossierAdminPost);
+router.patch('/dossAdmin/patch/:id', checkTokenValid, dossierAdminPatch);
 
 
 //Mutuelles
-router.get('/mutuelle/getAll/',mutuelleGetAll);
+router.get('/mutuelle/getAll', checkTokenValid, mutuelleGetAll);
 
 export = router;

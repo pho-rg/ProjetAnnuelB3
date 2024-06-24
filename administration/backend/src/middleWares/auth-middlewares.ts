@@ -1,12 +1,12 @@
 import {rows} from "mssql";
 import {RowDataPacket} from "mysql2/promise";
 import {pool} from "../../connectionAdminDb";
-
-const secretKey = "HopitalMigonKey";
 import bcrypt from "bcryptjs";
 import {sign, verify} from "jsonwebtoken";
 import exp from "node:constants";
 import express from "express";
+import dotenv from 'dotenv';
+dotenv.config();
 
 
 /*** Extraction du token*/
@@ -35,7 +35,7 @@ const checkTokenValid = ( request: express.Request,
      return response.status(401).json({message:'token non valide ou absent!'})
  }
 
- verify(token,secretKey,(err,decodedToken)=>{
+ verify(token,process.env.SECRET_KEY as string,(err,decodedToken)=>{
      if(err){
          return response.status(401).json({message:'Bad token'})
      }

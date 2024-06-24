@@ -9,7 +9,7 @@ import {
     dossierAdminPost
 } from "../controllers/dossierAdmin-controllers";
 import {mutuelleGetAll} from "../controllers/mutuelle-controllers";
-import {userConnexion} from "../controllers/auth-controllers";
+import {userConnexion} from "../controllers/authAdmin-controllers";
 import {checkTokenValid} from "../middleWares/auth-middlewares"
 
 
@@ -21,7 +21,7 @@ router.post('/login',userConnexion);
 
 
 //Personnels
-router.get('/persAdmin/:id',checkTokenValid,personnelAdmingetOne);
+router.get('/persAdmin/:email',checkTokenValid,personnelAdmingetOne);
 
 
 

@@ -14,7 +14,6 @@ const dossierAdminExist = async (
         // Obtenir une connexion à partir du pool
         const connection = await pool.getConnection();
         const id = request.params.id;
-        console.log(id);
 
         // Exécuter une requête SQL
         const [rows] = await connection.execute<RowDataPacket[]>('SELECT CASE WHEN EXISTS (SELECT 1 FROM dossier_administratif WHERE num_secu = ?) THEN 1 ELSE 2 END AS result', [id]);
@@ -72,7 +71,6 @@ const dossierAdmingetOne = async (
         // Obtenir une connexion à partir du pool
         const connection = await pool.getConnection();
         const id = request.params.id;
-        console.log(id);
 
         // Exécuter une requête SQL
         const [rows] = await connection.execute<RowDataPacket[]>('SELECT * FROM dossier_administratif LEFT JOIN mutuelle ON dossier_administratif.id_mutuelle = mutuelle.id_mutuelle WHERE num_secu = ?', [id]);

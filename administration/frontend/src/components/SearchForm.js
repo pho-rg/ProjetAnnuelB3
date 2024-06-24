@@ -43,6 +43,7 @@ const SearchForm = (props) => {
         if (!searchService.isNirValid(searchData.nir)) {
             props.setAlertMessage("Le numéro NIR renseigné est invalide.");
             props.setAlertOpen(true);
+            return;
         }
         // Redirection vers patient overview si dossier existant
         else if (searchService.adminFileExists(searchData.nir)) {
@@ -59,7 +60,25 @@ const SearchForm = (props) => {
             window.location.reload();
             //console.log("admin does not exist")
         }
-    }
+
+        // Redirection vers patient overview si dossier existant
+        /*searchService.adminFileExists(searchData.nir)
+            .then(adminExists => {
+                if (adminExists) {
+                    navigate(`/patient-overview/${searchData.nir}`);
+                    // TODO fix bug
+                    window.location.reload();
+                } else {
+                    navigate(`/patient-register/${searchData.nir}`);
+                    // TODO fix bug
+                    window.location.reload();
+                }
+            })
+            .catch(err => {
+                console.error('Error during admin check:', err);
+            });*/
+    };
+
 
     const handleSearch = () => {
         // Contrôle de validité des champs de recherche

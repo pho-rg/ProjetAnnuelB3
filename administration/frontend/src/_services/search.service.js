@@ -25,17 +25,35 @@ const isDateValid = (date) => {
 //_____API_____//
 const adminFileExists = (nir) => {
     return nir !== "104021730625478";
-    //Axios.get('/dossAdmin/exist/' + nir)
-    //    .then(res => {
-    //        return res.data === true;
-    //    })
-    //    .catch(err => {
-    //        console.log(err);
-    //        return false;
-    //    });
 };
 
+/*const adminFileExists = (nir) => {
+    return Axios.get('/dossAdmin/exist/' + nir)
+        .then(res => {
+            if (res.status === 200) {
+                console.log('dossAdmin exists');
+                return true;
+            } else {
+                console.log(res);
+            }
+        })
+        .catch(err => {
+            if (err.response) {
+                if (err.response.status === 404) {
+                    console.log('404 dossAdmin does not exist');
+                    return false;
+                } else {
+                    console.log('Problème à la vérification');
+                }
+            }
+        });
+};*/
+
+const getAdminSearch = (nom, prenom) => {
+    //return Axios.get('/dossAdmin/search?nom='+nom+'&'+prenom);
+    return ["107102509803594", "108051202210801", "194070502211575"];
+}
 
 export const searchService = {
-    isNirValid, isNameValid, isDateValid, adminFileExists
+    isNirValid, isNameValid, isDateValid, adminFileExists, getAdminSearch
 }

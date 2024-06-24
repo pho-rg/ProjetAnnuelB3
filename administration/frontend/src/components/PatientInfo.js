@@ -320,11 +320,11 @@ const PatientInfo = (props) => {
                                 <TextField
                                     className="InfoFieldColored"
                                     disabled
-                                    value={patientData.sexe.substring(0, 1).toUpperCase() + patientData.sexe.substring(1).toLowerCase()}
+                                    value={patientData.sexe === 1 ? "HOMME" : "FEMME"}
                                     InputProps={{
                                         endAdornment: (
                                             <InputAdornment position="end">
-                                                {patientData.sexe === "HOMME" ? <MaleIcon sx={{color: '#6FA2F8'}}/> :
+                                                {patientData.sexe === 1 ? <MaleIcon sx={{color: '#6FA2F8'}}/> :
                                                     <FemaleIcon sx={{color: '#6FA2F8'}}/>}
                                             </InputAdornment>
                                         ),
@@ -348,7 +348,7 @@ const PatientInfo = (props) => {
                                         ),
                                     }}
                                     variant="outlined"
-                                    disabled={justAdded}
+                                    disabled
                                 />
                             </div>
                         </div>

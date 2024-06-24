@@ -53,11 +53,6 @@ const Login = () => {
     const handleLogin = (event) => {
         event.preventDefault();
         if (accountService.isEmailValid(credentials.email)) {
-            // TODO provisoire
-            //accountService.saveToken("abc");
-            //console.log(localStorage.getItem('token'));
-            //navigate('/search');
-            // TODO back
             console.log(credentials);
             accountService.login(credentials)
                 .then(res => {

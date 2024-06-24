@@ -13,28 +13,18 @@ const personnelAdmingetOne = async (
     try {
         // Obtenir une connexion à partir du pool
         const connection = await pool.getConnection();
-        const id =  request.params.id;
-        console.log(id);
+        const email =  request.params.email;
+        console.log(email);
 
         // Exécuter une requête SQL
-        const [rows] = await connection.execute<RowDataPacket[]>('SELECT * FROM personnel_administratif WHERE id_administratif = ?',[id]);
+        const [rows] = await connection.execute<RowDataPacket[]>('SELECT * FROM personnel_administratif LEFT JOIN hopital ON personnel_administratif.id_hopital = hopital.id_hopital LEFT JOIN service ON personnel_administratif.id_service = service.id_service WHERE email = ?',[email]);
 
         if (rows.length === 0) {
             // Si aucun résultat n'est trouvé, renvoyer une erreur 404
             return response.status(404).json({ message: 'Utilisateur non trouvé' });
         }
 
-
-        const personnelAdmin : IPersonnelAdmin =  {
-            id: rows[0].id,
-            nom: rows[0].nom,
-            prenom: rows[0].prenom,
-            email: rows[0].email,
-            date_de_naissance: rows[0].date_de_naissance,
-            id_hopital: rows[0].id_hopital,
-            id_service: rows[0].id_service,
-            mots_de_passe: rows[0].mots_de_passe,
-        };
+        const personnelAdmin = rowToIPersonnelAdmin(rows[0]);
 
         // Libérer la connexion
         connection.release();

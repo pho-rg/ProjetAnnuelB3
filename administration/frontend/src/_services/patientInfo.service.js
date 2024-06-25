@@ -38,7 +38,7 @@ const isAdresseValide = (adresse) => {
     return adresse.length > 0;
 }
 
-const isEmailValide = (email) => {
+const isEmailValide = (email)=> {
     if (email.length < 3) {
         return false;
     } else {

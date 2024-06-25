@@ -27,7 +27,6 @@ const userConnexion = async (
 
         // Recherche l'utilisateur par l'email
         const result = await PersonnelMedical.collection.findOne({email:email});
-        console.log(result);
         if (!result) {
             // Si aucun résultat n'est trouvé, renvoyer une erreur 404
             return response.status(404).json({message: 'Utilisateur introuvable'});
@@ -49,5 +48,7 @@ const userConnexion = async (
     }
 
 }
+
+
 
 export {userConnexion};

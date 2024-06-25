@@ -15,6 +15,7 @@ const mutuelleGetAll = async ( request: express.Request,
 
         // Exécuter une requête SQL
         const [rows] = await connection.execute<RowDataPacket[]>('SELECT * FROM mutuelle');
+        connection.release();
         //let mutuelles = new Set<IMutuelle>();
         if (rows.length === 0) {
             // Si aucun résultat n'est trouvé, renvoyer une erreur 404
@@ -25,8 +26,8 @@ const mutuelleGetAll = async ( request: express.Request,
         //    console.log(mutuelles);
         //}
         // Libérer la connexion
-        connection.release();
-        response.json(rows);
+
+        response.status(200).json(rows);
     } catch (error) {
         console.error('Erreur lors de la récupération des mutuelles:', error);
         response.status(500).json({ message: 'Erreur serveur' });

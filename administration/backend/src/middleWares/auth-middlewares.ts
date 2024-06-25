@@ -29,7 +29,6 @@ const extractToken = (authorization: string | undefined): string | false => {
 const checkTokenValid = (request: express.Request,
                          response: express.Response,
                          next: express.NextFunction) => {
-    console.log(request.headers.authorization)
     const token = request.headers.authorization && extractToken(request.headers.authorization)
 
     if (!token) {
@@ -48,7 +47,6 @@ const checkTokenValid = (request: express.Request,
 const checkTokenDbValid = (request: express.Request,
                            response: express.Response,
                            next: express.NextFunction) => {
-    console.log(request.headers.authorization)
     const token = request.headers.authorization && extractToken(request.headers.authorization)
 
     if (!token) {

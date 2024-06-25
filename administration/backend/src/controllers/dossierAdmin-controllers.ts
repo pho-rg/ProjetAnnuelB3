@@ -40,18 +40,16 @@ const dossierAdminSearch = async (
         const connection = await pool.getConnection();
         const nom = request.query.nom;
         const prenom = request.query.prenom;
-        console.log(nom);
-        console.log(prenom);
 
         // Exécuter une requête SQL
         const [rows] = await connection.execute<RowDataPacket[]>('SELECT num_secu FROM dossier_administratif WHERE nom LIKE ? AND prenom LIKE ?', [`%${nom}%`,`%${prenom}%`]);
-
+        connection.release();
         if (rows.length == 0) {
             // Si aucun résultat n'est trouvé, renvoyer une erreur 404
             return response.status(404).json({message:'Aucun dossier administratif trouvé'});
         }
         // Libérer la connexion
-        connection.release();
+
         return response.status(200).json(rows);
     } catch (error) {
         console.error('Erreur lors de la récupération du dossier administratif :', error);
@@ -70,16 +68,17 @@ const dossierAdmingetOne = async (
         const id = request.params.id;
 
         // Exécuter une requête SQL
-        const [rows] = await connection.execute<RowDataPacket[]>('SELECT * FROM dossier_administratif LEFT JOIN mutuelle ON dossier_administratif.id_mutuelle = mutuelle.id_mutuelle WHERE num_secu = ?', [id]);
-
+        const [rows] = await connection.execute<RowDataPacket[]>('SELECT dossier_administratif.*, mutuelle.nom_mutuelle FROM dossier_administratif LEFT JOIN mutuelle ON dossier_administratif.id_mutuelle = mutuelle.id_mutuelle WHERE num_secu = ?', [id]);
+        connection.release();
+        console.log(rows[0]);
         if (rows.length === 0) {
             // Si aucun résultat n'est trouvé, renvoyer une erreur 404
             return response.status(404).json({message: 'Dossier administratif non trouvé'});
         }
         const dossierAdmin = rowToIDossierAdmin(rows[0]);
-
+        console.log(dossierAdmin)
         // Libérer la connexion
-        connection.release();
+
         return response.status(200).json(dossierAdmin);
     } catch (error) {
         console.error('Erreur lors de la récupération du dossier administratif :', error);

@@ -9,7 +9,7 @@ import {
     dossierAdminPost
 } from "../controllers/dossierAdmin-controllers";
 import {mutuelleGetAll} from "../controllers/mutuelle-controllers";
-import {userConnexion} from "../controllers/authAdmin-controllers";
+import {dbConnexion, userConnexion} from "../controllers/authAdmin-controllers";
 import {checkTokenValid} from "../middleWares/auth-middlewares"
 
 
@@ -31,12 +31,12 @@ router.get('/dossAdmin/search', checkTokenValid, dossierAdminSearch);
 router.post('/dossAdmin/post', checkTokenValid, dossierAdminPost);
 router.patch('/dossAdmin/patch/:id', checkTokenValid, dossierAdminPatch);
 
-
 //Mutuelles
 router.get('/mutuelle/getAll', checkTokenValid, mutuelleGetAll);
 
 
 //Routes pour medical
-router.get('/dossAdmin/getOne/:id', dossierAdmingetOne);
+router.post('/login/Db', dbConnexion);
+router.get('/dossAdmin/getOne/Db/:id',checkTokenValid,dossierAdmingetOne);
 
 export = router;

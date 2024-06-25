@@ -68,7 +68,7 @@ const dossierAdmingetOne = async (
         const id = request.params.id;
 
         // Exécuter une requête SQL
-        const [rows] = await connection.execute<RowDataPacket[]>('SELECT dossier_administratif.num_secu,dossier_administratif.nom,dossier_administratif.prenom,dossier_administratif.sexe,dossier_administratif.date_naissance,dossier_administratif.telephone,dossier_administratif.email,dossier_administratif.adresse,dossier_administratif.remarques,dossier_administratif.id_mutuelle,dossier_administratif.id_hopital, mutuelle.nom_mutuelle FROM dossier_administratif LEFT JOIN mutuelle ON dossier_administratif.id_mutuelle = mutuelle.id_mutuelle WHERE num_secu = ?', [id]);
+        const [rows] = await connection.execute<RowDataPacket[]>('SELECT dossier_administratif.*, mutuelle.nom_mutuelle FROM dossier_administratif LEFT JOIN mutuelle ON dossier_administratif.id_mutuelle = mutuelle.id_mutuelle WHERE num_secu = ?', [id]);
         connection.release();
         console.log(rows[0]);
         if (rows.length === 0) {

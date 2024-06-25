@@ -1,5 +1,4 @@
 import { Schema, model, Document } from 'mongoose';
-import {IMedecin} from "./medecin-model";
 
 // 1. Create an interface representing a document in MongoDB.
 interface IService extends Document {

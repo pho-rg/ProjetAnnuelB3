@@ -11,7 +11,7 @@ const pool = mysql.createPool({
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
-    //port: 8889 // Commentez la ligne pour le port par défaut
+    port: 3306 // Commentez la ligne pour le port par défaut
 });
 
 // Démarrer le serveur

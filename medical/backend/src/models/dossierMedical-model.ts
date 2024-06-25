@@ -19,7 +19,7 @@ interface IDossierMedical {
   nom: string;
   prenom: string;
   sexe: Sexe;
-  date_naissance: Date;
+  date_naissance: string;
   taille: number;
   poids: number;
   grp_sanguin: GrpSanguin;
@@ -41,7 +41,7 @@ const dossierMedicalSchema = new Schema<IDossierMedical>({
       message: 'Sexe n\'a pas le bon format',
     },
   },
-  date_naissance: { type: Date, required: true },
+  date_naissance: { type: String, required: true },
   taille: { type: Number, required: true },
   poids: { type: Number, required: true },
   grp_sanguin: {

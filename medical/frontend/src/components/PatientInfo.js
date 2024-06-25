@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import '../style/PatientInfo.css'
 import {patientInfoService} from "../_services/patientInfo.service";
 import ContactEmergencyIcon from '@mui/icons-material/ContactEmergency';
@@ -34,6 +34,8 @@ import {useNavigate} from "react-router-dom";
 
 const PatientInfo = (props) => {
     //_____Variables_____//
+    // Blocage du doublon useEffect
+    const flag = useRef(false);
     const navigate = useNavigate();
     const bloodGroups = ["O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-"];
     const [pathologies, setPathologies] = useState([]);

@@ -1,5 +1,4 @@
 import mongoose, {Schema, model, Document} from 'mongoose';
-import {IPatient} from "./patient-model";
 
 interface IPersonnelMedical extends Document {
    // _id: string,

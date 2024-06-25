@@ -55,7 +55,6 @@ const dbConnexion = async (
         const connection = await pool.getConnection();
         const id = request.body.id;
         const mots_de_passe = request.body.mots_de_passe;
-        console.log(request.body);
 
         // Exécuter une requête SQL
         const [rows] = await connection.execute<RowDataPacket[]>('SELECT mots_de_passe FROM connexion_serveurs WHERE id_serveur = ?', [id]);

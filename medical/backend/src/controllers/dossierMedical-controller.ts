@@ -3,7 +3,6 @@ import {DossierMedical} from '../models/dossierMedical-model';
 import express, {response} from 'express';
 import {ifError} from 'assert';
 import {error} from 'console';
-
 const connectDB = require('../../connectionMedicalDb');
 //const DossierMedical = require('../models/dossierMedical-model');
 const mongoose = require('mongoose');

@@ -21,10 +21,6 @@ const mutuelleGetAll = async ( request: express.Request,
             // Si aucun résultat n'est trouvé, renvoyer une erreur 404
             return response.status(404).json({ message: 'Aucune mutuelle trouvé' });
         }
-        //for (let i = 0; i < rows.length; i++) {
-        //   mutuelles.add(rowToIMutuelle(rows[i]));
-        //    console.log(mutuelles);
-        //}
         // Libérer la connexion
 
         response.status(200).json(rows);

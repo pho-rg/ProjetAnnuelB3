@@ -15,11 +15,11 @@ import { estValideSexe, Sexe } from '../utils/customTypes/sexe-type';
  */
 
 interface IDossierMedical {
-  nir: Nir;
+  num_secu: string;
   nom: string;
   prenom: string;
   sexe: Sexe;
-  dateNaissance: Date;
+  date_naissance: string;
   taille: number;
   poids: number;
   grp_sanguin: GrpSanguin;
@@ -30,14 +30,7 @@ interface IDossierMedical {
 }
 
 const dossierMedicalSchema = new Schema<IDossierMedical>({
-  nir: {
-    type: String,
-    required: true,
-    validate: {
-      validator: estValideNir,
-      message: 'Format de NIR invalide',
-    },
-  },
+  num_secu:{type:String,required:true},
   nom: { type: String, required: true },
   prenom: { type: String, required: true },
   sexe: {
@@ -48,7 +41,7 @@ const dossierMedicalSchema = new Schema<IDossierMedical>({
       message: 'Sexe n\'a pas le bon format',
     },
   },
-  dateNaissance: { type: Date, required: true },
+  date_naissance: { type: String, required: true },
   taille: { type: Number, required: true },
   poids: { type: Number, required: true },
   grp_sanguin: {

@@ -1,8 +1,5 @@
-import * as config from '../../config.json';
 import { Service } from '../models/service-model';
 import express, { response } from 'express';
-import { ifError } from 'assert';
-import { error } from 'console';
 const connectDB = require('../../connectionMedicalDb');
 
 const serviceGET = async (
@@ -18,7 +15,7 @@ const serviceGET = async (
         console.log(result);
         return response.status(200).send(result);
     } else {
-        return response.status(404).send({ message: "Dossier non trouvé" });
+        return response.status(404).send({ message: "Aucun service" });
     }
 } catch (error) {
     console.error(error); // Added logging for better error visibility

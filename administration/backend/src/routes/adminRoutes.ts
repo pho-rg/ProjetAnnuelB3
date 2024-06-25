@@ -17,7 +17,7 @@ const router = express.Router();
 const jwt = jsonwebtoken
 
 //Login
-router.post('/login', userConnexion);
+router.post('/login/', userConnexion);
 
 
 //Personnels
@@ -27,8 +27,8 @@ router.get('/persAdmin/:email', checkTokenValid, personnelAdmingetOne);
 //Dossiers
 router.get('/dossAdmin/exists/:id', checkTokenValid, dossierAdminExists)
 router.get('/dossAdmin/getOne/:id', checkTokenValid, dossierAdmingetOne);
-router.get('/dossAdmin/search', checkTokenValid, dossierAdminSearch);
-router.post('/dossAdmin/post', checkTokenValid, dossierAdminPost);
+router.get('/dossAdmin/search/', checkTokenValid, dossierAdminSearch);
+router.post('/dossAdmin/post/', checkTokenValid, dossierAdminPost);
 router.patch('/dossAdmin/patch/:id', checkTokenValid, dossierAdminPatch);
 
 //Mutuelles
@@ -36,7 +36,7 @@ router.get('/mutuelle/getAll', checkTokenValid, mutuelleGetAll);
 
 
 //Routes pour medical
-router.post('/login/Db', dbConnexion);
+router.post('/login/Db/', dbConnexion);
 router.get('/dossAdmin/getOne/Db/:id',checkTokenValid,dossierAdmingetOne);
 router.get('/dossAdmin/exists/Db/:id', checkTokenValid, dossierAdminExists)
 

@@ -26,10 +26,9 @@ const dossierMedicalNirGETONE = async (
             return response.status(200).send(result);
         } else {
             const body = {"id": process.env.ID, "mots_de_passe": process.env.MOTS_DE_PASSE}
-            let token = "";
             await axios.post('http://localhost:5001/login/Db/',body)
                 .then(responseLogin => {
-                    token = responseLogin.data.token;
+                    const token = responseLogin.data.token;
                     axios.get('http://localhost:5001/dossAdmin/getOne/Db/'+ nir, {headers: {'Authorization': `Bearer ${token}`}})
                         .then(res => {
                             return response.status(200).send(res.data);

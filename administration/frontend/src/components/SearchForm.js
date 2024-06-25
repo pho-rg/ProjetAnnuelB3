@@ -38,45 +38,30 @@ const SearchForm = (props) => {
             }
         }
     }
-    const handleAccess = () => {
-        // Contrôle validité nir
+    const handleAccess = async () => {
+        // Contrôle validité NIR
         if (!searchService.isNirValid(searchData.nir)) {
             props.setAlertMessage("Le numéro NIR renseigné est invalide.");
             props.setAlertOpen(true);
             return;
         }
-        // Redirection vers patient overview si dossier existant
-        else if (searchService.adminFileExists(searchData.nir)) {
-            navigate(`/patient-overview/${searchData.nir}`);
-            // TODO fix bug
-            window.location.reload();
-            //console.log("admin exists")
 
+        try {
+            const exists = await searchService.adminFileExists(searchData.nir);
+            if (exists) {
+                console.log("admin exists");
+                navigate(`/patient-overview/${searchData.nir}`);
+                window.location.reload();
+            } else {
+                console.log("admin does not exist");
+                navigate(`/patient-register/${searchData.nir}`);
+                window.location.reload();
+            }
+        } catch (err) {
+            console.error(err);
+            props.setAlertMessage("Erreur à la vérification du dossier administratif.");
+            props.setAlertOpen(true);
         }
-        // Redirection vers création du patient
-        else {
-            navigate(`/patient-register/${searchData.nir}`);
-            // TODO fix bug
-            window.location.reload();
-            //console.log("admin does not exist")
-        }
-
-        // Redirection vers patient overview si dossier existant
-        /*searchService.adminFileExists(searchData.nir)
-            .then(adminExists => {
-                if (adminExists) {
-                    navigate(`/patient-overview/${searchData.nir}`);
-                    // TODO fix bug
-                    window.location.reload();
-                } else {
-                    navigate(`/patient-register/${searchData.nir}`);
-                    // TODO fix bug
-                    window.location.reload();
-                }
-            })
-            .catch(err => {
-                console.error('Error during admin check:', err);
-            });*/
     };
 
 

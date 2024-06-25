@@ -23,8 +23,21 @@ const isDateValid = (date) => {
 }
 
 //_____API_____//
-const adminFileExists = (nir) => {
+const adminFileExistsO = (nir) => {
     return nir !== "104021730625478";
+};
+
+const getAdminFileExists = (nir) => {
+    return Axios.get('/dossAdmin/exists/' + nir);
+};
+
+const adminFileExists = (nir) => {
+    return getAdminFileExists(nir)
+        .then(res => res.data.exists)
+        .catch(err => {
+            console.log(err);
+            return false;
+        });
 };
 
 /*const adminFileExists = (nir) => {
@@ -54,5 +67,5 @@ const getAdminSearch = (nom, prenom) => {
 };
 
 export const searchService = {
-    isNirValid, isNameValid, isDateValid, adminFileExists, getAdminSearch
+    isNirValid, isNameValid, isDateValid, getAdminFileExists, adminFileExists, getAdminSearch
 }

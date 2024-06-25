@@ -1,10 +1,5 @@
-import {IUserAdmin} from "../models/userMedical-model";
 import express from "express";
-import * as querystring from "node:querystring";
-import {rows} from "mssql";
-import {RowDataPacket} from "mysql2/promise";
 const connectDB = require('../../connectionMedicalDb');
-//const DossierMedical = require('../models/dossierMedical-model');
 const mongoose = require('mongoose');
 import bcrypt from "bcryptjs";
 import {sign} from "jsonwebtoken";

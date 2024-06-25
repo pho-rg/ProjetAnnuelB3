@@ -3,7 +3,7 @@ import {IDossierAdmin, rowToIDossierAdmin} from "../models/dossierAdmin-model";
 import express from "express";
 import {RowDataPacket} from "mysql2/promise";
 
-const dossierAdminExist = async (
+const dossierAdminExists = async (
     request: express.Request,
     response: express.Response,
     next: express.NextFunction) => {
@@ -15,14 +15,11 @@ const dossierAdminExist = async (
 
         // Exécuter une requête SQL
         const [rows] = await connection.execute<RowDataPacket[]>('SELECT CASE WHEN EXISTS (SELECT 1 FROM dossier_administratif WHERE num_secu = ?) THEN 1 ELSE 2 END AS result', [id]);
-
+        connection.release();
         if (rows[0].result === 2) {
             // Si aucun résultat n'est trouvé, renvoyer une erreur 404
             return response.status(404).json({"exists": false, message: 'Dossier administratif inexistant'});
         }
-
-        // Libérer la connexion
-        connection.release();
         return response.status(200).json({"exists": true, message: 'Dossier administratif existant'});
     } catch (error) {
         console.error('Erreur lors de la récupération du dossier administratif :', error);
@@ -161,4 +158,4 @@ const dossierAdminPatch = async (
     }
 };
 
-export {dossierAdminExist, dossierAdmingetOne, dossierAdminPost, dossierAdminPatch,dossierAdminSearch};
+export {dossierAdminExists, dossierAdmingetOne, dossierAdminPost, dossierAdminPatch,dossierAdminSearch};

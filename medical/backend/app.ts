@@ -5,7 +5,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import testUser from './src/routes/testMongoDB-route';
 import utilisateur from './src/routes/utilisateur-route';
-import dossierMedical from  './src/routes/dossierMedical-route'
+import dossierMedical from './src/routes/medicalRoutes'
 import service from  './src/routes/service-route'
 
 const app = express();

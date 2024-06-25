@@ -16,7 +16,7 @@ const serviceSchema = new Schema<IService>({
     localisation: { type: String, required: true },
     telephone: { type: String, required: true },
     responsableID: { type: String, required: false }
-});
+},{ collection: 'service_medical' });
 
 // 3. Create a Model.
 const Service = model<IService>('Service', serviceSchema);

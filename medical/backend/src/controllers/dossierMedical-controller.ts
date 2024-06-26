@@ -34,8 +34,8 @@ const dossierAdminExists = async (
                     });
             })
     } catch {
-        console.error(error); // Added logging for better error visibility
-        return response.status(500).send(error); // Changed status code to 500 for server error
+        console.error(error);
+        return response.status(500).send(error);
     }
 };
 
@@ -47,7 +47,7 @@ const dossierMedicalExists = async (
     const nir = request.params.nir;
     try {
         const nir = request.params.nir;
-        const result = await DossierMedical.collection.findOne({num_secu: nir});
+        const result = await DossierMedical.findOne({num_secu: nir});
         if (result) {
             return response.status(200).json({"exists": true, message: 'Dossier medical existant'});
         } else {
@@ -55,8 +55,8 @@ const dossierMedicalExists = async (
         }
 
     } catch {
-        console.error(error); // Added logging for better error visibility
-        return response.status(500).send(error); // Changed status code to 500 for server error
+        console.error(error);
+        return response.status(500).send(error);
     }
 };
 
@@ -85,7 +85,7 @@ const dossierMedicalNirGETONE = async (
         dossierMedical.sexe=dossierAdmin.sexe;
         dossierMedical.date_naissance=dossierAdmin.date_naissance;
 
-        var result = await DossierMedical.collection.findOne({num_secu: nir});
+        var result = await DossierMedical.findOne({num_secu: nir});
         if (!result) {
             return response.status(200).send(dossierMedical);
         } else {

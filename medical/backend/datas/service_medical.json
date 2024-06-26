@@ -1,0 +1,24 @@
+[{
+  "_id": {
+    "$oid": "6670ab8af61f5a8510dd4e59"
+  },
+  "nom": "Cardiologie"
+},
+{
+  "_id": {
+    "$oid": "6670ab99f61f5a8510dd4e5b"
+  },
+  "nom": "Radiologie"
+},
+{
+  "_id": {
+    "$oid": "667b232c42ed1d83d6e794a7"
+  },
+  "nom": "Chirurgie"
+},
+{
+  "_id": {
+    "$oid": "667b232c42ed1d83d6e794a8"
+  },
+  "nom": "Pediatrie"
+}]

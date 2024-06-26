@@ -1,0 +1,78 @@
+[{
+  "_id": {
+    "$oid": "66709e23f61f5a8510dd4e40"
+  },
+  "nom": "Perez",
+  "prenom": "Sergio",
+  "sexe": "Male",
+  "taille": 175,
+  "poids": 70,
+  "grp_sanguin": "A+",
+  "remarques": "",
+  "pathologies": [
+    "hypertension",
+    "diabete"
+  ],
+  "operations": [
+    "appendicite",
+    "tonsillectomie"
+  ],
+  "allergies": [
+    "penicillin",
+    "latex"
+  ],
+  "date_naissance": "1990-01-01",
+  "num_secu": "104021730625478"
+},
+{
+  "_id": {
+    "$oid": "66709e80f61f5a8510dd4e44"
+  },
+  "nom": "Ricciardo",
+  "prenom": "Daniel",
+  "sexe": "Male",
+  "taille": 165,
+  "poids": 55,
+  "grp_sanguin": "B-",
+  "remarques": "",
+  "pathologies": [
+    "asthme",
+    ""
+  ],
+  "operations": [
+    "otite",
+    ""
+  ],
+  "allergies": [
+    "dust mites",
+    ""
+  ],
+  "num_secu": "107102509803594",
+  "date_naissance": "1995-06-15"
+},
+{
+  "_id": {
+    "$oid": "66709ea7f61f5a8510dd4e46"
+  },
+  "nom": "Jordan",
+  "prenom": "Carmen",
+  "sexe": "Male",
+  "taille": 183,
+  "poids": 85,
+  "grp_sanguin": "",
+  "remarques": "",
+  "pathologies": [
+    "asthme",
+    ""
+  ],
+  "operations": [
+    "otite",
+    ""
+  ],
+  "allergies": [
+    "dust mites",
+    "arabes"
+  ],
+  "date_naissance": "1985-02-22",
+  "num_secu": "294037512000591"
+}]

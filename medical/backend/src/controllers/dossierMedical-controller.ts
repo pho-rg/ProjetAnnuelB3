@@ -7,6 +7,8 @@ const mongoose = require('mongoose');
 import axios from 'axios';
 import dotenv from 'dotenv';
 import {IDossierAdmin} from "../models/dossierAdmin-model";
+import {ActeMedical} from "../models/acteMedical-model";
+import {GrpSanguin} from "../utils/customTypes/grpSanguin-type";
 
 dotenv.config();
 
@@ -130,4 +132,33 @@ const dossierMedicauxSearch = async (
     }
 };
 
-export {dossierMedicalNirGETONE, dossierAdminExists, dossierMedicalExists, dossierMedicauxSearch};
+const dossierMedicalPost = async (
+    request: express.Request,
+    response: express.Response,
+    next: express.NextFunction) => {
+
+    const dossierMedical = new DossierMedical({
+        num_secu:request.body.num_secu,
+        nom:request.body.nom,
+        prenom:request.body.prenom,
+        sexe:request.body.sexe,
+        date_naissance: request.body.date_naissance,
+        taille: request.body.taille,
+        poids: request.body.poids,
+        grp_sanguin: request.body.grp_sanguin,
+        remarques: request.body.remarques,
+        pathologies: request.body.pathologies,
+        operations: request.body.operations,
+        allergies: request.body.allergies,
+    })
+    try {
+        const result = await dossierMedical.save();
+        return response.status(201).json(result);
+    } catch (err) {
+        console.error('Erreur lors de la sauvegarde de l\'acte médical :',err);
+        return response.status(500).json({ message: 'Erreur serveur lors de la sauvegarde' });
+    }
+
+};
+
+export {dossierMedicalNirGETONE, dossierAdminExists, dossierMedicalExists, dossierMedicauxSearch,dossierMedicalPost};

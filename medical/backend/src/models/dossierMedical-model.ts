@@ -18,7 +18,7 @@ interface IDossierMedical {
   num_secu: string;
   nom: string;
   prenom: string;
-  sexe: Sexe;
+  sexe: number;
   date_naissance: string;
   taille: number;
   poids: number;
@@ -33,14 +33,7 @@ const dossierMedicalSchema = new Schema<IDossierMedical>({
   num_secu:{type:String,required:true},
   nom: { type: String, required: true },
   prenom: { type: String, required: true },
-  sexe: {
-    type: String,
-    required: true,
-    validate: {
-      validator: estValideSexe,
-      message: 'Sexe n\'a pas le bon format',
-    },
-  },
+  sexe: {type: Number, required: true,},
   date_naissance: { type: String, required: true },
   taille: { type: Number, required: true },
   poids: { type: Number, required: true },
@@ -52,10 +45,10 @@ const dossierMedicalSchema = new Schema<IDossierMedical>({
       message: 'Le groupe sanguin n\'a pas le bon format',
     },
   },
-  remarques: { type: String, required: true },
-  pathologies: { type: [String], required: true },
-  operations: { type: [String], required: true },
-  allergies: { type: [String], required: true },
+  remarques: { type: String},
+  pathologies: { type: [String] },
+  operations: { type: [String] },
+  allergies: { type: [String] },
 },{ collection: 'dossier_medical' });
 
 //Mapper partie admin

@@ -1,8 +1,8 @@
-import mongoose, {Schema, model, Document} from 'mongoose';
+import mongoose, {Schema, model, Document, ObjectId} from 'mongoose';
 
 interface IPersonnelMedical extends Document {
-   // _id: string,
-    id_servide: string,
+    _id: ObjectId,
+    id_servide: ObjectId,
     nom: string,
     prenom: string,
     date_naissance: Date,
@@ -12,7 +12,7 @@ interface IPersonnelMedical extends Document {
 }
 
 const personnelMedicalSchema = new Schema<IPersonnelMedical>({
-    //_id: {type: String, required: true},
+    _id: {type:Schema.Types.ObjectId, required: true},
     id_servide: {type: String, required: true},
     nom:{type:String,required:true},
     prenom:{type:String,required:true},

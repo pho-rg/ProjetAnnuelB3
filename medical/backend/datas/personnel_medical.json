@@ -1,0 +1,48 @@
+[{
+  "_id": {
+    "$oid": "6679651dc237f50e9615623c"
+  },
+  "nom": "Dupont",
+  "prenom": "Jean",
+  "date_naissance": "1980-05-15",
+  "email": "jean.dupont@example.com",
+  "mots_de_passe": "$2a$12$zC7NuUjZJD01xj4dL2p6bethWeu3xQmchf5BItyR3vUcv4roDQbNS",
+  "nom_hopital": "Hôpital Saint Pierre",
+  "nom_service": "Cardiologie"
+},
+{
+  "_id": {
+    "$oid": "6679651dc237f50e9615623d"
+  },
+  "nom": "Martin",
+  "prenom": "Marie",
+  "date_naissance": "1975-10-20",
+  "email": "marie.martin@example.com",
+  "mots_de_passe": "$2a$12$zC7NuUjZJD01xj4dL2p6bethWeu3xQmchf5BItyR3vUcv4roDQbNS",
+  "nom_hopital": "Hôpital Saint Pierre",
+  "nom_service": "Radiologie"
+},
+{
+  "_id": {
+    "$oid": "6679651dc237f50e9615623e"
+  },
+  "nom": "Karim",
+  "prenom": "Stephane",
+  "date_naissance": "1975-10-20",
+  "email": "stephane.martin@example.com",
+  "mots_de_passe": "$2a$12$zC7NuUjZJD01xj4dL2p6bethWeu3xQmchf5BItyR3vUcv4roDQbNS",
+  "nom_hopital": "Hôpital Saint Pierre",
+  "nom_service": "Pediatrie"
+},
+{
+  "_id": {
+    "$oid": "6679651dc237f50e9615623f"
+  },
+  "nom": "Sarkozy",
+  "prenom": "Nicolas",
+  "date_naissance": "1990-08-03",
+  "email": "Nivcolas.Dupont@example.com",
+  "mots_de_passe": "$2a$12$zC7NuUjZJD01xj4dL2p6bethWeu3xQmchf5BItyR3vUcv4roDQbNS",
+  "nom_hopital": "Hôpital Saint Pierre",
+  "nom_service": "Chirurgie"
+}]

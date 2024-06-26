@@ -7,6 +7,8 @@ const mongoose = require('mongoose');
 import axios from 'axios';
 import dotenv from 'dotenv';
 import {IDossierAdmin} from "../models/dossierAdmin-model";
+import {ActeMedical} from "../models/acteMedical-model";
+import {GrpSanguin} from "../utils/customTypes/grpSanguin-type";
 
 dotenv.config();
 
@@ -34,8 +36,8 @@ const dossierAdminExists = async (
                     });
             })
     } catch {
-        console.error(error); // Added logging for better error visibility
-        return response.status(500).send(error); // Changed status code to 500 for server error
+        console.error(error);
+        return response.status(500).send(error);
     }
 };
 
@@ -47,7 +49,7 @@ const dossierMedicalExists = async (
     const nir = request.params.nir;
     try {
         const nir = request.params.nir;
-        const result = await DossierMedical.collection.findOne({num_secu: nir});
+        const result = await DossierMedical.findOne({num_secu: nir});
         if (result) {
             return response.status(200).json({"exists": true, message: 'Dossier medical existant'});
         } else {
@@ -55,8 +57,8 @@ const dossierMedicalExists = async (
         }
 
     } catch {
-        console.error(error); // Added logging for better error visibility
-        return response.status(500).send(error); // Changed status code to 500 for server error
+        console.error(error);
+        return response.status(500).send(error);
     }
 };
 
@@ -85,7 +87,7 @@ const dossierMedicalNirGETONE = async (
         dossierMedical.sexe=dossierAdmin.sexe;
         dossierMedical.date_naissance=dossierAdmin.date_naissance;
 
-        var result = await DossierMedical.collection.findOne({num_secu: nir});
+        var result = await DossierMedical.findOne({num_secu: nir});
         if (!result) {
             return response.status(200).send(dossierMedical);
         } else {
@@ -130,4 +132,33 @@ const dossierMedicalSearch = async (
     }
 };
 
-export {dossierMedicalNirGETONE, dossierAdminExists, dossierMedicalExists, dossierMedicalSearch};
+const dossierMedicalPost = async (
+    request: express.Request,
+    response: express.Response,
+    next: express.NextFunction) => {
+
+    const dossierMedical = new DossierMedical({
+        num_secu:request.body.num_secu,
+        nom:request.body.nom,
+        prenom:request.body.prenom,
+        sexe:request.body.sexe,
+        date_naissance: request.body.date_naissance,
+        taille: request.body.taille,
+        poids: request.body.poids,
+        grp_sanguin: request.body.grp_sanguin,
+        remarques: request.body.remarques,
+        pathologies: request.body.pathologies,
+        operations: request.body.operations,
+        allergies: request.body.allergies,
+    })
+    try {
+        const result = await dossierMedical.save();
+        return response.status(201).json(result);
+    } catch (err) {
+        console.error('Erreur lors de la sauvegarde de l\'acte médical :',err);
+        return response.status(500).json({ message: 'Erreur serveur lors de la sauvegarde' });
+    }
+
+};
+
+export {dossierMedicalNirGETONE, dossierAdminExists, dossierMedicalExists, dossierMedicauxSearch,dossierMedicalPost};

@@ -105,7 +105,7 @@ const dossierMedicalNirGETONE = async (
 };
 
 
-const dossierMedicauxSearch = async (
+const dossierMedicalSearch = async (
     request: express.Request,
     response: express.Response,
     next: express.NextFunction
@@ -130,4 +130,4 @@ const dossierMedicauxSearch = async (
     }
 };
 
-export {dossierMedicalNirGETONE, dossierAdminExists, dossierMedicalExists, dossierMedicauxSearch};
+export {dossierMedicalNirGETONE, dossierAdminExists, dossierMedicalExists, dossierMedicalSearch};

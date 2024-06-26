@@ -19,7 +19,7 @@ const PatientRegister = (props) => {
         }
     }, [alertMessage]);
     useEffect(() => {
-        if (searchService.medFileExists(currentPatientNIR)){
+        if (searchService.medicalFileExists(currentPatientNIR)){
             navigate(`/patient-overview/${currentPatientNIR}`);
         }
     });

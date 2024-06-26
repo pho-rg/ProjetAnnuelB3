@@ -23,10 +23,6 @@ const isDateValid = (date) => {
 }
 
 //_____API_____//
-const adminFileExistsO = (nir) => {
-    return nir !== "104021730625478";
-};
-
 const getAdminFileExists = (nir) => {
     return Axios.get('/dossAdmin/exists/' + nir);
 };
@@ -40,32 +36,10 @@ const adminFileExists = (nir) => {
         });
 };
 
-/*const adminFileExists = (nir) => {
-    return Axios.get('/dossAdmin/exists/' + nir)
-        .then(res => {
-            if (res.status === 200) {
-                console.log('dossAdmin exists');
-                return true;
-            } else {
-                console.log(res);
-            }
-        })
-        .catch(err => {
-            if (err.response) {
-                if (err.response.status === 404) {
-                    console.log('404 dossAdmin does not exist');
-                    return false;
-                } else {
-                    console.log('Problème à la vérification');
-                }
-            }
-        });
-};*/
-
 const getAdminSearch = (nom, prenom) => {
     return Axios.get('/dossAdmin/search?nom='+nom+'&prenom='+prenom);
 };
 
 export const searchService = {
-    isNirValid, isNameValid, isDateValid, getAdminFileExists, adminFileExists, getAdminSearch
+    isNirValid, isNameValid, isDateValid, adminFileExists, getAdminSearch
 }

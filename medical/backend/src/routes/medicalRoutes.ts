@@ -3,7 +3,7 @@ import {
     dossierMedicalNirGETONE,
     dossierAdminExists,
     dossierMedicalExists,
-    dossierMedicauxSearch
+    dossierMedicalSearch
 } from "../controllers/dossierMedical-controller";
 import {userConnexion} from "../controllers/authMedical-controllers";
 import {checkTokenValid} from "../middleWares/auth-middlewares";
@@ -17,10 +17,10 @@ const router = express.Router();
 router.post('/login/',userConnexion);
 
 //Dossier Medicaux
-router.get('/dossierMedical/:nir',checkTokenValid,dossierMedicalNirGETONE);
+router.get('/dossMedical/getOne/:nir',checkTokenValid,dossierMedicalNirGETONE);
 router.get('/dossAdmin/exists/Db/:nir', checkTokenValid, dossierAdminExists)
 router.get('/dossMedical/exists/Db/:nir', checkTokenValid, dossierMedicalExists)
-router.get('/dossMedicaux/search', checkTokenValid, dossierMedicauxSearch);
+router.get('/dossMedical/search', checkTokenValid, dossierMedicalSearch);
 
 
 //Services

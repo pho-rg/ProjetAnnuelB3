@@ -58,6 +58,10 @@ const dossierMedicalSchema = new Schema<IDossierMedical>({
   allergies: { type: [String], required: true },
 },{ collection: 'dossier_medical' });
 
+//Mapper partie admin
+
+
+
 const DossierMedical = model<IDossierMedical>(
   'DossierMedical',
     dossierMedicalSchema

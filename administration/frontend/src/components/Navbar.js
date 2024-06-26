@@ -16,7 +16,7 @@ const Navbar = () => {
     const fullHospitalName = 'Hôpital Mignon';
     // TODO -> recup nom utilisateur avec accountService
     // Const fullUserName = 'Premiere lettre ' + accountService.getUserName();
-    const fullUserName = 'I.Dussolier';
+    const fullUserName = 'P.Durand';
     // Gestion de la fenetre de deconnexion
     const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
     // Const de changement de page

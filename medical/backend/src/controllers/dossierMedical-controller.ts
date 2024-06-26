@@ -107,7 +107,7 @@ const dossierMedicalNirGETONE = async (
 };
 
 
-const dossierMedicauxSearch = async (
+const dossierMedicalSearch = async (
     request: express.Request,
     response: express.Response,
     next: express.NextFunction

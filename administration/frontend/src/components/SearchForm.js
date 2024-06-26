@@ -51,10 +51,12 @@ const SearchForm = (props) => {
             if (exists) {
                 console.log("admin exists");
                 navigate(`/patient-overview/${searchData.nir}`);
+                // TODO fix bug
                 window.location.reload();
             } else {
                 console.log("admin does not exist");
                 navigate(`/patient-register/${searchData.nir}`);
+                // TODO fix bug
                 window.location.reload();
             }
         } catch (err) {

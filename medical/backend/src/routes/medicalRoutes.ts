@@ -3,7 +3,7 @@ import {
     dossierMedicalNirGETONE,
     dossierAdminExists,
     dossierMedicalExists,
-    dossierMedicauxSearch,
+    dossierMedicalSearch,
     dossierMedicalPost
 } from "../controllers/dossierMedical-controller";
 import {userConnexion} from "../controllers/authMedical-controllers";
@@ -21,11 +21,11 @@ router.post('/login/',userConnexion);
 router.get('/persMedical/:email', checkTokenValid, personnelMedicalgetOne);
 
 //Dossier Medicaux
-router.get('/dossierMedical/:nir',checkTokenValid,dossierMedicalNirGETONE);
+router.get('/dossMedical/getOne/:nir',checkTokenValid,dossierMedicalNirGETONE);
 router.get('/dossAdmin/exists/Db/:nir', checkTokenValid, dossierAdminExists)
 router.get('/dossMedical/exists/Db/:nir', checkTokenValid, dossierMedicalExists)
-router.get('/dossMedicaal/search', checkTokenValid, dossierMedicauxSearch);
-router.post('/dossierMedical/post/',checkTokenValid,dossierMedicalPost);
+router.get('/dossMedical/search', checkTokenValid, dossierMedicauxSearch);
+router.post('/dossMedical/post/',checkTokenValid,dossierMedicalPost);
 
 
 //Actes Medicaux

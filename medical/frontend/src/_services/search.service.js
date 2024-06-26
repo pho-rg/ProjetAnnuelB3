@@ -1,20 +1,9 @@
+import Axios from './caller.service';
+
 const isNirValid = (nir) => {
-    // if (nir.length !== 15) {
-    //     return false;
-    // } else if (!nir.match(/^[0-9]*$/)) {
-    //     return false;
     if (!nir.match(/^[12][0-9]{2}(0[1-9]|1[0-2])(2[AB]|[0-9]{2})[0-9]{3}[0-9]{3}([0-9]{2})$/)) {
         return false;
     } else return (97 - (parseInt(nir.substring(0, 13)) % 97) === parseInt(nir.substring(13)));
-};
-const adminFileExists = (nir) => {
-    return true;
-    // requete API de vérif si le patient a un dossier administratif
-};
-
-const medFileExists = (nir) => {
-    return true;
-    // requete API de vérif si le patient a un dossier médical
 };
 
 const isNameValid = (name) => {
@@ -27,6 +16,39 @@ const isDateValid = (date) => {
         return (new Date(date) <= new Date() && date.match(/\d{4}-\d{2}-\d{2}/));
     }
 }
+
+
+//_____API_____//
+const getAdminFileExists = (nir) => {
+    return Axios.get('/dossAdmin/exists/Db/' + nir);
+};
+
+const adminFileExists = (nir) => {
+    return getAdminFileExists(nir)
+        .then(res => res.data.exists)
+        .catch(err => {
+            console.log(err);
+            return false;
+        });
+};
+
+const getMedicalFileExists = (nir) => {
+    return Axios.get('/dossMedical/exists/Db/' + nir);
+};
+
+const medicalFileExists = (nir) => {
+    return getMedicalFileExists(nir)
+        .then(res => res.data.exists)
+        .catch(err => {
+            console.log(err);
+            return false;
+        });
+};
+
+const getMedicalSearch = (nom, prenom) => {
+    return Axios.get('/dossMedical/search?nom='+nom+'&prenom='+prenom);
+};
+
 export const searchService = {
-    adminFileExists, medFileExists, isNirValid, isNameValid, isDateValid
+    isNirValid, isNameValid, isDateValid, adminFileExists, medicalFileExists, getMedicalSearch
 }

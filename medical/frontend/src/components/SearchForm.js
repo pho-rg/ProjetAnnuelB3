@@ -53,8 +53,12 @@ const SearchForm = (props) => {
         // Redirection vers la bonne page Patient
         if (!searchService.medFileExists(searchData.nir)) {
             navigate(`/patient-register/${searchData.nir}`);
+            // TODO fix bug
+            window.location.reload();
         } else {
             navigate(`/patient-overview/${searchData.nir}`);
+            // TODO fix bug
+            window.location.reload();
         }
     }
     const handleSearch = () => {
@@ -71,6 +75,8 @@ const SearchForm = (props) => {
             // Redirection vers le résultat de la recherche
         } else {
             navigate(`/search/result/${searchData.nom}/${searchData.prenom}/${searchData.date}`)
+            // TODO fix bug
+            window.location.reload();
         }
     }
 

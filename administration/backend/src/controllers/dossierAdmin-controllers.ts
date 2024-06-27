@@ -54,7 +54,7 @@ const dossierAdminSearch = async (
         const nom = request.query.nom;
         const prenom = request.query.prenom;
 
-        /**Execute une requete sur la base de données SQL*/
+        /**Execute une requete sur la base de données SQL pour recuperer une liste de dossier admin qui correspondent aux criteres*/
         const [rows] = await connection.execute<RowDataPacket[]>('SELECT num_secu FROM dossier_administratif WHERE nom LIKE ? AND prenom LIKE ?', [`%${nom}%`, `%${prenom}%`]);
 
         /**Fermeture de la connexion avec la base de données SQL*/
@@ -94,7 +94,7 @@ const dossierAdmingetOne = async (
         /**Recuperation des données dans les parametres de la requete*/
         const id = request.params.id;
 
-        /**Execute une requete sur la base de données SQL*/
+        /**Execute une requete sur la base de données SQL pour recuperer un dossier admin*/
         const [rows] = await connection.execute<RowDataPacket[]>('SELECT dossier_administratif.*, mutuelle.nom_mutuelle FROM dossier_administratif LEFT JOIN mutuelle ON dossier_administratif.id_mutuelle = mutuelle.id_mutuelle WHERE num_secu = ?', [id]);
 
         /**Fermeture de la connexion avec la base de données SQL*/
@@ -141,7 +141,7 @@ const dossierAdminPost = async (
             id_mutuelle
         } = request.body;
 
-        /** Exécuter une requête SQL pour insérer les données*/
+        /** Exécuter une requête SQL pour insérer les données d'un nouveau dossier admin*/
         const [result] = await connection.execute('INSERT INTO dossier_administratif (num_secu, nom, prenom, sexe, date_naissance, telephone, email, adresse, remarques, id_hopital, id_mutuelle) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
             [num_secu, nom, prenom, sexe, date_naissance, telephone, email, adresse, remarques, id_hopital, id_mutuelle]);
 
@@ -184,7 +184,7 @@ const dossierAdminPatch = async (
         } = request.body;
         const id = request.params.id; //
 
-        /** Exécuter une requête SQL pour mettre à jour les données*/
+        /** Exécuter une requête SQL pour mettre à jour les données du dossier admin*/
         const [result] = await connection.execute('UPDATE dossier_administratif SET num_secu = ?, nom = ?, prenom = ?, sexe = ?, date_naissance = ?, telephone = ?, email = ?, adresse = ?, remarques = ?, id_hopital = ?, id_mutuelle = ? WHERE num_secu = ?',
             [num_secu, nom, prenom, sexe, date_naissance, telephone, email, adresse, remarques, id_hopital, id_mutuelle, id]);
 

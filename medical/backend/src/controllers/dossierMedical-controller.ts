@@ -1,7 +1,6 @@
 import {DossierMedical} from '../models/dossierMedical-model';
 import express, {response} from 'express';
 import {error} from 'console';
-
 const connectDB = require('../../connectionMedicalDb');
 const mongoose = require('mongoose');
 import axios from 'axios';
@@ -9,22 +8,35 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+/**Verification si un dossier admin existe*/
 const dossierAdminExists = async (
     request: express.Request,
     response: express.Response,
     next: express.NextFunction
 ) => {
+
+    /**Recuperation des données dans les parametres de la requete*/
     const nir = request.params.nir;
+
     try {
+        /**Creation d'un body pour la requete au serveur admin*/
         const body = {"id": process.env.ID, "mots_de_passe": process.env.MOTS_DE_PASSE}
+
+        /**Recuperation d'un token de 30 secondes pour effectuer le requete de get sur le serveur admin*/
         await axios.post('http://localhost:5001/login/Db/', body)
             .then(responseLogin => {
                 const token = responseLogin.data.token;
+
+                /**Requete au serveur admin pour savoir si un dossier admin existe*/
                 axios.get('http://localhost:5001/dossAdmin/exists/Db/' + nir, {headers: {'Authorization': `Bearer ${token}`}})
                     .then(res => {
+
+                        /**Renvoyer une réponse de succès*/
                         return response.status(200).json({"exists": true, message: 'Dossier administratif existant'});
                     })
                     .catch(error => {
+
+                        /**Si aucun résultat n'est trouvé, renvoyer une erreur 404*/
                         return response.status(404).json({
                             "exists": false,
                             message: 'Dossier administratif inexistant'
@@ -33,6 +45,7 @@ const dossierAdminExists = async (
             })
     } catch {
 
+        /**Renvoyer une réponse d'echec*/
         return response.status(500).send(error);
     }
 };

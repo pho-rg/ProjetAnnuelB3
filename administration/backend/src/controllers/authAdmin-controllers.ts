@@ -21,7 +21,7 @@ const userConnexion = async (
         const email = request.body.email;
         const mots_de_passe = request.body.mots_de_passe;
 
-        /**Execute une requete sur la base de données SQL*/
+        /**Execute une requete sur la base de données SQL pour recuperer le password utilisateur*/
         const [rows] = await connection.execute<RowDataPacket[]>('SELECT mots_de_passe FROM personnel_administratif WHERE email = ?', [email]);
 
         /**Fermeture de la connexion avec la base de données SQL*/
@@ -32,7 +32,7 @@ const userConnexion = async (
         const mots_de_pass_hash = rows[0].mots_de_passe;
         if (rows.length === 0) {
 
-            /** Renvoyer une reponse not found*/
+            /**Si aucun résultat n'est trouvé, renvoyer une erreur 404*/
             return response.status(404).json({message: 'Serveur introuvable'});
         }
         if (await bcrypt.compare(mots_de_passe, mots_de_pass_hash)) {
@@ -69,7 +69,7 @@ const dbConnexion = async (
         const id = request.body.id;
         const mots_de_passe = request.body.mots_de_passe;
 
-        /**Execute une requete sur la base de données SQL*/
+        /**Execute une requete sur la base de données SQL pour recuperer le password du serveur medical*/
         const [rows] = await connection.execute<RowDataPacket[]>('SELECT mots_de_passe FROM connexion_serveurs WHERE id_serveur = ?', [id]);
 
         /**Fermeture de la connexion avec la base de données SQL*/

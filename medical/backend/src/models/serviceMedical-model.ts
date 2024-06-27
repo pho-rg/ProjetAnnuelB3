@@ -15,4 +15,4 @@ const serviceSchema = new Schema<IService>({
 
 
 const Service = model<IService>('Service', serviceSchema);
-export { Service, IService };
+export { Service};

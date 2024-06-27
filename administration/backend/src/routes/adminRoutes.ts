@@ -8,7 +8,7 @@ import {
     dossierAdminPatch,
     dossierAdminPost
 } from "../controllers/dossierAdmin-controllers";
-import {mutuelleGetAll} from "../controllers/mutuelle-controllers";
+import {mutuelleGetAll} from "../controllers/mutuelleAdmin-controllers";
 import {dbConnexion, userConnexion} from "../controllers/authAdmin-controllers";
 import {checkTokenValid} from "../middleWares/auth-middlewares"
 
@@ -18,7 +18,7 @@ const jwt = jsonwebtoken
 /**Routes pour login*/
 router.post('/login/', userConnexion);
 
-/**Routes pour personnels*/
+/**Routes pour personnel*/
 router.get('/persAdmin/:email', checkTokenValid, personnelAdmingetOne);
 
 /**Routes pour les dossiers*/

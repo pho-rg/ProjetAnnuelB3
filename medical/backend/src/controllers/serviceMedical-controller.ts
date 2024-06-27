@@ -1,4 +1,4 @@
-import {Service} from '../models/service-model';
+import {Service} from '../models/serviceMedical-model';
 import express, {response} from 'express';
 
 const connectDB = require('../../connectionMedicalDb');

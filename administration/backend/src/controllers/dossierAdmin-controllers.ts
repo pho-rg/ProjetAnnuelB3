@@ -2,7 +2,7 @@ import {pool} from '../../connectionAdminDb'
 import {IDossierAdmin, rowToIDossierAdmin} from "../models/dossierAdmin-model";
 import express from "express";
 import {RowDataPacket} from "mysql2/promise";
-import {rowToIMutuelle} from "../models/mutuelle-model";
+import {rowToIMutuelle} from "../models/mutuelleAdmin-model";
 
 const dossierAdminExists = async (
     request: express.Request,

@@ -1,22 +1,15 @@
-import express, { Request, Response } from 'express';
 import mysql from 'mysql2/promise';
-
-//const PORT = process.env.PORT || 3000;
+const config = require('./config'); // Make sure this file exports MONGODB_URL
 
 const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'adminMysql', // Remplacez par votre user
-    password: '',  // Remplacez par votre mot de passe
-    database: 'admin',
+    host: config.server,
+    user: config.user,
+    password: config.password,
+    database: config.database,
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
-    port: 3306 // Commentez la ligne pour le port par défaut
+    port: config.port
 });
-
-// Démarrer le serveur
-//app.listen(PORT, () => {
-//    console.log(`Serveur démarré sur le port ${PORT}`);
-//});
 
 export {pool};

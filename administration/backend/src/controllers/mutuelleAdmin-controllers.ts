@@ -1,7 +1,7 @@
 import {pool} from '../../connectionAdminDb'
 import express, {json} from "express";
 import {RowDataPacket} from "mysql2/promise";
-import {IMutuelle, rowToIMutuelle} from "../models/mutuelle-model"
+import {IMutuelle, rowToIMutuelle} from "../models/mutuelleAdmin-model"
 
 const mutuelleGetAll = async ( request: express.Request,
                                response: express.Response,

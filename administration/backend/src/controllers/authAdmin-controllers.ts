@@ -1,12 +1,8 @@
-import {IUserAdmin} from "../models/userAdmin-model";
 import express from "express";
-import * as querystring from "node:querystring";
-import {rows} from "mssql";
 import {RowDataPacket} from "mysql2/promise";
 import {pool} from "../../connectionAdminDb";
 import bcrypt from "bcryptjs";
 import {sign} from "jsonwebtoken";
-import exp from "node:constants";
 import dotenv from 'dotenv';
 
 dotenv.config();

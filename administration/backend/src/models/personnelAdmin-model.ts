@@ -28,5 +28,4 @@ function rowToIPersonnelAdmin(row: RowDataPacket): IPersonnelAdmin {
         nom_hopital: row['nom_hopital'],
     };
 }
-
 export { IPersonnelAdmin, rowToIPersonnelAdmin };

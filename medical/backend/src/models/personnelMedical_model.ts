@@ -12,15 +12,15 @@ interface IPersonnelMedical extends Document {
 }
 
 const personnelMedicalSchema = new Schema<IPersonnelMedical>({
-    _id: {type:Schema.Types.ObjectId, required: true},
+    _id: {type: Schema.Types.ObjectId, required: true},
     id_servide: {type: String, required: true},
-    nom:{type:String,required:true},
-    prenom:{type:String,required:true},
-    date_naissance:{type:Date,required:true},
-    email:{type:String,required:true},
-    mots_de_passe:{type:String,required:true},
-    hopital:{type:String,required:true},
-},{collection: "personnel_medical"});
+    nom: {type: String, required: true},
+    prenom: {type: String, required: true},
+    date_naissance: {type: Date, required: true},
+    email: {type: String, required: true},
+    mots_de_passe: {type: String, required: true},
+    hopital: {type: String, required: true},
+}, {collection: "personnel_medical"});
 
 const PersonnelMedical = model<IPersonnelMedical>(
     'PersonnelMedical',

@@ -67,13 +67,11 @@ const dossierAdmingetOne = async (
         // Exécuter une requête SQL
         const [rows] = await connection.execute<RowDataPacket[]>('SELECT dossier_administratif.*, mutuelle.nom_mutuelle FROM dossier_administratif LEFT JOIN mutuelle ON dossier_administratif.id_mutuelle = mutuelle.id_mutuelle WHERE num_secu = ?', [id]);
         connection.release();
-        console.log(rows[0]);
         if (rows.length === 0) {
             // Si aucun résultat n'est trouvé, renvoyer une erreur 404
             return response.status(404).json({message: 'Dossier administratif non trouvé'});
         }
         const dossierAdmin = rowToIDossierAdmin(rows[0]);
-        console.log(dossierAdmin)
         // Libérer la connexion
 
         return response.status(200).json(dossierAdmin);

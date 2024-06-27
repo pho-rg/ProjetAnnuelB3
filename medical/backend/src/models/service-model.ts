@@ -11,7 +11,7 @@ interface IService extends Document {
 const serviceSchema = new Schema<IService>({
     _id:{type:Schema.Types.ObjectId,required:true},
     nom: { type: String, required: true },
-},{ collection: 'service_medical' });
+}, {collection: 'service_medical'});
 
 // 3. Create a Model.
 const Service = model<IService>('Service', serviceSchema);

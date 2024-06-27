@@ -12,17 +12,14 @@ import {mutuelleGetAll} from "../controllers/mutuelle-controllers";
 import {dbConnexion, userConnexion} from "../controllers/authAdmin-controllers";
 import {checkTokenValid} from "../middleWares/auth-middlewares"
 
-
 const router = express.Router();
 const jwt = jsonwebtoken
 
 //Login
 router.post('/login/', userConnexion);
 
-
 //Personnels
 router.get('/persAdmin/:email', checkTokenValid, personnelAdmingetOne);
-
 
 //Dossiers
 router.get('/dossAdmin/exists/:id', checkTokenValid, dossierAdminExists)
@@ -33,7 +30,6 @@ router.patch('/dossAdmin/patch/:id', checkTokenValid, dossierAdminPatch);
 
 //Mutuelles
 router.get('/mutuelle/getAll', checkTokenValid, mutuelleGetAll);
-
 
 //Routes pour medical
 router.post('/login/Db/', dbConnexion);

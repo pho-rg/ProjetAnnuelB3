@@ -1,6 +1,5 @@
 import { RowDataPacket } from 'mysql2/promise';
 import moment, { Moment } from 'moment';
-import {Sexe} from '../utils/customTypes/sexe-type';
 
 // Interface représentant un document dans MySQL
 interface IDossierAdmin {
@@ -35,6 +34,4 @@ function rowToIDossierAdmin(row: RowDataPacket): IDossierAdmin {
         id_hopital: row['id_hopital']
     };
 }
-
-
 export { IDossierAdmin, rowToIDossierAdmin };

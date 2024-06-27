@@ -13,5 +13,4 @@ function rowToIMutuelle(row: RowDataPacket): IMutuelle {
         telephone : row['telephone'],
     };
 }
-
 export { IMutuelle, rowToIMutuelle };

@@ -1,13 +1,7 @@
 import express from "express";
 const connectDB = require('../../connectionMedicalDb');
 const mongoose = require('mongoose');
-import bcrypt from "bcryptjs";
-import {sign} from "jsonwebtoken";
-import exp from "node:constants";
-import dotenv from 'dotenv';
-
 import {ActeMedical} from '../models/acteMedical-model';
-import {PersonnelMedical} from "../models/personnelMedical_model";
 import {error} from "console";
 
 
@@ -41,7 +35,6 @@ const acteMedicalPost = async (
     response: express.Response,
     next: express.NextFunction) => {
 
-
         const acteMedical = new ActeMedical({
             num_secu:request.body.num_secu,
             date:request.body.date,
@@ -57,7 +50,6 @@ const acteMedicalPost = async (
         console.error('Erreur lors de la sauvegarde de l\'acte médical :',err);
         return response.status(500).json({ message: 'Erreur serveur lors de la sauvegarde' });
     }
-
 };
 
 export{acteMedicalGetAll,acteMedicalPost};

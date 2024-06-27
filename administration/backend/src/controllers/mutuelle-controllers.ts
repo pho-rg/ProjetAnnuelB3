@@ -1,10 +1,6 @@
 import {pool} from '../../connectionAdminDb'
-import {IMutuelle , rowToIMutuelle} from "../models/mutuelle-model";
 import express, {json} from "express";
-import * as querystring from "node:querystring";
-import {rows} from "mssql";
 import {RowDataPacket} from "mysql2/promise";
-import {rowToIDossierAdmin} from "../models/dossierAdmin-model";
 
 const mutuelleGetAll = async ( request: express.Request,
                                response: express.Response,

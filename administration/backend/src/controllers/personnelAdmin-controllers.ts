@@ -1,8 +1,6 @@
 import {pool} from '../../connectionAdminDb'
 import {IPersonnelAdmin , rowToIPersonnelAdmin} from "../models/personnelAdmin-model";
 import express from "express";
-import * as querystring from "node:querystring";
-import {rows} from "mssql";
 import {RowDataPacket} from "mysql2/promise";
 
 const personnelAdmingetOne = async (
@@ -17,15 +15,12 @@ const personnelAdmingetOne = async (
 
         // Exécuter une requête SQL
         const [rows] = await connection.execute<RowDataPacket[]>('SELECT * FROM personnel_administratif LEFT JOIN hopital ON personnel_administratif.id_hopital = hopital.id_hopital LEFT JOIN service ON personnel_administratif.id_service = service.id_service WHERE email = ?',[email]);
-        connection.release();
+        connection.release(); // Libérer la connexion
         if (rows.length === 0) {
             // Si aucun résultat n'est trouvé, renvoyer une erreur 404
             return response.status(404).json({ message: 'Utilisateur non trouvé' });
         }
-
         const personnelAdmin = rowToIPersonnelAdmin(rows[0]);
-
-        // Libérer la connexion
 
         response.json(personnelAdmin);
     } catch (error) {

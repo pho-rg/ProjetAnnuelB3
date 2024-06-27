@@ -6,9 +6,7 @@ import {sign} from "jsonwebtoken";
 import exp from "node:constants";
 import dotenv from 'dotenv';
 import {PersonnelMedical} from "../models/personnelMedical_model";
-
 dotenv.config();
-
 
 const userConnexion = async (
     request: express.Request,
@@ -16,7 +14,6 @@ const userConnexion = async (
     next: express.NextFunction) => {
 
     try {
-
         const email = request.body.email;
         const mots_de_passe = request.body.mots_de_passe;
 
@@ -41,9 +38,5 @@ const userConnexion = async (
         console.error('Erreur lors de la récupération utilisateur :', error);
         response.status(500).json({message: 'Erreur serveur'});
     }
-
 }
-
-
-
 export {userConnexion};

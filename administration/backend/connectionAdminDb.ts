@@ -1,5 +1,5 @@
 import mysql from 'mysql2/promise';
-const config = require('./config'); // Make sure this file exports MONGODB_URL
+const config = require('./config');
 
 const pool = mysql.createPool({
     host: config.server,

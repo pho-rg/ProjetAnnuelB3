@@ -17,9 +17,14 @@ const saveToken = (token) => {
     localStorage.setItem('token', token);
 }
 
+const saveEmail = (email) => {
+    localStorage.setItem('email', email)
+}
+
 // Se déconecter
 const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('email');
 }
 
 // Vérifier la connexion
@@ -35,6 +40,10 @@ const getToken = () => {
     return localStorage.getItem('token');
 }
 
+const getUserInfo = (email) => {
+    return Axios.get('/persMedical/' + email);
+}
+
 export const accountService = {
-    isEmailValid, login, saveToken, logout, isLogged, getToken
+    isEmailValid, login, saveToken, saveEmail, logout, isLogged, getToken, getUserInfo
 }

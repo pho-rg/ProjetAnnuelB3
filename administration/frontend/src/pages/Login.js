@@ -57,7 +57,8 @@ const Login = () => {
             accountService.login(credentials)
                 .then(res => {
                     console.log(res);
-                    accountService.saveToken(res.data.token)
+                    accountService.saveToken(res.data.token);
+                    accountService.saveEmail(credentials.email);
                     navigate('/search');
                 })
                 .catch(error => {

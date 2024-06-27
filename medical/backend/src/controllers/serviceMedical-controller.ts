@@ -1,8 +1,6 @@
-import * as config from '../../config.json';
-import { Service } from '../models/service-model';
-import express, { response } from 'express';
-import { ifError } from 'assert';
-import { error } from 'console';
+import {Service} from '../models/serviceMedical-model';
+import express, {response} from 'express';
+
 const connectDB = require('../../connectionMedicalDb');
 
 const serviceGET = async (
@@ -11,19 +9,22 @@ const serviceGET = async (
     next: express.NextFunction
 ) => {
     try {
-    await connectDB();
-    const result = await Service.find();
-    console.log(request.params.nir);
-    if (result) {
-        console.log(result);
-        return response.status(200).send(result);
-    } else {
-        return response.status(404).send({ message: "Dossier non trouvé" });
-    }
-} catch (error) {
-    console.error(error); // Added logging for better error visibility
-    return response.status(500).send(error); // Changed status code to 500 for server error
-}
-};
+        /**Recherche tous les services*/
+        const result = await Service.find();
 
+        if (result) {
+
+            /**Renvoyer une réponse de succès*/
+            return response.status(200).send(result);
+        } else {
+
+            /**Si aucun résultat n'est trouvé, renvoyer une erreur 404*/
+            return response.status(404).send({message: "Aucun service"});
+        }
+    } catch (error) {
+
+        /**Renvoyer une réponse d'echec*/
+        return response.status(500).send(error);
+    }
+};
 export {serviceGET};

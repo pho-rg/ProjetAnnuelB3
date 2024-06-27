@@ -1,29 +1,26 @@
-import { Schema, model, Document } from 'mongoose';
+import {Schema, model, Document, ObjectId} from 'mongoose';
 
-// 1. Create an interface representing a document in MongoDB.
+/** Interface IActeMedical pour MongoDB*/
 interface IActeMedical extends Document {
-    patientID: Schema.Types.ObjectId;
-    operationID?: Schema.Types.ObjectId;
-    acteType: string;
-    date: Date;
-    heure: string;
-    personnelAssocieID: Schema.Types.ObjectId[];
+    num_secu: string;
+    nom_medecin: string;
+    nom_service: string;
+    date: string;
     description: string;
-    resultats?: string;
+    intitule_acte: string;
 }
 
-// 2. Create a Schema corresponding to the document interface.
+/** Schema IActeMedical pour Mongoose*/
 const acteMedicalSchema = new Schema<IActeMedical>({
-    patientID: { type: Schema.Types.ObjectId, ref: 'Patient', required: true },
-    operationID: { type: Schema.Types.ObjectId, ref: 'Operation', required: false },
-    acteType: { type: String, required: true },
-    date: { type: Date, required: true },
-    heure: { type: String, required: true },
-    personnelAssocieID: [{ type: Schema.Types.ObjectId, ref: 'Medecin', required: true }],
-    description: { type: String, required: true },
-    resultats: { type: String, required: false },
-});
+    nom_medecin: {type: String, required: true},
+    nom_service: {type: String, required: true},
+    num_secu: {type: String, required: true},
+    date: {type: String, required: true},
+    description: {type: String, required: true},
+    intitule_acte: {type: String, required: true},
 
-// 3. Create a Model.
+}, {collection: 'acte_medical'});
+
+
 const ActeMedical = model<IActeMedical>('ActeMedical', acteMedicalSchema);
-export { ActeMedical, IActeMedical };
+export {ActeMedical};

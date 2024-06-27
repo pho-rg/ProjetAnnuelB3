@@ -1,17 +1,35 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useParams} from "react-router-dom";
 import SearchForm from "../components/SearchForm";
 import {Alert} from "@mui/material";
 import PatientInfo from "../components/PatientInfo";
 import "../style/SearchResult.css"
+import {searchService} from "../_services/search.service";
 
 const SearchResult = (props) => {
+    // Blocage du doublon useEffect
     const [alertOpen, setAlertOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
-    const [searchResultList, setSearchResultList] = useState([
-        "104021730625478", "204081730625448", "106521250625478"
-    ]);
+    const [searchResultList, setSearchResultList] = useState([]);
     const {nom, prenom, date} = useParams();
+
+    // Appel API pour la liste des nir correspondant a la recherche
+    useEffect(() => {
+        const fetchSearchResult = async () => {
+            try {
+                const res = await searchService.getAdminSearch(nom, prenom);
+                //console.log(res.data);
+                // map la liste d'objet en tableau de nir
+                const res_num_secu = res.data.map(obj => obj.num_secu);
+                //console.log(res_num_secu);
+                setSearchResultList(res_num_secu);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        fetchSearchResult();
+    }, [nom, prenom]);
 
     const handleCloseAlert = () => {
         setAlertOpen(false);

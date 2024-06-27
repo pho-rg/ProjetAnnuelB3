@@ -1,21 +1,15 @@
-import express, { Request, Response } from 'express';
 import mysql from 'mysql2/promise';
-
-//const PORT = process.env.PORT || 3000;
+const config = require('./config');
 
 const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: '',  // Remplacez par votre mot de passe MariaDB
-    database: 'admin',
+    host: config.server,
+    user: config.user,
+    password: config.password,
+    database: config.database,
     waitForConnections: true,
     connectionLimit: 10,
-    queueLimit: 0
+    queueLimit: 0,
+    port: config.port
 });
-
-// Démarrer le serveur
-//app.listen(PORT, () => {
-//    console.log(`Serveur démarré sur le port ${PORT}`);
-//});
 
 export {pool};

@@ -1,3 +1,11 @@
+# Frontend administration
+
+Faire un npm install dans le repertoire: annuel\medical\frontend> npm install
+
+Faire un npm run start dans le repertoire: annuel\medical\frontend> npm run start
+
+Le frontend medical est lancé !
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

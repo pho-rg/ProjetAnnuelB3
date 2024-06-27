@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import '../style/PatientInfo.css'
+import {patientInfoService} from "../_services/patientInfo.service";
 import ContactEmergencyIcon from '@mui/icons-material/ContactEmergency';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import EditOffIcon from '@mui/icons-material/EditOff';
@@ -33,10 +34,12 @@ import {useNavigate} from "react-router-dom";
 
 const PatientInfo = (props) => {
     //_____Variables_____//
+    // Blocage du doublon useEffect
+    const flag = useRef(false);
     const navigate = useNavigate();
     const bloodGroups = ["O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-"];
-    const [pathologies, setPathologies] = useState(["Diabète", "Rhume"]);
-    const [operations, setOperations] = useState(["Appendicite", "Dents de sagesse", "Amputation"]);
+    const [pathologies, setPathologies] = useState([]);
+    const [operations, setOperations] = useState([]);
     const [allergies, setAllergies] = useState([]);
     const [expanded, setExpanded] = useState(props.type === "create");
     const [unsavedChanges, setUnsavedChanges] = useState(false);
@@ -46,20 +49,52 @@ const PatientInfo = (props) => {
     const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
     const [patientData, setPatientData] = useState({
         // partie administrative
-        nir: props.nir,
-        nom: "AUBRY--POUGET",
-        prenom: "Luigi",
-        date: "2004-02-18",
-        sexe: "HOMME",
+        num_secu: props.nir,
+        nom: "",
+        prenom: "",
+        date_naissance: "",
+        sexe: "",
         // partie medicale
-        taille: "178",
-        poids: "75",
-        grp_sanguin: "A+",
-        remarques: "Le mec est complètement fou c'est une dinguerie... ratio",
+        taille: "",
+        poids: "",
+        grp_sanguin: "",
+        remarques: "",
         pathologies: pathologies,
         operations: operations,
         allergies: allergies
     });
+
+    //_____API_____//
+    useEffect(() => {
+        if (props.type !== "create" && flag.current === false) {
+            patientInfoService.getMedicalFile(props.nir)
+                .then(res => {
+                    console.log(res.data);
+
+                    setPatientData({
+                        num_secu: props.nir,
+                        nom: res.data.nom,
+                        prenom: res.data.prenom,
+                        date_naissance: res.data.date_naissance,
+                        sexe: res.data.sexe,
+                        taille: res.data.taille,
+                        poids: res.data.poids,
+                        grp_sanguin: res.data.grp_sanguin,
+                        remarques: res.data.remarques,
+                        pathologies: setPathologies(res.data.pathologies),
+                        operations: setOperations(res.data.operations),
+                        allergies: setAllergies(res.data.allergies)
+                    });
+                })
+                .catch(err => console.log(err));
+        }
+        // Blocage du doublon useEffect
+        return () => flag.current = true;
+        // Résolution warnning React Hook useEffect has a missing dependency
+        //eslint-disable-next-line react-hooks/exhaustive-deps
+
+    }, [props.nir, props.type]);
+
     //_____Evènement_____//
     const handleClickOpenDialog = () => {
         setOpenConfirmDialog(true);
@@ -234,11 +269,11 @@ const PatientInfo = (props) => {
                             <TextField
                                 className="InfoFieldColored"
                                 disabled
-                                value={patientData.sexe.substring(0, 1).toUpperCase() + patientData.sexe.substring(1).toLowerCase()}
+                                value={patientData.sexe === 1 ? "HOMME" : "FEMME"}
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment position="end">
-                                            {patientData.sexe === "HOMME" ? <MaleIcon sx={{color: '#204213'}}/> :
+                                            {patientData.sexe === 1 ? <MaleIcon sx={{color: '#204213'}}/> :
                                                 <FemaleIcon sx={{color: '#204213'}}/>}
                                         </InputAdornment>
                                     ),
@@ -252,7 +287,7 @@ const PatientInfo = (props) => {
                                 className="InfoFieldColored"
                                 disabled
                                 type="date"
-                                value={patientData.date}
+                                value={patientData.date_naissance}
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment position="end">
@@ -267,6 +302,7 @@ const PatientInfo = (props) => {
                 </div>
                 {adminInfoButton()}
             </div>
+            {/* Affichage du PatientInfo de type résultat de recherche*/}
             {(props.type!=="search") &&
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <div className="medInfoContainer">

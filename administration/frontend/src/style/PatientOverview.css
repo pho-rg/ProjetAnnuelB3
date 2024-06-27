@@ -5,7 +5,7 @@
     flex-direction: column;
 }
 
-.noMedFileAlert {
+.noAdminFileAlert {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;

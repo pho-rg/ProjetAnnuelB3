@@ -2,7 +2,6 @@ import {pool} from '../../connectionAdminDb'
 import {IDossierAdmin, rowToIDossierAdmin} from "../models/dossierAdmin-model";
 import express from "express";
 import {RowDataPacket} from "mysql2/promise";
-import {rowToIMutuelle} from "../models/mutuelleAdmin-model";
 
 /**Verification si un dossier admin existe*/
 const dossierAdminExists = async (

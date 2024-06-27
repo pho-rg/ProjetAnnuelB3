@@ -3,7 +3,7 @@ import moment from "moment/moment";
 
 /**Interface personnelAdmin */
 interface IPersonnelAdmin {
-    id?: number;  // Champ optionnel
+    id?: number;
     nom: string;
     prenom: string;
     date_naissance: string ;

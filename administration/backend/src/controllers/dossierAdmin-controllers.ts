@@ -4,6 +4,7 @@ import express from "express";
 import {RowDataPacket} from "mysql2/promise";
 import {rowToIMutuelle} from "../models/mutuelleAdmin-model";
 
+/**Verification si un dossier admin existe*/
 const dossierAdminExists = async (
     request: express.Request,
     response: express.Response,
@@ -37,6 +38,7 @@ const dossierAdminExists = async (
     }
 };
 
+/**Recherche des dossiers admins qui correspondent aux parametres*/
 const dossierAdminSearch = async (
     request: express.Request,
     response: express.Response,
@@ -79,6 +81,7 @@ const dossierAdminSearch = async (
     }
 };
 
+/**Recherche d'un dossier admins*/
 const dossierAdmingetOne = async (
     request: express.Request,
     response: express.Response,
@@ -113,6 +116,7 @@ const dossierAdmingetOne = async (
     }
 };
 
+/**Post d'un dossier admin*/
 const dossierAdminPost = async (
     request: express.Request,
     response: express.Response,
@@ -153,6 +157,7 @@ const dossierAdminPost = async (
     }
 };
 
+/**Patch d'un dossier admin*/
 const dossierAdminPatch = async (
     request: express.Request,
     response: express.Response,

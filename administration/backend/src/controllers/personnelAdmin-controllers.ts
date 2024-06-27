@@ -3,6 +3,7 @@ import {IPersonnelAdmin , rowToIPersonnelAdmin} from "../models/personnelAdmin-m
 import express from "express";
 import {RowDataPacket} from "mysql2/promise";
 
+/**Rechecher d'un personnel admin*/
 const personnelAdmingetOne = async (
     request: express.Request,
     response: express.Response,

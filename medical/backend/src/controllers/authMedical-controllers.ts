@@ -35,7 +35,6 @@ const userConnexion = async (
         return response.status(200).json({result});
 
     } catch (error) {
-        console.error('Erreur lors de la récupération utilisateur :', error);
         response.status(500).json({message: 'Erreur serveur'});
     }
 }

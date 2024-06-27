@@ -3,6 +3,7 @@ import express, {json} from "express";
 import {RowDataPacket} from "mysql2/promise";
 import {IMutuelle, rowToIMutuelle} from "../models/mutuelleAdmin-model"
 
+/**Liste de toutes les mutuelles*/
 const mutuelleGetAll = async ( request: express.Request,
                                response: express.Response,
                                next: express.NextFunction )=> {

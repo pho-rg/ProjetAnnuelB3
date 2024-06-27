@@ -7,7 +7,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-
+/**Connexion de l'utilisateur*/
 const userConnexion = async (
     request: express.Request,
     response: express.Response,
@@ -55,6 +55,7 @@ const userConnexion = async (
 
 }
 
+/**Connexion de la db medical*/
 const dbConnexion = async (
     request: express.Request,
     response: express.Response,

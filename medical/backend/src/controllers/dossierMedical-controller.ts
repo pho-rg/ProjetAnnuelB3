@@ -32,7 +32,7 @@ const dossierAdminExists = async (
                     });
             })
     } catch {
-        console.error(error);
+
         return response.status(500).send(error);
     }
 };
@@ -52,7 +52,7 @@ const dossierMedicalExists = async (
             return response.status(404).json({"exists": false, message: 'Dossier medical existant'});
         }
     } catch {
-        console.error(error);
+
         return response.status(500).send(error);
     }
 };
@@ -156,7 +156,6 @@ const dossierMedicalPost = async (
         const result = await dossierMedical.updateOne();
         return response.status(201).json(result);
     } catch (err) {
-        console.error('Erreur lors de la sauvegarde de l\'acte médical :', err);
         return response.status(500).json({message: 'Erreur serveur lors de la sauvegarde'});
     }
 

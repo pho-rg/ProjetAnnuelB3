@@ -13,10 +13,10 @@ const acteMedicalGetAll = async (
 
         const num_secu = request.query.nir;
         const nom_service = request.query.service;
-        console.log(num_secu);
+
         // Recherche des actes par nir
         const result = await ActeMedical.find({num_secu: num_secu,nom_service:nom_service});
-        console.log(result);
+
         if (!result) {
             // Si aucun résultat n'est trouvé, renvoyer une erreur 404
             return response.status(404).json({message: 'Vide'});
@@ -25,7 +25,7 @@ const acteMedicalGetAll = async (
             return response.status(200).send(result);
         }
     }catch{
-        console.error(error);
+
         return response.status(500).send(error);
     }
 };
@@ -47,7 +47,6 @@ const acteMedicalPost = async (
         const result = await acteMedical.save();
         return response.status(201).json(result);
     } catch (err) {
-        console.error('Erreur lors de la sauvegarde de l\'acte médical :',err);
         return response.status(500).json({ message: 'Erreur serveur lors de la sauvegarde' });
     }
 };

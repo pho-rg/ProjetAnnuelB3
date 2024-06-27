@@ -21,7 +21,6 @@ const personnelMedicalgetOne = async (
             return response.status(200).send(result);
         }
     } catch {
-        console.error(error);
         return response.status(500).send(error);
     }
 };

@@ -120,6 +120,12 @@ const MedicalAct = (props) => {
         }
     };
 
+    if (props.type === "create") {
+        console.log("medicalAct create nir " + props.nir);
+        console.log("medicalAct create service " + props.service);
+        console.log("medicalAct create date " + props.data);
+    }
+
     //_____Affichage_____//
     return (<div className="MedicalAct">
             {/* Composant repliable*/}

@@ -69,7 +69,6 @@ const PatientInfo = (props) => {
         if (props.type !== "create" && flag.current === false) {
             patientInfoService.getMedicalFile(props.nir)
                 .then(res => {
-                    console.log(res.data);
 
                     setPatientData({
                         num_secu: props.nir,
@@ -114,7 +113,6 @@ const PatientInfo = (props) => {
             // Remise des valeurs avant changement
             patientInfoService.getMedicalFile(props.nir)
                 .then(res => {
-                    console.log(res.data);
 
                     setPatientData({
                         num_secu: props.nir,
@@ -139,7 +137,6 @@ const PatientInfo = (props) => {
         if (props.type==="create") {
             patientInfoService.postMedicalFile(patientData)
                 .then(res => {
-                    console.log(res);
                     setAlertText("Succès de la création du profil médical.");
                     setShowSuccessAlert(true);
                     navigate(`/patient-overview/${props.nir}`); // on passe sur le PatientOverview
@@ -152,7 +149,6 @@ const PatientInfo = (props) => {
         } else {
             patientInfoService.patchMedicalFile(patientData)
                 .then(res => {
-                    console.log(res);
                     setAlertText("Les changements ont bien été enregistrés.");
                     setShowSuccessAlert(true); // si réussite
                 })

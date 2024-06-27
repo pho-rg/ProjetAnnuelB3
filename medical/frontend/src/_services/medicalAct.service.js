@@ -1,7 +1,4 @@
-const medFileExists = (nir) => {
-    return true;
-    // requete API de vérif si le patient a un dossier médical
-};
+import Axios from './caller.service';
 
 const isDateValid = (date) => {
     if (date.length === 0) {
@@ -34,6 +31,17 @@ const isDescValide = (intitule) => {
     return intitule.length > 0;
 }
 
+//_____API_____//
+const medFileExists = (nir) => {
+    return true;
+    // requete API de vérif si le patient a un dossier médical
+};
+
+const getMedicalActList = (nir, service) => {
+    return Axios.get('/acteMedical?nir='+nir+'&service='+service);
+};
+
+
 export const medicalActService = {
-    medFileExists, isDateValid, isOldDate, isIntituleValide, isNomValide, isDescValide
+    isDateValid, isOldDate, isIntituleValide, isNomValide, isDescValide, medFileExists, getMedicalActList
 }

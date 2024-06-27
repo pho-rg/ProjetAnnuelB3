@@ -30,6 +30,8 @@ const PatientSpace = (props) => {
         fetchServices();
     }, []);
 
+    console.log("patientSpace nir "+ props.nir);
+
     //_____Affichage_____//
     return (
         <div className="PatientSpace">

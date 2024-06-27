@@ -39,6 +39,9 @@ const PatientHistory = (props) => {
         setShowSuccessAlert(true);
     }
 
+    console.log("patientHistory nir "+ props.nir);
+    console.log("patientSpace service "+ props.service);
+
     //_____Affichage_____//
     return (<div className="PatientHistory">
             <div className="patientHistoryTitle">
@@ -67,7 +70,9 @@ const PatientHistory = (props) => {
                 <div className="patientHistoryAddedMedicalAct">
                     {/* Si bouton d'ajout cliqué, affichage d'un composant MedicalAct de type create*/}
                     {newMedicalAct && <MedicalAct type="create"
-                                                  data={{}}
+                                                  nir={props.nir}
+                                                  service={props.service}
+                                                  data={{}} // données vierge pour la creation
                                                   handleSuccess={handleSuccess}/>}
                 </div>
                 {showSuccessAlert &&

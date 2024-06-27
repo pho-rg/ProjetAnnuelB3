@@ -1,4 +1,5 @@
-import React, {useEffect, useRef, useState} from 'react';
+// Page de résultat de recherche
+import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import SearchForm from "../components/SearchForm";
 import {Alert} from "@mui/material";
@@ -18,7 +19,6 @@ const SearchResult = (props) => {
         const fetchSearchResult = async () => {
             try {
                 const res = await searchService.getAdminSearch(nom, prenom);
-                //console.log(res.data);
                 // map la liste d'objet en tableau de nir
                 const res_num_secu = res.data.map(obj => obj.num_secu);
                 //console.log(res_num_secu);

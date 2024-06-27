@@ -20,8 +20,6 @@ import DownloadIcon from '@mui/icons-material/Download';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import SaveIcon from "@mui/icons-material/Save";
 import WarningIcon from "@mui/icons-material/Warning";
-import {patientInfoService} from "../_services/patientInfo.service";
-
 
 const MedicalAct = (props) => {
     //_____Variables_____//
@@ -94,13 +92,8 @@ const MedicalAct = (props) => {
 
     //_____Contrôles_____
     const controlChange = (event) => {
-        // Contrôle existance dossier médical
-        if (!medicalActService.medFileExists(props.nir)) {
-            setAlertMessage("Le dossier médical n'existe pas pour ce patient, créez le ci-dessus.");
-            return false;
-        }
         // Controle des champs
-        else if (!medicalActService.isDateValid(newMedicalActData.date)) {
+        if (!medicalActService.isDateValid(newMedicalActData.date)) {
             setAlertMessage("Saisie incorrecte, la date n'est pas une date valide.");
             return false;
         } else if (!medicalActService.isOldDate(newMedicalActData.date)) {

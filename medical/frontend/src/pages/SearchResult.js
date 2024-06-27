@@ -1,3 +1,4 @@
+// Page de résultat de la recherche
 import React, {useEffect, useState} from 'react';
 import {searchService} from "../_services/search.service";
 import {useParams} from "react-router-dom";

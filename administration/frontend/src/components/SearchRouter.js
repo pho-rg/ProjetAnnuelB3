@@ -1,3 +1,4 @@
+// Gestion des routes de recherche
 import React from 'react';
 import {Route, Routes} from "react-router-dom";
 import Search from "../pages/Search";
@@ -5,6 +6,7 @@ import SearchResult from "../pages/SearchResult";
 
 // Routage
 const SearchRouter = () => {
+    // Gestion des routes
     return (
         <Routes>
             <Route path="/*" element={<Search/>}/>

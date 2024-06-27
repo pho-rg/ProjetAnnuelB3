@@ -1,3 +1,4 @@
+// Page de toutes les infos médicales du patient
 import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import SearchForm from "../components/SearchForm";

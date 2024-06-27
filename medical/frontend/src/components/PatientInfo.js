@@ -1,3 +1,4 @@
+// Composant du dossier médical
 import React, {useEffect, useRef, useState} from 'react';
 import '../style/PatientInfo.css'
 import {patientInfoService} from "../_services/patientInfo.service";

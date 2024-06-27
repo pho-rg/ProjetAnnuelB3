@@ -1,3 +1,4 @@
+// Composant de la liste des actes médicaux pour un patient en fonction du service
 import {medicalActService} from "../_services/medicalAct.service";
 import MedicalAct from "./MedicalAct";
 import {Alert} from "@mui/material";

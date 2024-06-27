@@ -1,3 +1,4 @@
+// Composant du dossier administratif du patient
 import React, {useState, UseEffect, useEffect, useRef} from 'react';
 import '../style/PatientInfo.css';
 import {patientInfoService} from "../_services/patientInfo.service";

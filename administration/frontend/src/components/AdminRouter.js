@@ -1,3 +1,4 @@
+// Routeur des pages de l'espace administratif
 import React from 'react';
 import {Route, Routes} from "react-router-dom";
 import Layout from "../pages/Layout";
@@ -8,6 +9,7 @@ import '../style/AdminRouteur.css'
 
 const AdminRouter = () => {
 
+    // Gestion des routes
     return (
         <Routes>
             <Route element={<Layout/>}>

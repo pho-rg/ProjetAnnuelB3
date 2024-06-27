@@ -5,14 +5,7 @@ import {
     GrpSanguin,
 } from '../utils/customTypes/grpSanguin-type';
 
-
-/**
- * CREER des types SEXES
- * Créer regex dates, sexes, email
- * Num securité sociale
- * creéer un type date
- */
-
+/** Interface IDossierMedical pour MongoDB*/
 interface IDossierMedical {
     num_secu: string;
     nom: string;
@@ -28,6 +21,7 @@ interface IDossierMedical {
     allergies: string[];
 }
 
+/** Schema IDossierMedical pour Mongoose*/
 const dossierMedicalSchema = new Schema<IDossierMedical>({
     num_secu: {type: String, required: true},
     nom: {type: String, required: true},
@@ -49,8 +43,6 @@ const dossierMedicalSchema = new Schema<IDossierMedical>({
     operations: {type: [String]},
     allergies: {type: [String]},
 }, {collection: 'dossier_medical'});
-
-//Mapper partie admin
 
 
 const DossierMedical = model<IDossierMedical>(

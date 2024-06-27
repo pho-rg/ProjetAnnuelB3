@@ -1,6 +1,6 @@
 import {Schema, model, Document, ObjectId} from 'mongoose';
 
-// 1. Create an interface representing a document in MongoDB.
+/** Interface IActeMedical pour MongoDB*/
 interface IActeMedical extends Document {
     num_secu: string;
     nom_medecin: string;
@@ -10,7 +10,7 @@ interface IActeMedical extends Document {
     intitule_acte: string;
 }
 
-// 2. Create a Schema corresponding to the document interface.
+/** Schema IActeMedical pour Mongoose*/
 const acteMedicalSchema = new Schema<IActeMedical>({
     nom_medecin: {type: String, required: true},
     nom_service: {type: String, required: true},
@@ -21,6 +21,6 @@ const acteMedicalSchema = new Schema<IActeMedical>({
 
 }, {collection: 'acte_medical'});
 
-// 3. Create a Model.
+
 const ActeMedical = model<IActeMedical>('ActeMedical', acteMedicalSchema);
 export {ActeMedical};

@@ -1,5 +1,6 @@
 import mongoose, {Schema, model, Document, ObjectId} from 'mongoose';
 
+/** Interface IPersonnelMedical pour MongoDB*/
 interface IPersonnelMedical extends Document {
     _id: ObjectId,
     id_servide: ObjectId,
@@ -11,6 +12,7 @@ interface IPersonnelMedical extends Document {
     hopital: string,
 }
 
+/** Schema IPersonnelMedical pour Mongoose*/
 const personnelMedicalSchema = new Schema<IPersonnelMedical>({
     _id: {type: Schema.Types.ObjectId, required: true},
     id_servide: {type: String, required: true},

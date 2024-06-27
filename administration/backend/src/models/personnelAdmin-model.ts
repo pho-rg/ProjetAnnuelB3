@@ -1,9 +1,9 @@
 import { RowDataPacket } from 'mysql2/promise';
 import moment from "moment/moment";
 
-// Interface représentant un document dans MySQL
+/**Interface personnelAdmin */
 interface IPersonnelAdmin {
-    id?: number;  // Champ optionnel
+    id?: number;
     nom: string;
     prenom: string;
     date_naissance: string ;
@@ -14,7 +14,7 @@ interface IPersonnelAdmin {
     nom_hopital:string;
 }
 
-// Transformer une ligne de résultats MySQL en un objet IPersonnelAdmin
+/** Transformer une ligne de résultats MySQL en un objet IPersonnelAdmin*/
 function rowToIPersonnelAdmin(row: RowDataPacket): IPersonnelAdmin {
     return {
         id: row['id'],

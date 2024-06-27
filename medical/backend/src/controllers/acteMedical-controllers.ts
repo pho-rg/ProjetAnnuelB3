@@ -4,37 +4,44 @@ const mongoose = require('mongoose');
 import {ActeMedical} from '../models/acteMedical-model';
 import {error} from "console";
 
-
+/**Recuperation des actes medicaux avec le nir*/
 const acteMedicalGetAll = async (
     request: express.Request,
     response: express.Response,
     next: express.NextFunction) => {
     try {
 
+        /**Récupérer les données de la requête*/
         const num_secu = request.query.nir;
         const nom_service = request.query.service;
-        console.log(num_secu);
-        // Recherche des actes par nir
+
+        /**Recherche des actes par nir*/
         const result = await ActeMedical.find({num_secu: num_secu,nom_service:nom_service});
-        console.log(result);
+
         if (!result) {
-            // Si aucun résultat n'est trouvé, renvoyer une erreur 404
+
+            /** Renvoyer une reponse not found*/
             return response.status(404).json({message: 'Vide'});
         }else
         {
+
+            /**Renvoyer une réponse de succès*/
             return response.status(200).send(result);
         }
     }catch{
-        console.error(error);
+
+        /**Renvoyer une réponse d'echec*/
         return response.status(500).send(error);
     }
 };
 
+/**Post d'un acte medical*/
 const acteMedicalPost = async (
     request: express.Request,
     response: express.Response,
     next: express.NextFunction) => {
 
+    /**Récupérer les données de la requête*/
         const acteMedical = new ActeMedical({
             num_secu:request.body.num_secu,
             date:request.body.date,
@@ -44,10 +51,15 @@ const acteMedicalPost = async (
             intitule_acte:request.body.intitule_acte,
         })
     try {
+
+        /**Sauvgarde de l'actes medical*/
         const result = await acteMedical.save();
+
+        /**Renvoyer une réponse de succès*/
         return response.status(201).json(result);
     } catch (err) {
-        console.error('Erreur lors de la sauvegarde de l\'acte médical :',err);
+
+        /**Renvoyer une réponse  d'echec*/
         return response.status(500).json({ message: 'Erreur serveur lors de la sauvegarde' });
     }
 };

@@ -1,7 +1,7 @@
 import { RowDataPacket } from 'mysql2/promise';
 import moment, { Moment } from 'moment';
 
-// Interface représentant un document dans MySQL
+/**Interface dossierAdmin */
 interface IDossierAdmin {
     num_secu: string;  // Champ optionnel
     nom: string;
@@ -17,7 +17,7 @@ interface IDossierAdmin {
     id_hopital: number;
 }
 
-// Transformer une ligne de résultats MySQL en un objet IDossierAdmin
+/** Transformer une ligne de résultats MySQL en un objet IDossierAdmin*/
 function rowToIDossierAdmin(row: RowDataPacket): IDossierAdmin {
     return {
         num_secu: row['num_secu'],

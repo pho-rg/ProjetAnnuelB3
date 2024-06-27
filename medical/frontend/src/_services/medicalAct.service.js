@@ -41,7 +41,10 @@ const getMedicalActList = (nir, service) => {
     return Axios.get('/acteMedical?nir='+nir+'&service='+service);
 };
 
+const postMedicalAct = (newMedicalActData) => {
+    return Axios.post('/acteMedical/post/', newMedicalActData);
+}
 
 export const medicalActService = {
-    isDateValid, isOldDate, isIntituleValide, isNomValide, isDescValide, medFileExists, getMedicalActList
+    isDateValid, isOldDate, isIntituleValide, isNomValide, isDescValide, medFileExists, getMedicalActList, postMedicalAct
 }

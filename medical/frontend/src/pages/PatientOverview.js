@@ -1,3 +1,4 @@
+// Page de toutes les infos médicales du patient
 import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import SearchForm from "../components/SearchForm";
@@ -10,7 +11,7 @@ const PatientOverview = () => {
     const [alertOpen, setAlertOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
     const {currentPatientNIR} = useParams();
-    const medFileExists = searchService.medFileExists(currentPatientNIR);
+    const medFileExists = searchService.medicalFileExists(currentPatientNIR);
     const [medFileNotExistsAlert, setMedFileNotExistsAlert] = useState(!medFileExists);
     useEffect(() => {
         if (alertMessage !== "") {

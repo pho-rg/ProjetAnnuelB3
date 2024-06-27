@@ -1,3 +1,4 @@
+// Router
 import React from 'react';
 import {Route, Routes} from "react-router-dom";
 import Layout from "../pages/Layout";
@@ -8,6 +9,7 @@ import '../style/MedRouteur.css'
 
 const MedRouter = () => {
 
+    // Gestion des routes
     return (
         <Routes>
             <Route element={<Layout/>}>

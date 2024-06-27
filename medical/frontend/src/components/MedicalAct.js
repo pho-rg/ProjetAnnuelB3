@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {medicalActService} from "../_services/medicalAct.service";
 import '../style/MedicalAct.css';
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -18,17 +19,14 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import DownloadIcon from '@mui/icons-material/Download';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import SaveIcon from "@mui/icons-material/Save";
-import {medicalActService} from "../_services/medicalAct.service";
 import WarningIcon from "@mui/icons-material/Warning";
-
 
 const MedicalAct = (props) => {
     //_____Variables_____//
     const [newMedicalActData, setNewMedicalActData] = useState({
         // Remarque : si la l'historique est vide pour le patient, props.data n'est pas alimenté par PatientHistory
-        //id:, TODO a gerer cote back
-        //service:, TODO a gerer avec la liste deroulante
-        //nir:, TODO a gerer avec la localStorage
+        nom_service: props.service,
+        num_secu: props.nir,
         date: "",
         intitule_acte: "",
         nom_medecin: "",
@@ -78,29 +76,24 @@ const MedicalAct = (props) => {
     const handleConfirmSave = () => {
         setSaveEnable(false); // griser l'enregistrement
         setAlertOpen(false); // masquage de l'alerte erreur
-        // TODO requete API
-        // Test de succès
-        if (true) {
-            // Gestion du masquage nouvel acte médical et message de succès dans PatientHistory
-            setOpenConfirmDialog(false);
-            props.handleSuccess();
-        } else {
-            setOpenConfirmDialog(false);
-            setAlertMessage("Erreur à l'ajout de l'acte médical, réessayez.");
-            setSaveEnable(true);
-            setAlertOpen(true);
-        }
+        medicalActService.postMedicalAct(newMedicalActData)
+            .then(res => {
+                setOpenConfirmDialog(false);
+                props.handleSuccess();
+            })
+            .catch(err => {
+                console.log(err);
+                setOpenConfirmDialog(false);
+                setAlertMessage("Erreur à l'ajout de l'acte médical, réessayez.");
+                setSaveEnable(true);
+                setAlertOpen(true);
+            });
     }
 
     //_____Contrôles_____
     const controlChange = (event) => {
-        // Contrôle existance dossier médical
-        if (!medicalActService.medFileExists(props.nir)) {
-            setAlertMessage("Le dossier médical n'existe pas pour ce patient, créez le ci-dessus.");
-            return false;
-        }
         // Controle des champs
-        else if (!medicalActService.isDateValid(newMedicalActData.date)) {
+        if (!medicalActService.isDateValid(newMedicalActData.date)) {
             setAlertMessage("Saisie incorrecte, la date n'est pas une date valide.");
             return false;
         } else if (!medicalActService.isOldDate(newMedicalActData.date)) {
@@ -119,6 +112,12 @@ const MedicalAct = (props) => {
             return true;
         }
     };
+
+    if (props.type === "create") {
+        console.log("medicalAct create nir " + props.nir);
+        console.log("medicalAct create service " + props.service);
+        console.log("medicalAct create date " + props.data);
+    }
 
     //_____Affichage_____//
     return (<div className="MedicalAct">

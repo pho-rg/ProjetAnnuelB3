@@ -29,7 +29,7 @@ const Login = () => {
     // Objet des infos de connexion (email, mdp)
     const [credentials, setCredentials] = useState({
         email: '',
-        password: ''
+        mots_de_passe: ''
     });
 
     // Bool d'affichage/masquage du mdp
@@ -53,8 +53,19 @@ const Login = () => {
     // Click bouton pour se connecter
     const handleLogin = (event) => {
         event.preventDefault();
-        if (accountService.isEmailValid(credentials.email) && accountService.login(credentials)) {
-            navigate('/search');
+        if (accountService.isEmailValid(credentials.email)) {
+            accountService.login(credentials)
+                .then(res => {
+                    console.log(res);
+                    accountService.saveToken(res.data.token);
+                    accountService.saveEmail(credentials.email);
+                    navigate('/search');
+                })
+                .catch(error => {
+                    console.log(error)
+                    setAlertMessage(" Identifiants incorrects");
+                    setAlertOpen(true);
+                })
         } else {
             setAlertMessage(" Identifiants incorrects");
             setAlertOpen(true);
@@ -121,8 +132,8 @@ const Login = () => {
                                 </InputAdornment>
                             }
                             label="Mot de passe"
-                            name="password"
-                            value={credentials.password}
+                            name="mots_de_passe"
+                            value={credentials.mots_de_passe}
                             onChange={handleChange}
                             onKeyDown={handleKeyDown}
                         />

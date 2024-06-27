@@ -1,3 +1,4 @@
+// Page de création d'un nouveau patient
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import {Alert} from "@mui/material";
@@ -19,7 +20,7 @@ const PatientRegister = (props) => {
         }
     }, [alertMessage]);
     useEffect(() => {
-        if (searchService.medFileExists(currentPatientNIR)){
+        if (searchService.medicalFileExists(currentPatientNIR)){
             navigate(`/patient-overview/${currentPatientNIR}`);
         }
     });

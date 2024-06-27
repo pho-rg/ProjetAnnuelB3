@@ -1,5 +1,7 @@
-import React, {useState} from 'react';
+// Composant du dossier médical
+import React, {useEffect, useRef, useState} from 'react';
 import '../style/PatientInfo.css'
+import {patientInfoService} from "../_services/patientInfo.service";
 import ContactEmergencyIcon from '@mui/icons-material/ContactEmergency';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import EditOffIcon from '@mui/icons-material/EditOff';
@@ -33,10 +35,12 @@ import {useNavigate} from "react-router-dom";
 
 const PatientInfo = (props) => {
     //_____Variables_____//
+    // Blocage du doublon useEffect
+    const flag = useRef(false);
     const navigate = useNavigate();
     const bloodGroups = ["O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-"];
-    const [pathologies, setPathologies] = useState(["Diabète", "Rhume"]);
-    const [operations, setOperations] = useState(["Appendicite", "Dents de sagesse", "Amputation"]);
+    const [pathologies, setPathologies] = useState([]);
+    const [operations, setOperations] = useState([]);
     const [allergies, setAllergies] = useState([]);
     const [expanded, setExpanded] = useState(props.type === "create");
     const [unsavedChanges, setUnsavedChanges] = useState(false);
@@ -46,20 +50,51 @@ const PatientInfo = (props) => {
     const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
     const [patientData, setPatientData] = useState({
         // partie administrative
-        nir: props.nir,
-        nom: "AUBRY--POUGET",
-        prenom: "Luigi",
-        date: "2004-02-18",
-        sexe: "HOMME",
+        num_secu: props.nir,
+        nom: "",
+        prenom: "",
+        date_naissance: "",
+        sexe: "",
         // partie medicale
-        taille: "178",
-        poids: "75",
-        grp_sanguin: "A+",
-        remarques: "Le mec est complètement fou c'est une dinguerie... ratio",
+        taille: "",
+        poids: "",
+        grp_sanguin: "",
+        remarques: "",
         pathologies: pathologies,
         operations: operations,
         allergies: allergies
     });
+
+    //_____API_____//
+    useEffect(() => {
+        if (props.type !== "create" && flag.current === false) {
+            patientInfoService.getMedicalFile(props.nir)
+                .then(res => {
+
+                    setPatientData({
+                        num_secu: props.nir,
+                        nom: res.data.nom,
+                        prenom: res.data.prenom,
+                        date_naissance: res.data.date_naissance,
+                        sexe: res.data.sexe,
+                        taille: res.data.taille,
+                        poids: res.data.poids,
+                        grp_sanguin: res.data.grp_sanguin,
+                        remarques: res.data.remarques,
+                        pathologies: setPathologies(res.data.pathologies),
+                        operations: setOperations(res.data.operations),
+                        allergies: setAllergies(res.data.allergies)
+                    });
+                })
+                .catch(err => console.log(err));
+        }
+        // Blocage du doublon useEffect
+        return () => flag.current = true;
+        // Résolution warnning React Hook useEffect has a missing dependency
+        //eslint-disable-next-line react-hooks/exhaustive-deps
+
+    }, [props.nir, props.type]);
+
     //_____Evènement_____//
     const handleClickOpenDialog = () => {
         setOpenConfirmDialog(true);
@@ -71,20 +106,58 @@ const PatientInfo = (props) => {
         setExpanded(!expanded);
     };
     const handleCancel = () => {
-        // appel à l'API pour récupérer les valeurs bdd
-        setUnsavedChanges(false);
+        if (props.type === "create") {
+            // Si annulation de la création patient, on revient sur recherche
+            navigate("/search/");
+        } else {
+            setUnsavedChanges(false);
+            // Remise des valeurs avant changement
+            patientInfoService.getMedicalFile(props.nir)
+                .then(res => {
+
+                    setPatientData({
+                        num_secu: props.nir,
+                        nom: res.data.nom,
+                        prenom: res.data.prenom,
+                        date_naissance: res.data.date_naissance,
+                        sexe: res.data.sexe,
+                        taille: res.data.taille,
+                        poids: res.data.poids,
+                        grp_sanguin: res.data.grp_sanguin,
+                        remarques: res.data.remarques,
+                        pathologies: setPathologies(res.data.pathologies),
+                        operations: setOperations(res.data.operations),
+                        allergies: setAllergies(res.data.allergies)
+                    });
+                })
+                .catch(err => console.log(err));
+        }
     };
     const handleSave = () => {
         let error = false;
         if (props.type==="create") {
-            // appel à l'API pour créer le profil médical
-            if (!error) {
-                navigate(`/patient-overview/${props.nir}`); // on passe sur le PatientOverview
-            } else {
-                setAlertText(n=>"Une erreur est survenue lors de la création du profil médical.");
-                setShowErrorAlert(true); // masquage de l'alerte erreur
-            }
+            patientInfoService.postMedicalFile(patientData)
+                .then(res => {
+                    setAlertText("Succès de la création du profil médical.");
+                    setShowSuccessAlert(true);
+                    navigate(`/patient-overview/${props.nir}`); // on passe sur le PatientOverview
+                })
+                .catch(err => {
+                    console.log(err);
+                    setAlertText("Une erreur est survenue lors de la création du profil médical.");
+                    setShowErrorAlert(true);
+                });
         } else {
+            patientInfoService.patchMedicalFile(patientData)
+                .then(res => {
+                    setAlertText("Les changements ont bien été enregistrés.");
+                    setShowSuccessAlert(true); // si réussite
+                })
+                .catch(err => {
+                    console.log(err);
+                    setAlertText("Une erreur est survenue lors de la modification du profil médical.");
+                    setShowErrorAlert(true); // masquage de l'alerte erreur
+                });
             // appel à l'API pour modifier le profil médical
             if (!error) {
                 setAlertText(n=>"Les changements ont bien été enregistrés.");
@@ -108,6 +181,35 @@ const PatientInfo = (props) => {
             });
         }
     };
+
+    const updatePathologies = (newPathologies) => {
+        setPathologies(newPathologies);
+        setPatientData(prevData => ({
+            ...prevData,
+            pathologies: newPathologies
+        }));
+        setUnsavedChanges(true);
+    };
+
+    const updateOperations = (newOperations) => {
+        setOperations(newOperations);
+        setPatientData(prevData => ({
+            ...prevData,
+            operations: newOperations
+        }));
+        setUnsavedChanges(true);
+    };
+
+    const updateAllergies = (newAllergies) => {
+        setAllergies(newAllergies);
+        setPatientData(prevData => ({
+            ...prevData,
+            allergies: newAllergies
+        }));
+        setUnsavedChanges(true);
+    };
+
+
     //_____Fonctions_____//
     const controlChange = (event) => {
         // contrôles de saisie en fonction du champs
@@ -234,11 +336,11 @@ const PatientInfo = (props) => {
                             <TextField
                                 className="InfoFieldColored"
                                 disabled
-                                value={patientData.sexe.substring(0, 1).toUpperCase() + patientData.sexe.substring(1).toLowerCase()}
+                                value={patientData.sexe === 1 ? "HOMME" : "FEMME"}
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment position="end">
-                                            {patientData.sexe === "HOMME" ? <MaleIcon sx={{color: '#204213'}}/> :
+                                            {patientData.sexe === 1 ? <MaleIcon sx={{color: '#204213'}}/> :
                                                 <FemaleIcon sx={{color: '#204213'}}/>}
                                         </InputAdornment>
                                     ),
@@ -252,7 +354,7 @@ const PatientInfo = (props) => {
                                 className="InfoFieldColored"
                                 disabled
                                 type="date"
-                                value={patientData.date}
+                                value={patientData.date_naissance}
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment position="end">
@@ -267,6 +369,7 @@ const PatientInfo = (props) => {
                 </div>
                 {adminInfoButton()}
             </div>
+            {/* Affichage du PatientInfo de type résultat de recherche*/}
             {(props.type!=="search") &&
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <div className="medInfoContainer">
@@ -454,19 +557,22 @@ const PatientInfo = (props) => {
                                 <div className="medInfoList">
                                     <MedInfoList list={pathologies}
                                                  title={"Pathologies"}
-                                                 setList={setPathologies}
+                                                 //setList={setPathologies}
+                                                 setList={updatePathologies}
                                                  enableSave={setUnsavedChanges}/>
                                 </div>
                                 <div className="medInfoList">
                                     <MedInfoList list={allergies}
                                                  title={"Allergies"}
-                                                 setList={setAllergies}
+                                                 //setList={setAllergies}
+                                                 setList={updateAllergies}
                                                  enableSave={setUnsavedChanges}/>
                                 </div>
                                 <div className="medInfoList">
                                     <MedInfoList list={operations}
                                                  title={"Opérations"}
-                                                 setList={setOperations}
+                                                 //setList={setOperations}
+                                                 setList={updateOperations}
                                                  enableSave={setUnsavedChanges}/>
                                 </div>
                             </div>

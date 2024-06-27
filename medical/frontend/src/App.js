@@ -4,6 +4,7 @@ import MedRouter from "./components/MedRouter";
 import Login from "./pages/Login";
 import {ThemeProvider} from "@mui/material";
 import medicalTheme from "./medicalTheme";
+import AuthGuard from "./components/AuthGuard";
 
 function App() {
   return (
@@ -12,7 +13,11 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path="/login" element={<Login/>}/>
-              <Route path="/*" element={<MedRouter/>}/>
+              <Route path="/*" element={
+                <AuthGuard>
+                  <MedRouter/>
+                </AuthGuard>
+              }/>
             </Routes>
           </BrowserRouter>
         </div>

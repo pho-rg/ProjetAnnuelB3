@@ -1,0 +1,100 @@
+[{
+  "_id": {
+    "$oid": "667b212242ed1d83d6e7948b"
+  },
+  "num_secu": "104021730625478",
+  "date": "2024-06-01",
+  "description": "Consultation générale",
+  "nom_service": "Radiologie",
+  "nom_medecin": "Martin"
+},
+{
+  "_id": {
+    "$oid": "667b212242ed1d83d6e7948c"
+  },
+  "num_secu": "104021730625478",
+  "date": "2024-06-02",
+  "description": "Radiographie du thorax",
+  "nom_service": "Radiologie",
+  "nom_medecin": "Martin"
+},
+{
+  "_id": {
+    "$oid": "667b212242ed1d83d6e7948d"
+  },
+  "num_secu": "104021730625478",
+  "date": "2024-06-03",
+  "description": "Chirurgie orthopédique",
+  "nom_medecin": "Sarkozy",
+  "nom_service": "Chirurgie"
+},
+{
+  "_id": {
+    "$oid": "667b212242ed1d83d6e7948e"
+  },
+  "num_secu": "107102509803594",
+  "date": "2024-06-04",
+  "description": "Analyse de sang",
+  "nom_medecin": "Dupont",
+  "nom_service": "Cardiologie"
+},
+{
+  "_id": {
+    "$oid": "667b212242ed1d83d6e7948f"
+  },
+  "num_secu": "107102509803594",
+  "date": "2024-06-05",
+  "description": "IRM cérébrale",
+  "nom_medecin": "Martin",
+  "nom_service": "Radiologie"
+},
+{
+  "_id": {
+    "$oid": "667b212242ed1d83d6e79490"
+  },
+  "num_secu": "107102509803594",
+  "date": "2024-06-06",
+  "description": "Consultation pédiatrique",
+  "nom_medecin": "Karim",
+  "nom_service": "Pediatrie"
+},
+{
+  "_id": {
+    "$oid": "667b212242ed1d83d6e79491"
+  },
+  "num_secu": "294037512000591",
+  "date": "2024-06-07",
+  "description": "Échographie abdominale",
+  "nom_medecin": "Martin",
+  "nom_service": "Radiologie"
+},
+{
+  "_id": {
+    "$oid": "667b212242ed1d83d6e79492"
+  },
+  "num_secu": "294037512000591",
+  "date": "2024-06-08",
+  "description": "Traitement de coeur",
+  "nom_medecin": "Dupont",
+  "nom_service": "Cardiologie"
+},
+{
+  "_id": {
+    "$oid": "667b212242ed1d83d6e79493"
+  },
+  "num_secu": "294037512000591",
+  "date": "2024-06-09",
+  "description": "Consultation enfant bas age",
+  "nom_medecin": "Karim",
+  "nom_service": "Pediatrie"
+},
+{
+  "_id": {
+    "$oid": "667b212242ed1d83d6e79494"
+  },
+  "num_secu": "294037512000591",
+  "date": "2024-06-10",
+  "description": "Chirurgie cardiaque",
+  "nom_medecin": "Sarkozy",
+  "nom_service": "Chirurgie"
+}]

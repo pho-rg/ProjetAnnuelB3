@@ -1,3 +1,4 @@
+// Composant de recherche
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import '../style/SearchForm.css';
@@ -38,23 +39,44 @@ const SearchForm = (props) => {
             }
         }
     }
-    const handleAccess = () => {
+    const handleAccess = async () => {
         // Contrôle validité nir et existence du dossier administratif
         if (!searchService.isNirValid(searchData.nir)) {
             props.setAlertMessage("Le numéro NIR renseigné est invalide.");
             props.setAlertOpen(true);
             return;
         }
-        else if (!searchService.adminFileExists(searchData.nir)) {
-            props.setAlertMessage("Aucun dossier administratif n'existe pour ce numéro NIR, il doit être créé avant l'ouverture d'un dossier médical.");
+
+        try {
+            const adminExists = await searchService.adminFileExists(searchData.nir);
+            // Savoir si un dossier administratif existe
+            if (!adminExists) {
+                console.log("admin does not exist");
+                props.setAlertMessage("Aucun dossier administratif n'existe pour ce numéro NIR, il doit être créé avant l'ouverture d'un dossier médical.");
+                props.setAlertOpen(true);
+            }
+            // Le dossier administratif existe, savoir si le dossier médical existe
+            else {
+                const medicalExists = await searchService.medicalFileExists(searchData.nir);
+                // Redirection vers création du dossier médical
+                if (!medicalExists) {
+                    console.log("medical to create");
+                    navigate(`/patient-register/${searchData.nir}`);
+                    // TODO fix bug
+                    window.location.reload();
+
+                } else {
+                    console.log("medical exists");
+                    navigate(`/patient-overview/${searchData.nir}`);
+                    // TODO fix bug
+                    window.location.reload();
+                }
+
+            }
+        } catch (err) {
+            console.error(err);
+            props.setAlertMessage("Erreur à la vérification du dossier administratif.");
             props.setAlertOpen(true);
-            return;
-        }
-        // Redirection vers la bonne page Patient
-        if (!searchService.medFileExists(searchData.nir)) {
-            navigate(`/patient-register/${searchData.nir}`);
-        } else {
-            navigate(`/patient-overview/${searchData.nir}`);
         }
     }
     const handleSearch = () => {
@@ -71,6 +93,8 @@ const SearchForm = (props) => {
             // Redirection vers le résultat de la recherche
         } else {
             navigate(`/search/result/${searchData.nom}/${searchData.prenom}/${searchData.date}`)
+            // TODO fix bug
+            window.location.reload();
         }
     }
 

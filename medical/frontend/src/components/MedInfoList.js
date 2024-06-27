@@ -1,3 +1,4 @@
+// Composant d'une liste de champs dans un dossier médical
 import React, {useState} from 'react';
 import '../style/MedInfoList.css';
 import {

@@ -1,5 +1,5 @@
 // Composant de la barre de navigation
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import '../style/Navbar.css';
@@ -7,21 +7,35 @@ import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
 import WarningIcon from "@mui/icons-material/Warning";
 import {useNavigate} from "react-router-dom";
+import {accountService} from "../_services/account.service";
 
 const Navbar = () => {
     //_____Variables_____//
-    // TODO -> recup nom hopital avec accountService
-    // Const fullHospitalName = 'Hôpital ' + accountService.getHospitalName();
-    const fullHospitalName = 'Hôpital Mignon';
-    // TODO -> recup nom utilisateur avec accountService
-    // Const fullUserName = 'Premiere lettre ' + accountService.getUserName();
-    const fullUserName = 'I.Dussolier';
+    const [userHopital, setUserHopital] = useState("");
+    const [userName, setUserName] = useState("");
     // Gestion de la fenetre de deconnexion
     const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
     // Const de changement de page
     const navigate = useNavigate();
 
     //_____Evenement_____//
+    useEffect(() => {
+        const retrieveUserName = async () => {
+            try {
+                const res = await accountService.getUserInfo(localStorage.getItem('email'));
+                setUserHopital(res.data.nom_hopital);
+                setUserName(res.data.prenom.substring(0,1).toUpperCase() + "."
+                    + res.data.nom.substring(0,1).toUpperCase() + res.data.nom.substring(1,).toLowerCase());
+            } catch (err) {
+                console.error(err);
+                setUserName("Espace administratif");
+                setUserHopital("Hôpital de France");
+            }
+        };
+
+        retrieveUserName();
+    }, []);
+
     const handleClickOpenDialog = () => {
         setOpenConfirmDialog(true);
     };
@@ -29,7 +43,8 @@ const Navbar = () => {
         setOpenConfirmDialog(false);
     };
     const handleConfirmLogout = () => {
-        // TODO retirer le token
+        // Retirer le token
+        accountService.logout();
         navigate('/login');
     }
 
@@ -39,13 +54,13 @@ const Navbar = () => {
             <div className="navbarSplit">
                 <div className="navBarHospital">
                     <LocalHospitalIcon className="navbarIcon" fontSize="large"/>
-                    <h3>{fullHospitalName}</h3>
+                    <h3>{userHopital}</h3>
                 </div>
             </div>
             <div className="navbarSplit">
                 <div className="navBarDoctor">
                     <AccountCircleIcon className="navbarIcon" fontSize="large"/>
-                    <h3>{fullUserName}</h3>
+                    <h3>{userName}</h3>
                 </div>
                 <div className="navBarLogout">
                     <MeetingRoomIcon

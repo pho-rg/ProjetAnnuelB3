@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+// Composant du dossier administratif du patient
+import React, {useState, UseEffect, useEffect, useRef} from 'react';
 import '../style/PatientInfo.css';
 import {patientInfoService} from "../_services/patientInfo.service";
 import ContactEmergencyIcon from '@mui/icons-material/ContactEmergency';
@@ -31,10 +32,14 @@ import {useNavigate} from "react-router-dom";
 
 const PatientInfo = (props) => {
     //_____Variables_____//
+    // Blocage du doublon useEffect
+    const flag = useRef(false);
     // Redirection
     const navigate = useNavigate();
     // Tableau de genre
     const patientGender = ["HOMME", "FEMME"];
+    // Tableau de mutuelle
+    const [mutuelleList, setMutuelleList] = useState([]);
     // Affichage/masquage des boutons annuler et enregistrer
     const [unsavedChanges, setUnsavedChanges] = useState(false);
     // Texte du message d'alerte
@@ -49,20 +54,63 @@ const PatientInfo = (props) => {
     // Données patient
     const [patientData, setPatientData] = useState({
         // partie administrative
-        nir: props.nir,
-        nom: "Org",
-        prenom: "Ph",
-        date: "2004-02-18",
-        sexe: "HOMME",
-        telephone: "0625121998",
-        adresse: "25 rue du Laurier 40300 Mont de Marsan",
-        email: "l.aubry@gmail.com",
-        mutuelle: "Maif",
-        hopital: "Croix Rousse",
-        remarques: "Le mec est complètement fou c'est une dinguerie... ratio"
+        num_secu: props.nir,
+        nom: "",
+        prenom: "",
+        date_naissance: "",
+        sexe: "",
+        telephone: "",
+        adresse: "",
+        email: "",
+        id_mutuelle: "",
+        id_hopital: 1,
+        remarques: ""
     });
 
-    console.log(patientData);
+    //_____API_____//
+    // Appel API pour la liste des mutuelles
+    useEffect(() => {
+        const fetchMutuelles = async () => {
+            try {
+                const response = await patientInfoService.getAllMutuelle();
+                setMutuelleList(response.data);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        fetchMutuelles();
+    }, []);
+
+    // Appel API pour les infos du patient
+    useEffect(() => {
+        if (props.type !== "create" && flag.current === false) {
+            patientInfoService.getAdminFile(props.nir)
+                .then(res => {
+                    console.log(res.data);
+
+                    setPatientData({
+                        num_secu: props.nir,
+                        nom: res.data.nom,
+                        prenom: res.data.prenom,
+                        date_naissance: res.data.date_naissance,
+                        sexe: res.data.sexe,
+                        telephone: res.data.telephone,
+                        adresse: res.data.adresse,
+                        email: res.data.email,
+                        id_mutuelle: res.data.id_mutuelle,
+                        id_hopital: 1,
+                        remarques: res.data.remarques
+                    });
+                })
+                .catch(err => console.log(err));
+        }
+        // Blocage du doublon useEffect
+        return () => flag.current = true;
+        // Résolution warnning React Hook useEffect has a missing dependency
+        //eslint-disable-next-line react-hooks/exhaustive-deps
+
+    }, [props.nir, props.type]);
 
     //_____Evènement_____//
     // Gestion des changements sur les infos patient
@@ -96,34 +144,56 @@ const PatientInfo = (props) => {
             // Si annulation de la création patient, on revient sur recherche
             navigate("/search/");
         } else {
-            // appel à l'API pour récupérer les valeurs bdd
             setUnsavedChanges(false);
+            // Remise des valeurs avant changement
+            patientInfoService.getAdminFile(props.nir)
+                .then(res => {
+                    console.log(res.data);
+
+                    setPatientData({
+                        num_secu: props.nir,
+                        nom: res.data.nom,
+                        prenom: res.data.prenom,
+                        date_naissance: res.data.date_naissance,
+                        sexe: res.data.sexe,
+                        telephone: res.data.telephone,
+                        adresse: res.data.adresse,
+                        email: res.data.email,
+                        id_mutuelle: res.data.id_mutuelle,
+                        id_hopital: res.data.id_hopital,
+                        remarques: res.data.remarques
+                    });
+                })
+                .catch(err => console.log(err));
         }
     };
     // Mise à jour des infos patient
     const handleSave = () => {
-        let error = false;
         if (props.type === "create") {
-            // appel à l'API pour créer le profil administratif
-            if (!error) {
-                // TODO back rediriger une fois API ok
-                //navigate(`/patient-overview/${props.nir}`); // on passe sur le PatientOverview
-                setAlertText("Succès de la création du profil administratif.");
-                setShowSuccessAlert(true);
-                setJustAdded(true);
-            } else {
-                setAlertText("Une erreur est survenue lors de la création du profil administratif.");
-                setShowErrorAlert(true);
-            }
+            patientInfoService.postAdminFile(patientData)
+                .then(res => {
+                    console.log(res);
+                    setAlertText("Succès de la création du profil administratif.");
+                    setShowSuccessAlert(true);
+                    setJustAdded(true);
+                })
+                .catch(err => {
+                    console.log(err);
+                    setAlertText("Une erreur est survenue lors de la création du profil administratif.");
+                    setShowErrorAlert(true);
+                });
         } else {
-            // appel à l'API pour modifier le profil administratif
-            if (!error) {
-                setAlertText("Les changements ont bien été enregistrés.");
-                setShowSuccessAlert(true); // si réussite
-            } else {
-                setAlertText("Une erreur est survenue lors de la modification du profil médical.");
-                setShowErrorAlert(true); // masquage de l'alerte erreur
-            }
+            patientInfoService.patchAdminFile(patientData)
+                .then(res => {
+                    console.log(res);
+                    setAlertText("Les changements ont bien été enregistrés.");
+                    setShowSuccessAlert(true); // si réussite
+                })
+                .catch(err => {
+                    console.log(err);
+                    setAlertText("Une erreur est survenue lors de la modification du profil administratif.");
+                    setShowErrorAlert(true); // masquage de l'alerte erreur
+                });
         }
         handleCloseDialog();
         setUnsavedChanges(false);
@@ -138,7 +208,7 @@ const PatientInfo = (props) => {
         } else if (!patientInfoService.isPrenomValide(patientData.prenom)) {
             setAlertText("Saisie incorrecte, le prénom n'est pas valide.");
             return false;
-        } else if (!patientInfoService.isDateValide(patientData.date)) {
+        } else if (!patientInfoService.isDateValide(patientData.date_naissance)) {
             setAlertText("Saisie incorrecte, la date n'est pas valide.");
             return false;
         } else if (!patientInfoService.isAdresseValide(patientData.adresse)) {
@@ -251,11 +321,11 @@ const PatientInfo = (props) => {
                                 <TextField
                                     className="InfoFieldColored"
                                     disabled
-                                    value={patientData.sexe.substring(0, 1).toUpperCase() + patientData.sexe.substring(1).toLowerCase()}
+                                    value={patientData.sexe === 1 ? "HOMME" : "FEMME"}
                                     InputProps={{
                                         endAdornment: (
                                             <InputAdornment position="end">
-                                                {patientData.sexe === "HOMME" ? <MaleIcon sx={{color: '#6FA2F8'}}/> :
+                                                {patientData.sexe === 1 ? <MaleIcon sx={{color: '#6FA2F8'}}/> :
                                                     <FemaleIcon sx={{color: '#6FA2F8'}}/>}
                                             </InputAdornment>
                                         ),
@@ -266,11 +336,11 @@ const PatientInfo = (props) => {
                             <div className="adminInfoField">
                                 <Typography variant="body1" sx={{mb: 1, color: '#6FA2F8'}}>Date de
                                     naissance</Typography>
+
                                 <TextField
                                     className="InfoFieldColored"
-                                    disabled
                                     type="date"
-                                    value={patientData.date}
+                                    value={patientData.date_naissance}
                                     InputProps={{
                                         endAdornment: (
                                             <InputAdornment position="end">
@@ -279,6 +349,7 @@ const PatientInfo = (props) => {
                                         ),
                                     }}
                                     variant="outlined"
+                                    disabled
                                 />
                             </div>
                         </div>
@@ -369,8 +440,9 @@ const PatientInfo = (props) => {
                                     >
                                         {patientGender.map((patientGender, index) => {
                                             return (
-                                                <MenuItem key={index}
-                                                          value={patientGender}>{patientGender}</MenuItem>)
+                                                <MenuItem key={index} value={index+1}>
+                                                    {patientGender}
+                                                </MenuItem>)
                                         })}
                                     </Select>
                                 </div>
@@ -379,8 +451,9 @@ const PatientInfo = (props) => {
                                         naissance</Typography>
                                     <TextField
                                         className="infoField"
-                                        name="date"
-                                        value={patientData.date}
+                                        name="date_naissance"
+                                        type="date"
+                                        value={patientData.date_naissance}
                                         onChange={handleChange}
                                         variant="outlined"
                                         sx={{width: "100%"}}
@@ -389,15 +462,24 @@ const PatientInfo = (props) => {
                                 </div>
                                 <div className="fullAdminInfoField">
                                     <Typography variant="body1" sx={{mb: 1, color: '#6FA2F8'}}>Mutuelle</Typography>
-                                    <TextField
+                                    <Select
                                         className="infoField"
-                                        name="mutuelle"
-                                        value={patientData.mutuelle}
+                                        fullWidth
+                                        name="id_mutuelle"
+                                        value={patientData.id_mutuelle || ''}
                                         onChange={handleChange}
-                                        variant="outlined"
+                                        MenuProps={{
+                                            disableScrollLock: true,
+                                        }}
                                         sx={{width: "100%"}}
                                         disabled={justAdded}
-                                    />
+                                    >
+                                        {mutuelleList.map((mutuelle) => (
+                                            <MenuItem key={mutuelle.id_mutuelle} value={mutuelle.id_mutuelle}>
+                                                {mutuelle.nom_mutuelle}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
                                 </div>
                             </div>
                             <div className="fullAdminInfoRow">

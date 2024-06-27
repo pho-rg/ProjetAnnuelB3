@@ -1,3 +1,4 @@
+// Page de recherche
 import React, {useState} from 'react';
 import SearchForm from "../components/SearchForm";
 import {Alert} from "@mui/material";

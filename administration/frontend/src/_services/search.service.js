@@ -1,19 +1,19 @@
-import { accountService } from "./account.service";
+// Service de gestion de la recherche
 import Axios from './caller.service';
 
+// Regex et calcuil de la clef de controle du nir saisit
 const isNirValid = (nir) => {
-    // if (nir.length !== 15) {
-    //     return false;
-    // } else if (!nir.match(/^[0-9]*$/)) {
-    //     return false;
     if (!nir.match(/^[12][0-9]{2}(0[1-9]|1[0-2])(2[AB]|[0-9]{2})[0-9]{3}[0-9]{3}([0-9]{2})$/)) {
         return false;
     } else return (97 - (parseInt(nir.substring(0, 13)) % 97) === parseInt(nir.substring(13)));
 };
 
+// Regex de nom valide
 const isNameValid = (name) => {
     return (name.length >= 2 && name.length <= 32 && name.match(/^[A-Za-zÀ-ÖØ-öø-ÿ ,.'-]+$/i));
 }
+
+// Date du jour ou dans le passé
 const isDateValid = (date) => {
     if (date.length === 0) {
         return true;
@@ -23,10 +23,11 @@ const isDateValid = (date) => {
 }
 
 //_____API_____//
+// Promise d'existence d'un dossier administratif
 const getAdminFileExists = (nir) => {
     return Axios.get('/dossAdmin/exists/' + nir);
 };
-
+// True False d'existence d'un dossier administratif
 const adminFileExists = (nir) => {
     return getAdminFileExists(nir)
         .then(res => res.data.exists)
@@ -36,6 +37,7 @@ const adminFileExists = (nir) => {
         });
 };
 
+// Récupérer les résultats d'une recherche par nom et prénom
 const getAdminSearch = (nom, prenom) => {
     return Axios.get('/dossAdmin/search?nom='+nom+'&prenom='+prenom);
 };

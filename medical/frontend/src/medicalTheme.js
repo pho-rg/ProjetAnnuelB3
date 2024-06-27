@@ -1,3 +1,4 @@
+// theme et couleurs de l'application
 import { createTheme } from '@mui/material/styles';
 import { frFR } from '@mui/material/locale';
 import {lightGreen} from '@mui/material/colors';

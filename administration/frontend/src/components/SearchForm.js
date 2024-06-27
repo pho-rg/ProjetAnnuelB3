@@ -1,3 +1,4 @@
+// Composant de recherche par inr ou par nom, prénom et date
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import '../style/SearchForm.css';

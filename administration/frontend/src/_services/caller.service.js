@@ -1,6 +1,8 @@
+// Gestion du port et du token
 import axios from 'axios';
 import {accountService} from "./account.service";
 
+// Port d'écoute
 const Axios = axios.create({
     baseURL: 'http://localhost:5001'
 })

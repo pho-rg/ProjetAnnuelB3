@@ -1,3 +1,4 @@
+// Composant du dossier administratif du patient
 import React, {useState, UseEffect, useEffect, useRef} from 'react';
 import '../style/PatientInfo.css';
 import {patientInfoService} from "../_services/patientInfo.service";
@@ -190,7 +191,7 @@ const PatientInfo = (props) => {
                 })
                 .catch(err => {
                     console.log(err);
-                    setAlertText("Une erreur est survenue lors de la modification du profil médical.");
+                    setAlertText("Une erreur est survenue lors de la modification du profil administratif.");
                     setShowErrorAlert(true); // masquage de l'alerte erreur
                 });
         }

@@ -1,3 +1,4 @@
+// Composant du dossier médical
 import React, {useEffect, useRef, useState} from 'react';
 import '../style/PatientInfo.css'
 import {patientInfoService} from "../_services/patientInfo.service";
@@ -69,7 +70,6 @@ const PatientInfo = (props) => {
         if (props.type !== "create" && flag.current === false) {
             patientInfoService.getMedicalFile(props.nir)
                 .then(res => {
-                    console.log(res.data);
 
                     setPatientData({
                         num_secu: props.nir,
@@ -106,20 +106,58 @@ const PatientInfo = (props) => {
         setExpanded(!expanded);
     };
     const handleCancel = () => {
-        // appel à l'API pour récupérer les valeurs bdd
-        setUnsavedChanges(false);
+        if (props.type === "create") {
+            // Si annulation de la création patient, on revient sur recherche
+            navigate("/search/");
+        } else {
+            setUnsavedChanges(false);
+            // Remise des valeurs avant changement
+            patientInfoService.getMedicalFile(props.nir)
+                .then(res => {
+
+                    setPatientData({
+                        num_secu: props.nir,
+                        nom: res.data.nom,
+                        prenom: res.data.prenom,
+                        date_naissance: res.data.date_naissance,
+                        sexe: res.data.sexe,
+                        taille: res.data.taille,
+                        poids: res.data.poids,
+                        grp_sanguin: res.data.grp_sanguin,
+                        remarques: res.data.remarques,
+                        pathologies: setPathologies(res.data.pathologies),
+                        operations: setOperations(res.data.operations),
+                        allergies: setAllergies(res.data.allergies)
+                    });
+                })
+                .catch(err => console.log(err));
+        }
     };
     const handleSave = () => {
         let error = false;
         if (props.type==="create") {
-            // appel à l'API pour créer le profil médical
-            if (!error) {
-                navigate(`/patient-overview/${props.nir}`); // on passe sur le PatientOverview
-            } else {
-                setAlertText(n=>"Une erreur est survenue lors de la création du profil médical.");
-                setShowErrorAlert(true); // masquage de l'alerte erreur
-            }
+            patientInfoService.postMedicalFile(patientData)
+                .then(res => {
+                    setAlertText("Succès de la création du profil médical.");
+                    setShowSuccessAlert(true);
+                    navigate(`/patient-overview/${props.nir}`); // on passe sur le PatientOverview
+                })
+                .catch(err => {
+                    console.log(err);
+                    setAlertText("Une erreur est survenue lors de la création du profil médical.");
+                    setShowErrorAlert(true);
+                });
         } else {
+            patientInfoService.patchMedicalFile(patientData)
+                .then(res => {
+                    setAlertText("Les changements ont bien été enregistrés.");
+                    setShowSuccessAlert(true); // si réussite
+                })
+                .catch(err => {
+                    console.log(err);
+                    setAlertText("Une erreur est survenue lors de la modification du profil médical.");
+                    setShowErrorAlert(true); // masquage de l'alerte erreur
+                });
             // appel à l'API pour modifier le profil médical
             if (!error) {
                 setAlertText(n=>"Les changements ont bien été enregistrés.");
@@ -143,6 +181,35 @@ const PatientInfo = (props) => {
             });
         }
     };
+
+    const updatePathologies = (newPathologies) => {
+        setPathologies(newPathologies);
+        setPatientData(prevData => ({
+            ...prevData,
+            pathologies: newPathologies
+        }));
+        setUnsavedChanges(true);
+    };
+
+    const updateOperations = (newOperations) => {
+        setOperations(newOperations);
+        setPatientData(prevData => ({
+            ...prevData,
+            operations: newOperations
+        }));
+        setUnsavedChanges(true);
+    };
+
+    const updateAllergies = (newAllergies) => {
+        setAllergies(newAllergies);
+        setPatientData(prevData => ({
+            ...prevData,
+            allergies: newAllergies
+        }));
+        setUnsavedChanges(true);
+    };
+
+
     //_____Fonctions_____//
     const controlChange = (event) => {
         // contrôles de saisie en fonction du champs
@@ -490,19 +557,22 @@ const PatientInfo = (props) => {
                                 <div className="medInfoList">
                                     <MedInfoList list={pathologies}
                                                  title={"Pathologies"}
-                                                 setList={setPathologies}
+                                                 //setList={setPathologies}
+                                                 setList={updatePathologies}
                                                  enableSave={setUnsavedChanges}/>
                                 </div>
                                 <div className="medInfoList">
                                     <MedInfoList list={allergies}
                                                  title={"Allergies"}
-                                                 setList={setAllergies}
+                                                 //setList={setAllergies}
+                                                 setList={updateAllergies}
                                                  enableSave={setUnsavedChanges}/>
                                 </div>
                                 <div className="medInfoList">
                                     <MedInfoList list={operations}
                                                  title={"Opérations"}
-                                                 setList={setOperations}
+                                                 //setList={setOperations}
+                                                 setList={updateOperations}
                                                  enableSave={setUnsavedChanges}/>
                                 </div>
                             </div>

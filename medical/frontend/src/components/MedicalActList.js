@@ -1,17 +1,39 @@
-// Récupération de la liste des actes médicaux et affichage les uns sous les autres
-// Données provisoires avant raccordement au backEnd
-import {medicalActData} from '../datas/MedicalActData';
+// Composant de la liste des actes médicaux pour un patient en fonction du service
+import {medicalActService} from "../_services/medicalAct.service";
 import MedicalAct from "./MedicalAct";
 import {Alert} from "@mui/material";
+import {useEffect, useState} from "react";
+import {patientInfoService} from "../_services/patientInfo.service";
+import {searchService} from "../_services/search.service";
 
 const MedicalActList = (props) => {
-    // TODO backEnd
-    // tri préalable de medicalActData avec le props.selectedSort en parametre
+    //_____Variables_____//
+    // Liste des actes médicaux du patient pour un service
+    const [medicalActListData, setMedicalActListData] = useState([]);
+
+    //_____API_____//
+    // Appel API pour écupération de la liste et des données
+    useEffect(() => {
+        const fetchMedicalActs = async () => {
+            try {
+                const res = await medicalActService.getMedicalActList(props.nir, props.service);
+                setMedicalActListData(res.data);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        fetchMedicalActs();
+    }, [props.nir, props.service]);
+
+    console.log("medicalActList nir " + props.nir);
+    console.log("medicalActList service  " + props.service);
+    console.log("medicalActList sort " + props.selectedSort);
 
     //_____Affichage_____//
     return (<div className="MedicalActList">
             {/* pour chaque élément, mappage et injection des données dans un acte médical*/}
-            {medicalActData.length > 0 ? (medicalActData.map((act) => (
+            {medicalActListData.length > 0 ? (medicalActListData.map((act) => (
                     <MedicalAct
                         type="display"
                         key={act.id}

@@ -1,3 +1,4 @@
+// Espace des infos patient et historique des actes médicaux
 import React, {useEffect, useState} from 'react';
 import {patientSpaceService} from "../_services/patientSpace.service";
 import '../style/PatientSpace.css'
@@ -29,6 +30,8 @@ const PatientSpace = (props) => {
 
         fetchServices();
     }, []);
+
+    console.log("patientSpace nir "+ props.nir);
 
     //_____Affichage_____//
     return (

@@ -1,3 +1,4 @@
+// Theme et couleur de l'espace administratif
 import { createTheme } from '@mui/material/styles';
 import { frFR } from '@mui/material/locale';
 

@@ -190,7 +190,7 @@ const PatientInfo = (props) => {
                 })
                 .catch(err => {
                     console.log(err);
-                    setAlertText("Une erreur est survenue lors de la modification du profil médical.");
+                    setAlertText("Une erreur est survenue lors de la modification du profil administratif.");
                     setShowErrorAlert(true); // masquage de l'alerte erreur
                 });
         }

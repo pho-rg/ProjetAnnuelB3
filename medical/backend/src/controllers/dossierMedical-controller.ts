@@ -69,7 +69,7 @@ const dossierMedicalExists = async (
         } else {
 
             /**Si aucun résultat n'est trouvé, renvoyer une erreur 404*/
-            return response.status(404).json({"exists": false, message: 'Dossier medical existant'});
+            return response.status(404).json({"exists": false, message: 'Dossier medical non existant'});
         }
     } catch {
 

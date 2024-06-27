@@ -35,7 +35,6 @@ const acteMedicalGetAll = async (
     }
 };
 
-
 /**Post d'un acte medical*/
 const acteMedicalPost = async (
     request: express.Request,

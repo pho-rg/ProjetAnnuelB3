@@ -47,21 +47,24 @@ const SearchForm = (props) => {
             return;
         }
 
+        // Vérification de l'existence du dossier administratif
         try {
-            const exists = await searchService.adminFileExists(searchData.nir);
-            if (exists) {
-                console.log("admin exists");
+            // Status 200 pour trouvé et non trrouvé ; res.data.exists à true ou false
+            const getRes = await searchService.getAdminFileExists(searchData.nir);
+            console.log("rep du get " + getRes.data.exists);
+            if (getRes.data.exists) {
+                // Si le dossier existe, on dirige vers la page du patient
                 navigate(`/patient-overview/${searchData.nir}`);
                 // TODO fix bug
                 window.location.reload();
             } else {
-                console.log("admin does not exist");
+                // Si le dossier n'existe pas, on dirige vers la page de création du dossier
                 navigate(`/patient-register/${searchData.nir}`);
                 // TODO fix bug
                 window.location.reload();
             }
         } catch (err) {
-            console.error(err);
+            console.log(err)
             props.setAlertMessage("Erreur à la vérification du dossier administratif.");
             props.setAlertOpen(true);
         }

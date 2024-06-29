@@ -38,12 +38,6 @@ const isDescValide = (intitule) => {
 }
 
 //_____API_____//
-// Tester l'exstence d'un dossier médical
-const medFileExists = (nir) => {
-    return true;
-    // requete API de vérif si le patient a un dossier médical
-};
-
 // Récupérer la liste des actes médicaux pour un patient selon le service
 const getMedicalActList = (nir, service) => {
     return Axios.get('/acteMedical?nir='+nir+'&service='+service);
@@ -55,5 +49,5 @@ const postMedicalAct = (newMedicalActData) => {
 }
 
 export const medicalActService = {
-    isDateValid, isOldDate, isIntituleValide, isNomValide, isDescValide, medFileExists, getMedicalActList, postMedicalAct
+    isDateValid, isOldDate, isIntituleValide, isNomValide, isDescValide, getMedicalActList, postMedicalAct
 }

@@ -23,32 +23,14 @@ const isDateValid = (date) => {
 }
 
 //_____API_____//
-// Promise d'existence du dossier administratif
+// Verifier l'existence du dossier administratif
 const getAdminFileExists = (nir) => {
     return Axios.get('/dossAdmin/exists/Db/' + nir);
 };
-// True false d'existence du dossier administratif
-const adminFileExists = (nir) => {
-    return getAdminFileExists(nir)
-        .then(res => res.data.exists)
-        .catch(err => {
-            console.log(err);
-            return false;
-        });
-};
 
-// Promise d'existence du dossier médical
+// Verifier l'existence du dossier médical
 const getMedicalFileExists = (nir) => {
     return Axios.get('/dossMedical/exists/Db/' + nir);
-};
-// True false d'existence du dossier médical
-const medicalFileExists = (nir) => {
-    return getMedicalFileExists(nir)
-        .then(res => res.data.exists)
-        .catch(err => {
-            console.log(err);
-            return false;
-        });
 };
 
 // Rechercher par nom et prénom
@@ -57,5 +39,5 @@ const getMedicalSearch = (nom, prenom) => {
 };
 
 export const searchService = {
-    isNirValid, isNameValid, isDateValid, adminFileExists, medicalFileExists, getMedicalSearch
+    isNirValid, isNameValid, isDateValid, getAdminFileExists, getMedicalFileExists, getMedicalSearch
 }

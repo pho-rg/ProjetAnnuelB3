@@ -39,9 +39,6 @@ const PatientHistory = (props) => {
         setShowSuccessAlert(true);
     }
 
-    console.log("patientHistory nir "+ props.nir);
-    console.log("patientSpace service "+ props.service);
-
     //_____Affichage_____//
     return (<div className="PatientHistory">
             <div className="patientHistoryTitle">

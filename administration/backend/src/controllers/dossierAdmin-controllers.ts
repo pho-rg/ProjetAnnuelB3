@@ -25,7 +25,7 @@ const dossierAdminExists = async (
         if (rows[0].result === 2) {
 
             /** Renvoyer une reponse not found*/
-            return response.status(404).json({"exists": false, message: 'Dossier administratif inexistant'});
+            return response.status(200).json({"exists": false, message: 'Dossier administratif inexistant'});
         }
 
         /**Renvoyer une réponse de succès*/

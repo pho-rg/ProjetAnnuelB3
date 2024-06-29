@@ -1,78 +1,89 @@
 [{
   "_id": {
-    "$oid": "66709e23f61f5a8510dd4e40"
-  },
-  "nom": "Perez",
-  "prenom": "Sergio",
-  "sexe": "Male",
-  "taille": 175,
-  "poids": 70,
-  "grp_sanguin": "A+",
-  "remarques": "",
-  "pathologies": [
-    "hypertension",
-    "diabete"
-  ],
-  "operations": [
-    "appendicite",
-    "tonsillectomie"
-  ],
-  "allergies": [
-    "penicillin",
-    "latex"
-  ],
-  "date_naissance": "1990-01-01",
-  "num_secu": "104021730625478"
-},
-{
-  "_id": {
     "$oid": "66709e80f61f5a8510dd4e44"
   },
   "nom": "Ricciardo",
   "prenom": "Daniel",
-  "sexe": "Male",
+  "sexe": 1,
   "taille": 165,
   "poids": 55,
   "grp_sanguin": "B-",
-  "remarques": "",
-  "pathologies": [
-    "asthme",
-    ""
-  ],
-  "operations": [
-    "otite",
-    ""
-  ],
-  "allergies": [
-    "dust mites",
-    ""
-  ],
+  "remarques": "wsh a",
   "num_secu": "107102509803594",
-  "date_naissance": "1995-06-15"
+  "date_naissance": "2007-10-25",
+  "__v": 4
 },
 {
   "_id": {
     "$oid": "66709ea7f61f5a8510dd4e46"
   },
-  "nom": "Jordan",
+  "nom": "Jorda",
   "prenom": "Carmen",
+  "sexe": 2,
+  "taille": 183,
+  "poids": 85,
+  "grp_sanguin": "O-",
+  "remarques": "dimanche",
+  "date_naissance": "1995-11-05",
+  "num_secu": "294037512000591",
+  "__v": 1,
+  "allergies": [
+    "pollen",
+    "poussière",
+    "arachide"
+  ],
+  "operations": [
+    "apendicite",
+    "dents de sagesse"
+  ],
+  "pathologies": [
+    "Ashme"
+  ]
+},
+{
+  "_id": {
+    "$oid": "667d47ebc6d8b394716b8d59"
+  },
+  "nom": "Ricciardo",
+  "prenom": "Daniel",
   "sexe": "Male",
   "taille": 183,
   "poids": 85,
-  "grp_sanguin": "",
-  "remarques": "",
+  "grp_sanguin": "O-",
+  "remarques": "Bien portant",
   "pathologies": [
-    "asthme",
-    ""
+    "hypertension"
   ],
   "operations": [
-    "otite",
-    ""
+    "dents de sagesse",
+    "pancréas"
   ],
   "allergies": [
-    "dust mites",
-    "arabes"
+    "gluten",
+    "arachide"
   ],
-  "date_naissance": "1985-02-22",
-  "num_secu": "294037512000591"
+  "date_naissance": "1983-02-22",
+  "num_secu": "108051202210801"
+},
+{
+  "_id": {
+    "$oid": "667da26f4d827a07f75e1401"
+  },
+  "nom": "Stroll",
+  "prenom": "Lawrence",
+  "sexe": 1,
+  "grp_sanguin": "O-",
+  "remarques": "In the wall again",
+  "date_naissance": "2007-06-17",
+  "num_secu": "178050912131571",
+  "poids": 195,
+  "taille": 190,
+  "__v": 1,
+  "operations": [
+    "prothèse de hanche"
+  ],
+  "pathologies": [
+    "diabète",
+    "hypertension"
+  ]
 }]

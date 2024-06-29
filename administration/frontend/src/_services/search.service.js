@@ -23,18 +23,9 @@ const isDateValid = (date) => {
 }
 
 //_____API_____//
-// Promise d'existence d'un dossier administratif
+// Vérification de l'existence du dossier administratif
 const getAdminFileExists = (nir) => {
     return Axios.get('/dossAdmin/exists/' + nir);
-};
-// True False d'existence d'un dossier administratif
-const adminFileExists = (nir) => {
-    return getAdminFileExists(nir)
-        .then(res => res.data.exists)
-        .catch(err => {
-            console.log(err);
-            return false;
-        });
 };
 
 // Récupérer les résultats d'une recherche par nom et prénom
@@ -43,5 +34,5 @@ const getAdminSearch = (nom, prenom) => {
 };
 
 export const searchService = {
-    isNirValid, isNameValid, isDateValid, adminFileExists, getAdminSearch
+    isNirValid, isNameValid, isDateValid, getAdminFileExists, getAdminSearch
 }

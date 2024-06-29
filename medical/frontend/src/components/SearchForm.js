@@ -47,7 +47,43 @@ const SearchForm = (props) => {
             return;
         }
 
+        // Vérification de l'existence du dossier administratif
         try {
+            // Status 200 pour trouvé et non trouvé ; res.data.exists à true ou false
+            const getResAdmin = await searchService.getAdminFileExists(searchData.nir);
+            if (getResAdmin.data.exists) {
+                // Vérification du dossier médical
+                try {
+                    // Status 200 pour trouvé et non trrouvé ; res.data.exists à true ou false
+                    const getResMed = await searchService.getMedicalFileExists(searchData.nir);
+                    if (getResMed.data.exists) {
+                        // Si le dossier médical existe, on dirige vers la page du patient
+                        navigate(`/patient-overview/${searchData.nir}`);
+                        // TODO fix bug
+                        window.location.reload();
+                    } else {
+                        // Si le dossier médical n'existe pas, on dirige vers la page de création du dossier médical
+                        navigate(`/patient-register/${searchData.nir}`);
+                        // TODO fix bug
+                        window.location.reload();
+                    }
+                } catch (err) {
+                    console.log(err)
+                    props.setAlertMessage("Erreur à la vérification du dossier médical.");
+                    props.setAlertOpen(true);
+                }
+            } else {
+                console.log("admin not exist " + getResAdmin.data.exists);
+                props.setAlertMessage("Aucun dossier administratif n'existe pour ce numéro NIR, il doit être créé avant l'ouverture d'un dossier médical.");
+                props.setAlertOpen(true);
+            }
+        } catch (err) {
+            console.log(err)
+            props.setAlertMessage("Erreur à la vérification du dossier administratif.");
+            props.setAlertOpen(true);
+        }
+
+        /*try {
             const adminExists = await searchService.adminFileExists(searchData.nir);
             // Savoir si un dossier administratif existe
             if (!adminExists) {
@@ -77,7 +113,7 @@ const SearchForm = (props) => {
             console.error(err);
             props.setAlertMessage("Erreur à la vérification du dossier administratif.");
             props.setAlertOpen(true);
-        }
+        }*/
     }
     const handleSearch = () => {
         // Contrôle de validité des champs de recherche

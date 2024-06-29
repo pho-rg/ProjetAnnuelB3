@@ -66,11 +66,11 @@ const PatientInfo = (props) => {
     });
 
     //_____API_____//
+    // Remplissage des infos administratives et médicales
     useEffect(() => {
-        if (props.type !== "create" && flag.current === false) {
+        if (props.type === "display") {
             patientInfoService.getMedicalFile(props.nir)
                 .then(res => {
-
                     setPatientData({
                         num_secu: props.nir,
                         nom: res.data.nom,
@@ -84,15 +84,28 @@ const PatientInfo = (props) => {
                         pathologies: setPathologies(res.data.pathologies),
                         operations: setOperations(res.data.operations),
                         allergies: setAllergies(res.data.allergies)
-                    });
+                    })
+                })
+        } else {
+            patientInfoService.getAdminFile(props.nir)
+                .then(res => {
+                    setPatientData({
+                        num_secu: props.nir,
+                        nom: res.data.nom,
+                        prenom: res.data.prenom,
+                        date_naissance: res.data.date_naissance,
+                        sexe: res.data.sexe,
+                        taille: "",
+                        poids: "",
+                        grp_sanguin: "",
+                        remarques: "",
+                        pathologies: setPathologies([]),
+                        operations: setOperations([]),
+                        allergies: setAllergies([])
+                    })
                 })
                 .catch(err => console.log(err));
         }
-        // Blocage du doublon useEffect
-        return () => flag.current = true;
-        // Résolution warnning React Hook useEffect has a missing dependency
-        //eslint-disable-next-line react-hooks/exhaustive-deps
-
     }, [props.nir, props.type]);
 
     //_____Evènement_____//
@@ -114,7 +127,6 @@ const PatientInfo = (props) => {
             // Remise des valeurs avant changement
             patientInfoService.getMedicalFile(props.nir)
                 .then(res => {
-
                     setPatientData({
                         num_secu: props.nir,
                         nom: res.data.nom,
@@ -148,6 +160,10 @@ const PatientInfo = (props) => {
                     setShowErrorAlert(true);
                 });
         } else {
+            // TODO les listes non modifiées sont mise à vide à l'update
+            //updatePathologies();
+            //updateAllergies();
+            //updateOperations();
             patientInfoService.patchMedicalFile(patientData)
                 .then(res => {
                     setAlertText("Les changements ont bien été enregistrés.");

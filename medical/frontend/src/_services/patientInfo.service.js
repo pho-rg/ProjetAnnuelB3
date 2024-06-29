@@ -2,7 +2,12 @@
 import Axios from './caller.service';
 
 //_____API_____//
-// Récupérer un dossier médical
+// Récupérer un dossier administratif (infos admin seulement)
+const getAdminFile = (nir) => {
+    return Axios.get('/dossAdmin/getOne/Db/'+nir);
+}
+
+// Récupérer un dossier médical (iinfos admin et médicale)
 const getMedicalFile = (nir) => {
     return Axios.get('/dossMedical/getOne/'+nir);
 }
@@ -18,5 +23,5 @@ const patchMedicalFile = (patientData) => {
 }
 
 export const patientInfoService = {
-    getMedicalFile, postMedicalFile, patchMedicalFile
+    getAdminFile, getMedicalFile, postMedicalFile, patchMedicalFile
 }

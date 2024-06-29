@@ -31,15 +31,20 @@ const dossierAdminExists = async (
                 axios.get('http://localhost:5001/dossAdmin/exists/Db/' + nir, {headers: {'Authorization': `Bearer ${token}`}})
                     .then(res => {
 
-                        /**Renvoyer une réponse de succès*/
-                        return response.status(200).json({"exists": true, message: 'Dossier administratif existant'});
+                        if (res.data.exists) {
+                            /**Renvoyer une réponse de succès - dossier admin existant*/
+                            return response.status(200).json({"exists": true, message: 'Dossier administratif existant'});
+                        } else {
+                            /**Renvoyer une réponse de succès - dossier admin non existant*/
+                            return response.status(200).json({"exists": false, message: 'Dossier administratif non existant'});
+                        }
                     })
                     .catch(error => {
 
                         /**Si aucun résultat n'est trouvé, renvoyer une erreur 404*/
-                        return response.status(404).json({
+                        return response.status(500).json({
                             "exists": false,
-                            message: 'Dossier administratif inexistant'
+                            message: 'Erreur à la vérification du dossier admininstratif'
                         });
                     });
             })
@@ -64,12 +69,13 @@ const dossierMedicalExists = async (
         const result = await DossierMedical.findOne({num_secu: nir});
         if (result) {
 
-            /**Renvoyer une réponse de succès*/
+            /**Renvoyer une réponse de succès - dossier médical existant*/
             return response.status(200).json({"exists": true, message: 'Dossier medical existant'});
         } else {
 
-            /**Si aucun résultat n'est trouvé, renvoyer une erreur 404*/
-            return response.status(404).json({"exists": false, message: 'Dossier medical non existant'});
+            /**Si aucun résultat n'est trouvé, retouner false*/
+            /**Renvoyer une réponse de succès - dossier médical non existant*/
+            return response.status(200).json({"exists": false, message: 'Dossier medical non existant'});
         }
     } catch {
 

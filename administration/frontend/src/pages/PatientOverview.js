@@ -23,7 +23,7 @@ const PatientOverview = () => {
                 const getRes = await searchService.getAdminFileExists(currentPatientNIR);
                 console.log("rep du get " + getRes.data.exists);
                 if (!getRes.data.exists) {
-                    // Si le dossier existe, on dirige vers la page du patient
+                    // Si le dossier n'existe pas, on dirige vers la page du patient
                     navigate(`/patient-register/${currentPatientNIR}`);
                     // TODO fix bug
                     window.location.reload();

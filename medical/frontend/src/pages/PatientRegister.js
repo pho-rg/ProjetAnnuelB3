@@ -12,18 +12,55 @@ const PatientRegister = (props) => {
     const {currentPatientNIR} = useParams();
     const [alertOpen, setAlertOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
-    const adminFileExists = searchService.adminFileExists(currentPatientNIR);
-    const [adminFileNotExistsAlert, setAdminFileNotExistsAlert] = useState(!adminFileExists);
+    const [adminFileExists, setAdminFileExists] = useState(false);
+    const [adminFileNotExistsAlert, setAdminFileNotExistsAlert] = useState(false);
+
     useEffect(() => {
         if (alertMessage !== "") {
             setAdminFileNotExistsAlert(false);
         }
     }, [alertMessage]);
+
+    // Si les dossiers admin et médical existe pour ce patient, on redirige vers patient-overview
     useEffect(() => {
-        if (searchService.medicalFileExists(currentPatientNIR)){
-            navigate(`/patient-overview/${currentPatientNIR}`);
-        }
-    });
+        // Vérification de l'existence du dossier administratif
+        const checkBothFilesExists = async () => {
+            try {
+                // Status 200 pour trouvé et non trrouvé ; res.data.exists à true ou false
+                const getRes = await searchService.getAdminFileExists(currentPatientNIR);
+                console.log("rep du get admin " + getRes.data.exists);
+                if (getRes.data.exists) {
+                    setAdminFileExists(true);
+                    setAdminFileNotExistsAlert(false);
+                    // Vérification du dossier médical
+                    try {
+                        // Status 200 pour trouvé et non trrouvé ; res.data.exists à true ou false
+                        const getResMed = await searchService.getMedicalFileExists(currentPatientNIR);
+                        console.log("rep du get medical " + getResMed.data.exists);
+                        if (getResMed.data.exists) {
+                            // Si le dossier médical existe, on dirige vers la page du patient
+                            console.log("med exist " + getResMed.data.exists);
+                            navigate(`/patient-overview/${currentPatientNIR}`);
+                            // TODO fix bug
+                            window.location.reload();
+                        }
+                    } catch (err) {
+                        console.log(err);
+                        props.setAlertMessage("Erreur à la vérification du dossier médical.");
+                        props.setAlertOpen(true);
+                    }
+                }
+            } catch (err) {
+                console.log(err);
+                setAdminFileExists(false);
+                setAdminFileNotExistsAlert(true);
+                setAlertMessage("Erreur à la vérification du dossier administratif.");
+                setAlertOpen(true);
+            }
+        };
+
+        checkBothFilesExists();
+    }, [currentPatientNIR, navigate]);
 
     const handleCloseAlert = () => {
         setAdminFileNotExistsAlert(false);

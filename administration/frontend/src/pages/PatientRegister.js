@@ -13,24 +13,30 @@ const PatientRegister = (props) => {
     const {currentPatientNIR} = useParams();
     const [alertOpen, setAlertOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
-    const adminFileExists = searchService.adminFileExists(currentPatientNIR);
+
     //_____Contrôle_____//
     // Si le dossier admin existe pour ce patient, on redirige vers patient-overview
     useEffect(() => {
-        const checkAdminFile = async () => {
+        // Vérification de l'existence du dossier administratif
+        const checkAdminFileExists = async () => {
             try {
-                const exists = await searchService.adminFileExists(currentPatientNIR);
-                if (exists) {
+                // Status 200 pour trouvé et non trrouvé ; res.data.exists à true ou false
+                const getRes = await searchService.getAdminFileExists(currentPatientNIR);
+                console.log("rep du get " + getRes.data.exists);
+                if (getRes.data.exists) {
+                    // Si le dossier existe, on dirige vers la page du patient
                     navigate(`/patient-overview/${currentPatientNIR}`);
+                    // TODO fix bug
+                    window.location.reload();
                 }
             } catch (err) {
-                console.error(err);
+                console.log(err)
                 setAlertMessage("Erreur à la vérification du dossier administratif.");
                 setAlertOpen(true);
             }
         };
 
-        checkAdminFile();
+        checkAdminFileExists();
     }, [currentPatientNIR, navigate]);
 
     //_____Affichage_____

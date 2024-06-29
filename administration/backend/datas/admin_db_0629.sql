@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1
--- Généré le : mer. 26 juin 2024 à 21:04
--- Version du serveur : 10.4.32-MariaDB
--- Version de PHP : 8.0.30
+-- Host: localhost:8889
+-- Generation Time: Jun 29, 2024 at 06:59 PM
+-- Server version: 5.7.39
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,23 +18,23 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `admin`
+-- Database: `admin`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `connexion_serveurs`
+-- Table structure for table `connexion_serveurs`
 --
 
 CREATE TABLE `connexion_serveurs` (
   `id_serveur` varchar(32) NOT NULL,
   `mots_de_passe` varchar(64) NOT NULL,
   `nom_serveur` varchar(32) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `connexion_serveurs`
+-- Dumping data for table `connexion_serveurs`
 --
 
 INSERT INTO `connexion_serveurs` (`id_serveur`, `mots_de_passe`, `nom_serveur`) VALUES
@@ -43,7 +43,7 @@ INSERT INTO `connexion_serveurs` (`id_serveur`, `mots_de_passe`, `nom_serveur`) 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `dossier_administratif`
+-- Table structure for table `dossier_administratif`
 --
 
 CREATE TABLE `dossier_administratif` (
@@ -58,28 +58,28 @@ CREATE TABLE `dossier_administratif` (
   `remarques` varchar(1028) DEFAULT NULL,
   `id_mutuelle` int(30) NOT NULL,
   `id_hopital` int(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `dossier_administratif`
+-- Dumping data for table `dossier_administratif`
 --
 
 INSERT INTO `dossier_administratif` (`num_secu`, `nom`, `prenom`, `sexe`, `date_naissance`, `telephone`, `email`, `adresse`, `remarques`, `id_mutuelle`, `id_hopital`) VALUES
-('104021730625478', 'Perez', 'Sergio', 1, '1990-06-04', '0948103097', 'test@hop.fr', '13 avenue salvador allende villeurbanne', 'jamais dans les points ! ', 1, 1),
-('107102509803594', 'Ricciardo', 'Daniel', 1, '2007-10-25', '0123456789', 'd.ricciado@hop.com', '03 Rue de Monza 65980 Fiorano', 'Test de même nom.', 3, 1),
+('107102509803594', 'Richard', 'Daniel', 1, '2007-10-25', '0123456789', 'd.ricciado@hop.com', '03 Rue de Monza 65980 Fiorano', 'Test de même nom.', 3, 1),
 ('108051202210801', 'Ricciardo', 'Daniel', 1, '2008-05-12', '0603221277', 'd.ricciado2@hop.com', '23 Rue de Suzuka 12976 Hanoi', 'Test de même nom.', 2, 1),
 ('145091821509474', 'Russel', 'Georges', 1, '1945-09-15', '0763014354', 'g.russel@hop.com', '10 Rue de Spa 33120 Liège', 'Test de même nom, même date de naissance.', 3, 1),
-('145091821509573', 'Russel', 'Georges', 1, '1945-09-18', '0764024454', 'g.russel2@hop.com', '10 Rue de Sao Paulo 40290 Villeneuve', 'Test de même nom, même date de naissance.', 3, 1),
-('194070502211575', 'Ricciardo', 'Daniel', 1, '1994-07-05', '0623281276', 'd.ricciado3@hop.com', '873 Rue Paul RRicard 75003 Paris', 'Test de même nom.', 3, 1),
+('145091821509573', 'Russelin', 'Georges', 1, '1963-09-15', '0764024412', 'g.russel2@hop.com', '10 Rue de Sao Paulo 40290 Villeneuve', 'Test de même nom, même date de naissance.', 3, 1),
+('178050912131571', 'Stroll', 'Lance', 1, '2007-06-17', '0609990490', 'l.stroll@hop.com', '18 rue de Bakou', 'RAS', 1, 1),
+('194070502211575', 'Ricciardo', 'Dany', 1, '1994-07-05', '0623281276', 'd.ricciado3@hop.com', '873 Rue Paul RRicard 75003 Paris', 'Test de même nom.', 3, 1),
 ('195017512001055', 'Leclerc', 'Charles', 1, '1990-01-15', '0616020304', 'c.leclerc@hop.com', '16 rue de Bakou', 'Pas de remarques.', 1, 1),
 ('199096831305097', 'Bottas', 'Valteri', 1, '1988-05-28', '0677010809', 'v.bottas@hop.com', '77 Rue de Turquie', 'Accompagné de sa grand-mère.', 3, 1),
 ('288114012531528', 'Wolf', 'Suzie', 2, '2000-10-02', '0609110804', 's.wolf@hop.com', '03 Avennue de Silverstone', 'Mineure.', 1, 1),
-('294037512000591', 'Jorda', 'Carmen', 2, '1995-11-05', '0601087801', 'c.jorda@hop.com', '22 Avenue de Barcelone', 'Pas de pièce didentité présenté.', 2, 1);
+('294037512000591', 'Jorda', 'Carmen', 2, '1995-11-05', '0601087801', 'c.jorda@hop.com', '22 Avenue de Barcelone', 'Pas de pièce didentité présenté.', 3, 1);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `hopital`
+-- Table structure for table `hopital`
 --
 
 CREATE TABLE `hopital` (
@@ -88,10 +88,10 @@ CREATE TABLE `hopital` (
   `ville` varchar(32) NOT NULL,
   `telephone` varchar(10) NOT NULL,
   `description` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `hopital`
+-- Dumping data for table `hopital`
 --
 
 INSERT INTO `hopital` (`id_hopital`, `nom`, `ville`, `telephone`, `description`) VALUES
@@ -102,17 +102,17 @@ INSERT INTO `hopital` (`id_hopital`, `nom`, `ville`, `telephone`, `description`)
 -- --------------------------------------------------------
 
 --
--- Structure de la table `mutuelle`
+-- Table structure for table `mutuelle`
 --
 
 CREATE TABLE `mutuelle` (
   `id_mutuelle` int(30) NOT NULL,
   `nom_mutuelle` varchar(32) NOT NULL,
   `telephone` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `mutuelle`
+-- Dumping data for table `mutuelle`
 --
 
 INSERT INTO `mutuelle` (`id_mutuelle`, `nom_mutuelle`, `telephone`) VALUES
@@ -125,7 +125,7 @@ INSERT INTO `mutuelle` (`id_mutuelle`, `nom_mutuelle`, `telephone`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `personnel_administratif`
+-- Table structure for table `personnel_administratif`
 --
 
 CREATE TABLE `personnel_administratif` (
@@ -137,10 +137,10 @@ CREATE TABLE `personnel_administratif` (
   `mots_de_passe` varchar(64) NOT NULL,
   `id_service` int(30) NOT NULL,
   `id_hopital` int(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `personnel_administratif`
+-- Dumping data for table `personnel_administratif`
 --
 
 INSERT INTO `personnel_administratif` (`id_administratif`, `nom`, `prenom`, `date_naissance`, `email`, `mots_de_passe`, `id_service`, `id_hopital`) VALUES
@@ -151,37 +151,37 @@ INSERT INTO `personnel_administratif` (`id_administratif`, `nom`, `prenom`, `dat
 -- --------------------------------------------------------
 
 --
--- Structure de la table `service`
+-- Table structure for table `service`
 --
 
 CREATE TABLE `service` (
   `id_service` int(30) NOT NULL,
   `nom_service` varchar(32) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `service`
+-- Dumping data for table `service`
 --
 
 INSERT INTO `service` (`id_service`, `nom_service`) VALUES
-(1, 'Cardiologie'),
-(2, 'Neurologie'),
-(3, 'Orthopédie'),
-(4, 'Chirurgie'),
-(5, 'Radiologie');
+(1, 'CARDIOLOGIE'),
+(2, 'NEUROLOGIE'),
+(3, 'ORTHOPEDIE'),
+(4, 'CHIRURGIE'),
+(5, 'RADIOLOGIE');
 
 --
--- Index pour les tables déchargées
+-- Indexes for dumped tables
 --
 
 --
--- Index pour la table `connexion_serveurs`
+-- Indexes for table `connexion_serveurs`
 --
 ALTER TABLE `connexion_serveurs`
   ADD PRIMARY KEY (`id_serveur`);
 
 --
--- Index pour la table `dossier_administratif`
+-- Indexes for table `dossier_administratif`
 --
 ALTER TABLE `dossier_administratif`
   ADD PRIMARY KEY (`num_secu`),
@@ -190,19 +190,19 @@ ALTER TABLE `dossier_administratif`
   ADD KEY `id_hopital` (`id_hopital`);
 
 --
--- Index pour la table `hopital`
+-- Indexes for table `hopital`
 --
 ALTER TABLE `hopital`
   ADD PRIMARY KEY (`id_hopital`);
 
 --
--- Index pour la table `mutuelle`
+-- Indexes for table `mutuelle`
 --
 ALTER TABLE `mutuelle`
   ADD PRIMARY KEY (`id_mutuelle`);
 
 --
--- Index pour la table `personnel_administratif`
+-- Indexes for table `personnel_administratif`
 --
 ALTER TABLE `personnel_administratif`
   ADD PRIMARY KEY (`id_administratif`),
@@ -210,52 +210,52 @@ ALTER TABLE `personnel_administratif`
   ADD KEY `id_hopital` (`id_hopital`);
 
 --
--- Index pour la table `service`
+-- Indexes for table `service`
 --
 ALTER TABLE `service`
   ADD PRIMARY KEY (`id_service`);
 
 --
--- AUTO_INCREMENT pour les tables déchargées
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT pour la table `hopital`
+-- AUTO_INCREMENT for table `hopital`
 --
 ALTER TABLE `hopital`
   MODIFY `id_hopital` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT pour la table `mutuelle`
+-- AUTO_INCREMENT for table `mutuelle`
 --
 ALTER TABLE `mutuelle`
   MODIFY `id_mutuelle` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
--- AUTO_INCREMENT pour la table `personnel_administratif`
+-- AUTO_INCREMENT for table `personnel_administratif`
 --
 ALTER TABLE `personnel_administratif`
   MODIFY `id_administratif` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT pour la table `service`
+-- AUTO_INCREMENT for table `service`
 --
 ALTER TABLE `service`
   MODIFY `id_service` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- Contraintes pour les tables déchargées
+-- Constraints for dumped tables
 --
 
 --
--- Contraintes pour la table `dossier_administratif`
+-- Constraints for table `dossier_administratif`
 --
 ALTER TABLE `dossier_administratif`
   ADD CONSTRAINT `dossier_administratif_ibfk_1` FOREIGN KEY (`id_mutuelle`) REFERENCES `mutuelle` (`id_mutuelle`),
   ADD CONSTRAINT `dossier_administratif_ibfk_2` FOREIGN KEY (`id_hopital`) REFERENCES `hopital` (`id_hopital`);
 
 --
--- Contraintes pour la table `personnel_administratif`
+-- Constraints for table `personnel_administratif`
 --
 ALTER TABLE `personnel_administratif`
   ADD CONSTRAINT `personnel_administratif_ibfk_1` FOREIGN KEY (`id_service`) REFERENCES `service` (`id_service`),

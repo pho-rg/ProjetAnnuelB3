@@ -2,47 +2,59 @@
   "_id": {
     "$oid": "6679651dc237f50e9615623c"
   },
-  "nom": "Dupont",
-  "prenom": "Jean",
-  "date_naissance": "1980-05-15",
-  "email": "jean.dupont@example.com",
+  "nom": "Binotto",
+  "prenom": "Mattia",
+  "date_naissance": "1980-06-15",
+  "email": "m.binotto@hop.com",
   "mots_de_passe": "$2a$12$zC7NuUjZJD01xj4dL2p6bethWeu3xQmchf5BItyR3vUcv4roDQbNS",
   "nom_hopital": "Hôpital Saint Pierre",
-  "nom_service": "Cardiologie"
+  "nom_service": "CARDIOLOGIE"
 },
 {
   "_id": {
     "$oid": "6679651dc237f50e9615623d"
   },
-  "nom": "Martin",
-  "prenom": "Marie",
+  "nom": "Vasseur",
+  "prenom": "Frédéric",
   "date_naissance": "1975-10-20",
-  "email": "marie.martin@example.com",
+  "email": "f.vasseur@hop.com",
   "mots_de_passe": "$2a$12$zC7NuUjZJD01xj4dL2p6bethWeu3xQmchf5BItyR3vUcv4roDQbNS",
   "nom_hopital": "Hôpital Saint Pierre",
-  "nom_service": "Radiologie"
+  "nom_service": "RADIOLOGIE"
 },
 {
   "_id": {
     "$oid": "6679651dc237f50e9615623e"
   },
-  "nom": "Karim",
-  "prenom": "Stephane",
+  "nom": "Steild",
+  "prenom": "Andreas",
   "date_naissance": "1975-10-20",
-  "email": "stephane.martin@example.com",
+  "email": "a.steild@hop.com",
   "mots_de_passe": "$2a$12$zC7NuUjZJD01xj4dL2p6bethWeu3xQmchf5BItyR3vUcv4roDQbNS",
   "nom_hopital": "Hôpital Saint Pierre",
-  "nom_service": "Pediatrie"
+  "nom_service": "PEDIATRIE"
 },
 {
   "_id": {
     "$oid": "6679651dc237f50e9615623f"
   },
-  "nom": "Sarkozy",
-  "prenom": "Nicolas",
+  "nom": "Bruno",
+  "prenom": "Famin",
   "date_naissance": "1990-08-03",
-  "email": "Nivcolas.Dupont@example.com",
+  "email": "b.famin@hop.com",
   "mots_de_passe": "$2a$12$zC7NuUjZJD01xj4dL2p6bethWeu3xQmchf5BItyR3vUcv4roDQbNS",
-  "nom_hopital": "Hôpital Saint Pierre",
-  "nom_service": "Chirurgie"
+  "nom_hopital": "Hôpital Croix Rousse",
+  "nom_service": "CHIRURGIIE"
+},
+{
+  "_id": {
+    "$oid": "667d451cc6d8b394716b8d55"
+  },
+  "nom": "Laurent",
+  "prenom": "Meikes",
+  "date_naissance": "1990-02-03",
+  "email": "l.meikes@hop.com",
+  "mots_de_passe": "$2a$12$zC7NuUjZJD01xj4dL2p6bethWeu3xQmchf5BItyR3vUcv4roDQbNS",
+  "nom_hopital": "Hôpital Croix Rousse",
+  "nom_service": "CHIRURGIE"
 }]

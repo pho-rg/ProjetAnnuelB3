@@ -23,7 +23,6 @@ const PatientOverview = () => {
             try {
                 // Status 200 pour trouvé et non trrouvé ; res.data.exists à true ou false
                 const getRes = await searchService.getMedicalFileExists(currentPatientNIR);
-                console.log("rep du get med " + getRes.data.exists);
                 if (!getRes.data.exists) {
                     setMedFileExists(false);
                     setMedFileNotExistsAlert(true);

@@ -51,31 +51,22 @@ const SearchForm = (props) => {
         try {
             // Status 200 pour trouvé et non trouvé ; res.data.exists à true ou false
             const getResAdmin = await searchService.getAdminFileExists(searchData.nir);
-            console.log("rep du get admin " + getResAdmin.data.exists);
             if (getResAdmin.data.exists) {
-                console.log("admin exist " + getResAdmin.data.exists);
                 // Vérification du dossier médical
                 try {
                     // Status 200 pour trouvé et non trrouvé ; res.data.exists à true ou false
                     const getResMed = await searchService.getMedicalFileExists(searchData.nir);
-                    console.log("rep du get medical " + getResMed.data.exists);
                     if (getResMed.data.exists) {
                         // Si le dossier médical existe, on dirige vers la page du patient
-                        console.log("med exist " + getResMed.data.exists);
                         navigate(`/patient-overview/${searchData.nir}`);
                         // TODO fix bug
                         window.location.reload();
                     } else {
                         // Si le dossier médical n'existe pas, on dirige vers la page de création du dossier médical
-                        console.log("med not exist " + getResMed.data.exists);
                         navigate(`/patient-register/${searchData.nir}`);
                         // TODO fix bug
                         window.location.reload();
                     }
-                    //navigate(`/patient-overview/${searchData.nir}`);
-                    //navigate(`/patient-register/${searchData.nir}`);
-                    // TODO fix bug
-                    //window.location.reload();
                 } catch (err) {
                     console.log(err)
                     props.setAlertMessage("Erreur à la vérification du dossier médical.");

@@ -1,6 +1,7 @@
 import express from 'express';
 import {
     dossierMedicalNirGETONE,
+    dossierAdminNirGETONE,
     dossierAdminExists,
     dossierMedicalExists,
     dossierMedicalSearch,
@@ -23,6 +24,7 @@ router.get('/persMedical/:email', checkTokenValid, personnelMedicalgetOne);
 
 /**Routes pour les dossiers medicaux*/
 router.get('/dossMedical/getOne/:nir',checkTokenValid,dossierMedicalNirGETONE);
+router.get('/dossAdmin/getOne/Db/:nir', checkTokenValid, dossierAdminNirGETONE)
 router.get('/dossAdmin/exists/Db/:nir', checkTokenValid, dossierAdminExists)
 router.get('/dossMedical/exists/Db/:nir', checkTokenValid, dossierMedicalExists)
 router.get('/dossMedical/search', checkTokenValid, dossierMedicalSearch);

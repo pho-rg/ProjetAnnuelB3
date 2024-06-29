@@ -28,7 +28,6 @@ const PatientRegister = (props) => {
             try {
                 // Status 200 pour trouvé et non trrouvé ; res.data.exists à true ou false
                 const getRes = await searchService.getAdminFileExists(currentPatientNIR);
-                console.log("rep du get admin " + getRes.data.exists);
                 if (getRes.data.exists) {
                     setAdminFileExists(true);
                     setAdminFileNotExistsAlert(false);
@@ -36,10 +35,8 @@ const PatientRegister = (props) => {
                     try {
                         // Status 200 pour trouvé et non trrouvé ; res.data.exists à true ou false
                         const getResMed = await searchService.getMedicalFileExists(currentPatientNIR);
-                        console.log("rep du get medical " + getResMed.data.exists);
                         if (getResMed.data.exists) {
                             // Si le dossier médical existe, on dirige vers la page du patient
-                            console.log("med exist " + getResMed.data.exists);
                             navigate(`/patient-overview/${currentPatientNIR}`);
                             // TODO fix bug
                             window.location.reload();
@@ -81,7 +78,7 @@ const PatientRegister = (props) => {
                     </Alert>
                 </div>
             }
-            {adminFileExists && <div className="PatientInfoContainer"><PatientInfo nir={props.nir} type="create"/></div>}
+            {adminFileExists && <div className="PatientInfoContainer"><PatientInfo nir={currentPatientNIR} type="create"/></div>}
         </div>
     );
 };

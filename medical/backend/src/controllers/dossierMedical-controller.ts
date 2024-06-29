@@ -84,7 +84,57 @@ const dossierMedicalExists = async (
     }
 };
 
-/**Verification si un dossier medical existe*/
+/**Recuperer infos dossier administratif*/
+const dossierAdminNirGETONE = async (
+    request: express.Request,
+    response: express.Response,
+    next: express.NextFunction
+) => {
+
+    /**Recuperation des données dans les parametres de la requete*/
+    const nir = request.params.nir;
+
+    var token: string;
+    var messageErreur = "";
+    // Nouvel objet de dossier médical vierge avec les champs administratif remplis
+    let dossierMedical = new DossierMedical();
+
+    /**Creation d'un body pour la requete au serveur admin*/
+    const body = {"id": process.env.ID, "mots_de_passe": process.env.MOTS_DE_PASSE}
+    try {
+        token = await axios.post('http://localhost:5001/login/Db/', body)
+            .then(responseLogin => {
+                /**Recuperation du token*/
+                return responseLogin.data.token;
+            }).catch(err => {
+                messageErreur = "erreur connexion base de données admin";
+            });
+
+        /**Requete au serveur admin pour recuperer un dossier à jour*/
+        const dossierAdmin = await axios.get('http://localhost:5001/dossAdmin/getOne/Db/' + nir, {headers: {'Authorization': `Bearer ${token}`}})
+            .then(res => {
+                /**Retourne le dossier administratif à jour*/
+                return res.data;
+            }).catch(err => {
+                messageErreur = "erreur recuperation dossier administratif";
+            });
+
+        /**Mise a jour des parametres admin du dossier medical*/
+        dossierMedical.num_secu = nir;
+        dossierMedical.nom = dossierAdmin.nom;
+        dossierMedical.prenom = dossierAdmin.prenom;
+        dossierMedical.sexe = dossierAdmin.sexe;
+        dossierMedical.date_naissance = dossierAdmin.date_naissance;
+
+        /**Renvoyer une réponse de succès*/
+        return response.status(200).send(dossierMedical);
+    } catch (error) {
+        /**Renvoyer une réponse d'echec*/
+        return response.status(500).send({messageErreur});
+    }
+};
+
+/**Recuperer infos dossier medical*/
 const dossierMedicalNirGETONE = async (
     request: express.Request,
     response: express.Response,
@@ -174,7 +224,7 @@ const dossierMedicalSearch = async (
     }
 };
 
-/**Verification si un dossier medical existe*/
+/**Creation d'un dossier medical*/
 const dossierMedicalPost = async (
     request: express.Request,
     response: express.Response,
@@ -257,6 +307,7 @@ const dossierMedicalPatch = async (
 
 export {
     dossierMedicalNirGETONE,
+    dossierAdminNirGETONE,
     dossierAdminExists,
     dossierMedicalExists,
     dossierMedicalSearch,

@@ -15,7 +15,7 @@ const personnelAdmingetOne = async (
         const email =  request.params.email;
 
         /** Exécuter une requête SQL*/
-        const [rows] = await connection.execute<RowDataPacket[]>('SELECT * FROM personnel_administratif LEFT JOIN hopital ON personnel_administratif.id_hopital = hopital.id_hopital LEFT JOIN service ON personnel_administratif.id_service = service.id_service WHERE email = ?',[email]);
+        const [rows] = await connection.execute<RowDataPacket[]>('SELECT personnel_administratif.*, hopital.nom as nom_hopital FROM personnel_administratif LEFT JOIN hopital ON personnel_administratif.id_hopital = hopital.id_hopital LEFT JOIN service ON personnel_administratif.id_service = service.id_service WHERE email = ?',[email]);
 
         /**Fermeture de la connexion avec la base de données SQL*/
         connection.release();

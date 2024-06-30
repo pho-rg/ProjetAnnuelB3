@@ -20,17 +20,14 @@ const Login = () => {
     //_____Variables_____//
     // Hook de navigation
     const navigate = useNavigate();
-
     // Gestion du message d'alerte
     const [alertMessage, setAlertMessage] = useState("")
     const [alertOpen, setAlertOpen] = useState(false);
-
     // Objet des infos de connexion (email, mdp)
     const [credentials, setCredentials] = useState({
         email: '',
         mots_de_passe: ''
     });
-
     // Bool d'affichage/masquage du mdp
     const [showPassword, setShowPassword] = useState(false);
 
@@ -49,20 +46,17 @@ const Login = () => {
         event.preventDefault();
 
     };
-    // Click bouton pour se connecter
+    // Controler la connexion
     const handleLogin = (event) => {
         event.preventDefault();
         if (accountService.isEmailValid(credentials.email)) {
-            console.log(credentials);
             accountService.login(credentials)
                 .then(res => {
-                    console.log(res);
                     accountService.saveToken(res.data.token);
                     accountService.saveEmail(credentials.email);
                     navigate('/search');
                 })
                 .catch(error => {
-                    console.log(error)
                     setAlertMessage(" Identifiants incorrects");
                     setAlertOpen(true);
                 })
@@ -71,7 +65,7 @@ const Login = () => {
             setAlertOpen(true);
         }
     }
-    // Gestion des touches
+    // Gérer les touches
     const handleKeyDown = (event) => {
         // Entrer pour se connecter
         if (event.key === "Enter") {

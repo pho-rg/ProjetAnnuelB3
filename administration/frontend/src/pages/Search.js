@@ -2,6 +2,7 @@
 import React, {useState} from 'react';
 import SearchForm from "../components/SearchForm";
 import {Alert} from "@mui/material";
+import '../style/Search.css';
 
 const Search = () => {
     //_____Variables_____//
@@ -20,8 +21,7 @@ const Search = () => {
             { alertOpen &&
                 <div className="noMedFileAlert">
                     <Alert severity="error"
-                           onClose={handleCloseAlert}
-                           sx={{minWidth: '30%'}}>
+                           onClose={handleCloseAlert}>
                         {alertMessage}
                     </Alert>
                 </div>

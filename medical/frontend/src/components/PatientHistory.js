@@ -18,11 +18,13 @@ const PatientHistory = (props) => {
     const [selectedSort, setSelectedSort] = useState(1);
     // UseState message de succès d'ajout ; echec géré dans MedicalAct
     const [alertText, setAlertText] = useState("");
+    const [showErrorAlert, setShowErrorAlert] = useState(false);
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
     //_____Evènement_____//
     // Gestion de l'ajout d'un nouvel acte médical
     const handleAdd = () => {
+        setShowErrorAlert(false);
         setShowSuccessAlert(false);
         setNewMedicalAct(prevState => !prevState);
     };
@@ -30,11 +32,14 @@ const PatientHistory = (props) => {
     // Gestion de tri de la liste des actes médicaux
     const handleChange = (event) => {
         setSelectedSort(event.target.value);
+        setShowErrorAlert(false);
+        setShowSuccessAlert(false);
     };
 
     // Gestion du succès de l'ajout d'un acte médical
     const handleSuccess = () => {
         setNewMedicalAct(false);
+        setShowErrorAlert(false);
         setAlertText("Nouvel acte médical ajouté avec succès.")
         setShowSuccessAlert(true);
     }
@@ -72,6 +77,17 @@ const PatientHistory = (props) => {
                                                   data={{}} // données vierge pour la creation
                                                   handleSuccess={handleSuccess}/>}
                 </div>
+                {showErrorAlert &&
+                    <div className="medicalActAddedAlertError">
+                        <Alert icon={false} severity="error" onClose={() => {setShowErrorAlert(false)}}
+                               sx={{width: '100%', justifyContent: 'center'}}>
+                            <div className="medInfoAlertErrorTitle">
+                                <TaskAltIcon fontSize="medium"/>
+                                <Typography variant="body1" sx={{pl: 1}}>Erreur</Typography>
+                            </div>
+                            <Typography variant="body2" sx={{mt: 1.5}}>{alertText}</Typography>
+                        </Alert>
+                    </div>}
                 {showSuccessAlert &&
                     <div className="medicalActAddedAlertSuccess">
                         <Alert icon={false} severity="success" onClose={() => {setShowSuccessAlert(false)}}
@@ -103,7 +119,8 @@ const PatientHistory = (props) => {
                 </div>
                 <div className="patientHistoryMedicalActList">
                     {/* Liste des actes médicaux en fonction du patient (nir) et du service*/}
-                    <MedicalActList nir={props.nir} service={props.service} selectedSort={selectedSort}/>
+                    <MedicalActList nir={props.nir} service={props.service} selectedSort={selectedSort}
+                                    setAlertText={setAlertText} setShowErrorAlert={setShowErrorAlert}/>
                 </div>
             </div>
         </div>

@@ -8,12 +8,12 @@ import {Alert} from "@mui/material";
 import '../style/PatientOverview.css';
 
 const PatientOverview = () => {
+    //_____Variables_____//
     const navigate = useNavigate();
     const [alertOpen, setAlertOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
     const {currentPatientNIR} = useParams();
     const [medFileExists, setMedFileExists] = useState(false);
-    const [medFileNotExistsAlert, setMedFileNotExistsAlert] = useState(false);
 
     // Si le dossier médical n'existe pas pour ce patient, on redirige vers patient-register
     // Une fois sur le patient-register, le controle de l'existence du dossier administratif est géré
@@ -25,20 +25,16 @@ const PatientOverview = () => {
                 const getRes = await searchService.getMedicalFileExists(currentPatientNIR);
                 if (!getRes.data.exists) {
                     setMedFileExists(false);
-                    setMedFileNotExistsAlert(true);
-                    // Si le dossier n'existe pas, on dirige vers la page du patient
+                    // Si le dossier n'existe pas, on dirige vers la page de création
+                    // Le test d'existence du fichier administratif est fait sur la page de création
                     navigate(`/patient-register/${currentPatientNIR}`);
-                    // TODO fix bug
+                    // TODO avoid reload
                     window.location.reload();
                 } else {
                     setMedFileExists(true);
-                    setMedFileNotExistsAlert(false);
                 }
             } catch (err) {
-                console.log(err)
-                setMedFileExists(false);
-                setMedFileNotExistsAlert(true);
-                setAlertMessage("Erreur à la vérification du dossier administratif.");
+                setAlertMessage("Une erreur est survenue à la vérification du dossier médical.");
                 setAlertOpen(true);
             }
         };
@@ -46,26 +42,27 @@ const PatientOverview = () => {
         checkMedicalFileExists();
     }, [currentPatientNIR, navigate]);
 
+    //_____Evenement_____//
     const handleCloseAlert = () => {
-        setMedFileNotExistsAlert(false);
         setAlertOpen(false);
     }
 
+    //_____Affiichage_____//
     return (
         <div className="PatientOverview">
             <SearchForm setAlertOpen={setAlertOpen} setAlertMessage={setAlertMessage}/>
-            { (alertOpen || medFileNotExistsAlert) &&
+            { alertOpen &&
                 <div className="noMedFileAlert">
                     <Alert severity="error"
                            onClose={handleCloseAlert}
                            sx={{minWidth: '30%'}}>
-                        {medFileNotExistsAlert ?
-                            "Une erreur est survenue lors de la récupération du dossier médical." :
-                            alertMessage}
+                        {alertMessage}
                     </Alert>
                 </div>
             }
-            {medFileExists && <PatientSpace nir={currentPatientNIR}/>}
+            {medFileExists &&
+                <PatientSpace nir={currentPatientNIR} setAlertOpen={setAlertOpen} setAlertMessage={setAlertMessage}/>
+            }
         </div>
     );
 };

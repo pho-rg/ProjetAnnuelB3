@@ -22,29 +22,41 @@ const PatientRegister = (props) => {
             try {
                 // Status 200 pour trouvé et non trrouvé ; res.data.exists à true ou false
                 const getRes = await searchService.getAdminFileExists(currentPatientNIR);
-                console.log("rep du get " + getRes.data.exists);
                 if (getRes.data.exists) {
                     // Si le dossier existe, on dirige vers la page du patient
                     navigate(`/patient-overview/${currentPatientNIR}`);
-                    // TODO fix bug
+                    // TODO avoid reload
                     window.location.reload();
                 }
             } catch (err) {
-                console.log(err)
                 setAlertMessage("Erreur à la vérification du dossier administratif.");
-                setAlertOpen(true);
+                alertOpen(true);
             }
         };
 
         checkAdminFileExists();
     }, [currentPatientNIR, navigate]);
 
+    const handleCloseAlert = () => {
+        setAlertOpen(false);
+    };
+
     //_____Affichage_____
     return (
         <div className="PatientRegister">
             <SearchForm setAlertOpen={setAlertOpen} setAlertMessage={setAlertMessage}/>
+            { alertOpen &&
+                <div className="noAdminFileAlert">
+                    <Alert severity="error"
+                           onClose={handleCloseAlert}
+                           sx={{minWidth: '30%'}}>
+                        {alertMessage}
+                    </Alert>
+                </div>
+            }
             <div className="PatientInfoContainer">
-                <PatientInfo nir={currentPatientNIR} type="create"/>
+                <PatientInfo nir={currentPatientNIR} type="create" setAlertOpen={setAlertOpen}
+                             setAlertMessage={setAlertMessage}/>
             </div>
         </div>
     );

@@ -1,7 +1,7 @@
 // Service de gestion de la recherche
 import Axios from './caller.service';
 
-// Test et calcul de la clef de contrôle pour valider un nir saisit
+// Tester et calculer de la clef de contrôle pour validation du nir saisit
 const isNirValid = (nir) => {
     if (!nir.match(/^[12][0-9]{2}(0[1-9]|1[0-2])(2[AB]|[0-9]{2})[0-9]{3}[0-9]{3}([0-9]{2})$/)) {
         return false;
@@ -25,17 +25,17 @@ const isDateValid = (date) => {
 //_____API_____//
 // Verifier l'existence du dossier administratif
 const getAdminFileExists = (nir) => {
-    return Axios.get('/dossAdmin/exists/Db/' + nir);
+    return Axios.get(`/dossAdmin/exists/Db/${nir}`);
 };
 
 // Verifier l'existence du dossier médical
 const getMedicalFileExists = (nir) => {
-    return Axios.get('/dossMedical/exists/Db/' + nir);
+    return Axios.get(`/dossMedical/exists/Db/${nir}`);
 };
 
 // Rechercher par nom et prénom
 const getMedicalSearch = (nom, prenom) => {
-    return Axios.get('/dossMedical/search?nom='+nom+'&prenom='+prenom);
+    return Axios.get(`/dossMedical/search?nom=${nom}&prenom=${prenom}`);
 };
 
 export const searchService = {

@@ -1,5 +1,5 @@
 // Composant du dossier administratif du patient
-import React, {useState, UseEffect, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import '../style/PatientInfo.css';
 import {patientInfoService} from "../_services/patientInfo.service";
 import ContactEmergencyIcon from '@mui/icons-material/ContactEmergency';
@@ -75,7 +75,8 @@ const PatientInfo = (props) => {
                 const response = await patientInfoService.getAllMutuelle();
                 setMutuelleList(response.data);
             } catch (err) {
-                console.error(err);
+                props.setAlertMessage("Impossible de récupérer la liste des mutuelles");
+                props.setAlertOpen(true);
             }
         };
 
@@ -87,8 +88,6 @@ const PatientInfo = (props) => {
         if (props.type !== "create" && flag.current === false) {
             patientInfoService.getAdminFile(props.nir)
                 .then(res => {
-                    console.log(res.data);
-
                     setPatientData({
                         num_secu: props.nir,
                         nom: res.data.nom,
@@ -103,18 +102,19 @@ const PatientInfo = (props) => {
                         remarques: res.data.remarques
                     });
                 })
-                .catch(err => console.log(err));
+                .catch(err => {
+                    props.setAlertMessage("Une erreur est survenue à la récupération du dossier administratif");
+                    props.setAlertOpen(true);
+                });
         }
         // Blocage du doublon useEffect
         return () => flag.current = true;
-        // Résolution warnning React Hook useEffect has a missing dependency
-        //eslint-disable-next-line react-hooks/exhaustive-deps
-
     }, [props.nir, props.type]);
 
     //_____Evènement_____//
     // Gestion des changements sur les infos patient
     const handleChange = (event) => {
+        props.setAlertOpen(false);
         setShowErrorAlert(false); // masquage de l'alerte erreur
         setShowSuccessAlert(false); // masquage de l'alerte succès
         setUnsavedChanges(true); // affichage des boutons Annuler/Enregistrer
@@ -148,8 +148,6 @@ const PatientInfo = (props) => {
             // Remise des valeurs avant changement
             patientInfoService.getAdminFile(props.nir)
                 .then(res => {
-                    console.log(res.data);
-
                     setPatientData({
                         num_secu: props.nir,
                         nom: res.data.nom,
@@ -164,7 +162,10 @@ const PatientInfo = (props) => {
                         remarques: res.data.remarques
                     });
                 })
-                .catch(err => console.log(err));
+                .catch(err => {
+                    props.setAlertMessage("Une erreur est survenue à la récupération du dossier administratif");
+                    props.setAlertOpen(true);
+                });
         }
     };
     // Mise à jour des infos patient
@@ -172,26 +173,22 @@ const PatientInfo = (props) => {
         if (props.type === "create") {
             patientInfoService.postAdminFile(patientData)
                 .then(res => {
-                    console.log(res);
-                    setAlertText("Succès de la création du profil administratif.");
+                    setAlertText("Succès de la création du dossier administratif.");
                     setShowSuccessAlert(true);
                     setJustAdded(true);
                 })
                 .catch(err => {
-                    console.log(err);
-                    setAlertText("Une erreur est survenue lors de la création du profil administratif.");
+                    setAlertText("Une erreur est survenue lors de la création du dossier administratif.");
                     setShowErrorAlert(true);
                 });
         } else {
             patientInfoService.patchAdminFile(patientData)
                 .then(res => {
-                    console.log(res);
                     setAlertText("Les changements ont bien été enregistrés.");
                     setShowSuccessAlert(true); // si réussite
                 })
                 .catch(err => {
-                    console.log(err);
-                    setAlertText("Une erreur est survenue lors de la modification du profil administratif.");
+                    setAlertText("Une erreur est survenue lors de la modification du dossier administratif.");
                     setShowErrorAlert(true); // masquage de l'alerte erreur
                 });
         }

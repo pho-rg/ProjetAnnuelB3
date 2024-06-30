@@ -12,9 +12,6 @@ const PatientSpace = (props) => {
     const [selectedService, setSelectedService] = useState("");
     // Tableau de mutuelle
     const [serviceList, setServiceList] = useState([]);
-    const handleChange = (event) => {
-        setSelectedService(event.target.value);
-    };
 
     //_____API_____//
     // Appel API pour la liste des mutuelles
@@ -24,18 +21,24 @@ const PatientSpace = (props) => {
                 const response = await patientSpaceService.getAllService();
                 setServiceList(response.data);
             } catch (err) {
-                console.error(err);
+                props.setAlertMessage("Une ereur est survenue à la récupération de la liste des services");
+                props.setAlertOpen(true);
             }
         };
 
         fetchServices();
     }, []);
 
+    //_____Evenement_____//
+    const handleChange = (event) => {
+        setSelectedService(event.target.value);
+    };
+
     //_____Affichage_____//
     return (
         <div className="PatientSpace">
             <div className="patientInfoContainerOverview">
-                <PatientInfo nir={props.nir} type="display"/>
+                <PatientInfo nir={props.nir} type="display" setAlertOpen={props.setAlertOpen} setAlertMessage={props.setAlertMessage}/>
             </div>
             <div className="selectService">
                     <div className="selectServiceIcon">

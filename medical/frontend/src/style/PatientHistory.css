@@ -62,7 +62,7 @@
     align-items: flex-start;
 }
 
-.medicalActAddedAlertSuccess {
+.medicalActAddedAlertSuccess, .medicalActAddedAlertError {
     display: flex;
     width: 80%;
     margin-bottom: 3%;

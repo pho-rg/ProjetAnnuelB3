@@ -1,4 +1,4 @@
-// Service de gestio des infos médicales patient
+// Service de gestion des infos médicales patient
 import Axios from './caller.service';
 
 //_____Controle des champs_____//
@@ -20,7 +20,7 @@ const isPrenomValide = (prenom) => {
     }
 }
 
-// Datee saisie dans le passé ou date du jour
+// Date saisie dans le passé ou date du jour
 const isDateValide = (date) => {
     if (date.length === 0) {
         return false;
@@ -65,7 +65,7 @@ const getAllMutuelle = (mutuelleList) => {
 
 // Récupérer un dossier administratif
 const getAdminFile = (nir) => {
-    return Axios.get('/dossAdmin/getOne/'+nir);
+    return Axios.get(`/dossAdmin/getOne/${nir}`);
 }
 
 // Créer un dossier administratif
@@ -75,7 +75,7 @@ const postAdminFile = (patientData) => {
 
 // Modifier un dossier administratif
 const patchAdminFile = (patientData) => {
-    return Axios.patch('/dossAdmin/patch/'+patientData.num_secu, patientData);
+    return Axios.patch(`/dossAdmin/patch/${patientData.num_secu}`, patientData);
 }
 
 export const patientInfoService = {

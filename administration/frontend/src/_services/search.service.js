@@ -23,14 +23,14 @@ const isDateValid = (date) => {
 }
 
 //_____API_____//
-// Vérification de l'existence du dossier administratif
+// Vérifier l'existence du dossier administratif
 const getAdminFileExists = (nir) => {
-    return Axios.get('/dossAdmin/exists/' + nir);
+    return Axios.get(`/dossAdmin/exists/${nir}`);
 };
 
 // Récupérer les résultats d'une recherche par nom et prénom
 const getAdminSearch = (nom, prenom) => {
-    return Axios.get('/dossAdmin/search?nom='+nom+'&prenom='+prenom);
+    return Axios.get(`/dossAdmin/search?nom=${nom}&prenom=${prenom}`);
 };
 
 export const searchService = {

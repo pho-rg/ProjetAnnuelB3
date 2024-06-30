@@ -20,6 +20,7 @@ const SearchForm = (props) => {
     });
 
     //_____Evènement_____//
+    // Gérer la saisie sur les champs
     const handleChange = (event) => {
         if (controlChange(event)) { // contrôles de saisie
             props.setAlertOpen(false); // masquage de l'alerte erreur
@@ -33,12 +34,16 @@ const SearchForm = (props) => {
         // touche entree pressee -> bouton associé activé
         if (event.key === "Enter") {
             if (event.target.name === "nir") {
+                // si entrer sur le champs nir : accéder
                 handleAccess()
             } else {
+                // si entrer sur le champs nom, prenom ou date de naissance : rechercher
                 handleSearch()
             }
         }
     }
+
+    // Gérer le bouton Accéder (recherche par nir)
     const handleAccess = async () => {
         // Contrôle validité NIR
         if (!searchService.isNirValid(searchData.nir)) {
@@ -49,28 +54,26 @@ const SearchForm = (props) => {
 
         // Vérification de l'existence du dossier administratif
         try {
-            // Status 200 pour trouvé et non trrouvé ; res.data.exists à true ou false
+            // Status 200 pour trouvé et non trouvé ; res.data.exists à true ou false
             const getRes = await searchService.getAdminFileExists(searchData.nir);
-            console.log("rep du get " + getRes.data.exists);
             if (getRes.data.exists) {
                 // Si le dossier existe, on dirige vers la page du patient
                 navigate(`/patient-overview/${searchData.nir}`);
-                // TODO fix bug
+                // TODO avoiid reload
                 window.location.reload();
             } else {
                 // Si le dossier n'existe pas, on dirige vers la page de création du dossier
                 navigate(`/patient-register/${searchData.nir}`);
-                // TODO fix bug
+                // TODO avoid reload
                 window.location.reload();
             }
         } catch (err) {
-            console.log(err)
             props.setAlertMessage("Erreur à la vérification du dossier administratif.");
             props.setAlertOpen(true);
         }
     };
 
-
+    // Gérer le bouton Rechercher (recherche par nom prrenom et date de naissance)
     const handleSearch = () => {
         // Contrôle de validité des champs de recherche
         if (!searchService.isNameValid(searchData.nom)) {
@@ -82,10 +85,9 @@ const SearchForm = (props) => {
         } else if (!searchService.isDateValid(searchData.date)) {
             props.setAlertMessage("La date de naissance renseignée est invalide.");
             props.setAlertOpen(true);
-            // Redirection vers le résultat de la recherche
         } else {
             navigate(`/search/result/${searchData.nom}/${searchData.prenom}/${searchData.date}`)
-            // TODO fix bug
+            // TODO avoid reload
             window.location.reload();
         }
     }

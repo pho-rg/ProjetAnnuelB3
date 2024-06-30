@@ -21,10 +21,10 @@ const SearchResult = (props) => {
                 const res = await searchService.getAdminSearch(nom, prenom);
                 // map la liste d'objet en tableau de nir
                 const res_num_secu = res.data.map(obj => obj.num_secu);
-                //console.log(res_num_secu);
                 setSearchResultList(res_num_secu);
             } catch (err) {
-                console.error(err);
+                setAlertMessage("Erreur l'envoi de la recherche");
+                setAlertOpen(true);
             }
         };
 

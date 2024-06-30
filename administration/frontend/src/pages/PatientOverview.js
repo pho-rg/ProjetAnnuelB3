@@ -8,6 +8,7 @@ import '../style/PatientOverview.css';
 import PatientInfo from "../components/PatientInfo";
 
 const PatientOverview = () => {
+    //_____Variables_____//
     const navigate = useNavigate();
     const [alertOpen, setAlertOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
@@ -21,15 +22,13 @@ const PatientOverview = () => {
             try {
                 // Status 200 pour trouvé et non trrouvé ; res.data.exists à true ou false
                 const getRes = await searchService.getAdminFileExists(currentPatientNIR);
-                console.log("rep du get " + getRes.data.exists);
                 if (!getRes.data.exists) {
                     // Si le dossier n'existe pas, on dirige vers la page du patient
                     navigate(`/patient-register/${currentPatientNIR}`);
-                    // TODO fix bug
+                    // TODO avoid reload
                     window.location.reload();
                 }
             } catch (err) {
-                console.log(err)
                 setAlertMessage("Erreur à la vérification du dossier administratif.");
                 setAlertOpen(true);
             }
@@ -42,6 +41,7 @@ const PatientOverview = () => {
         setAlertOpen(false);
     };
 
+    //_____Affichage_____//
     return (
         <div className="PatientOverview">
             <SearchForm setAlertOpen={setAlertOpen} setAlertMessage={setAlertMessage}/>
@@ -54,7 +54,9 @@ const PatientOverview = () => {
                     </Alert>
                 </div>
             }
-            <div className="PatientInfoContainer"><PatientInfo nir={currentPatientNIR} type="display" /></div>
+            <div className="PatientInfoContainer">
+                <PatientInfo nir={currentPatientNIR} type="display" setAlertOpen={setAlertOpen}
+                             setAlertMessage={setAlertMessage}/></div>
         </div>
     );
 };

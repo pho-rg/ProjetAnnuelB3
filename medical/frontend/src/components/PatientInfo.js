@@ -36,7 +36,6 @@ import {useNavigate} from "react-router-dom";
 const PatientInfo = (props) => {
     //_____Variables_____//
     // Blocage du doublon useEffect
-    const flag = useRef(false);
     const navigate = useNavigate();
     const bloodGroups = ["O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-"];
     const [pathologies, setPathologies] = useState([]);
@@ -86,6 +85,10 @@ const PatientInfo = (props) => {
                         allergies: setAllergies(res.data.allergies)
                     })
                 })
+                .catch(err => {
+                    props.setAlertMessage("Une erreur est survenue à la récupération du dossier médical");
+                    props.setAlertOpen(true);
+                });
         } else {
             patientInfoService.getAdminFile(props.nir)
                 .then(res => {
@@ -104,7 +107,10 @@ const PatientInfo = (props) => {
                         allergies: setAllergies([])
                     })
                 })
-                .catch(err => console.log(err));
+                .catch(err => {
+                    props.setAlertMessage("Une erreur est survenue à la récupération des infos administratives");
+                    props.setAlertOpen(true);
+                });
         }
     }, [props.nir, props.type]);
 
@@ -142,21 +148,22 @@ const PatientInfo = (props) => {
                         allergies: setAllergies(res.data.allergies)
                     });
                 })
-                .catch(err => console.log(err));
+                .catch(err => {
+                    setAlertText("Une erreur est survenue à la remise en état des champs avant changement'");
+                    setShowErrorAlert(true);
+                });
         }
     };
     const handleSave = () => {
-        let error = false;
         if (props.type==="create") {
             patientInfoService.postMedicalFile(patientData)
                 .then(res => {
-                    setAlertText("Succès de la création du profil médical.");
+                    setAlertText("Succès de la création du dossier médical.");
                     setShowSuccessAlert(true);
                     navigate(`/patient-overview/${props.nir}`); // on passe sur le PatientOverview
                 })
                 .catch(err => {
-                    console.log(err);
-                    setAlertText("Une erreur est survenue lors de la création du profil médical.");
+                    setAlertText("Une erreur est survenue lors de la création du dossier médical.");
                     setShowErrorAlert(true);
                 });
         } else {
@@ -167,25 +174,18 @@ const PatientInfo = (props) => {
             patientInfoService.patchMedicalFile(patientData)
                 .then(res => {
                     setAlertText("Les changements ont bien été enregistrés.");
-                    setShowSuccessAlert(true); // si réussite
+                    setShowSuccessAlert(true);
                 })
                 .catch(err => {
-                    console.log(err);
-                    setAlertText("Une erreur est survenue lors de la modification du profil médical.");
-                    setShowErrorAlert(true); // masquage de l'alerte erreur
+                    setAlertText("Une erreur est survenue lors de la modification du dossier médical.");
+                    setShowErrorAlert(true);
                 });
-            // appel à l'API pour modifier le profil médical
-            if (!error) {
-                setAlertText(n=>"Les changements ont bien été enregistrés.");
-                setShowSuccessAlert(true); // si réussite
-            } else {
-                setAlertText(n=>"Une erreur est survenue lors de la modification du profil médical.");
-                setShowErrorAlert(true); // masquage de l'alerte erreur
-            }
         }
+
         handleCloseDialog();
         setUnsavedChanges(false);
     };
+
     const handleChange = (event) => {
         if (controlChange(event)) { // contrôles de saisie
             setShowErrorAlert(false); // masquage de l'alerte erreur
@@ -242,6 +242,7 @@ const PatientInfo = (props) => {
                 return false;
         }
     }
+
     const adminInfoButton = () => {
         switch (props.type) {
             case "display":

@@ -1,12 +1,12 @@
 // Service de  gestion de la connexion utilisateur
 import Axios from "./caller.service";
 
-// Vérification format email
+// Vérifier le format email
 const isEmailValid = (email) => {
     return email.match(/^\S+@\S+\.\S+$/);
 }
 
-// Vérification des identifiants de connexion
+// Vérifier les identifiants de connexion
 const login = (credentials) => {
     // Appel API
     return Axios.post('/login/', credentials)
@@ -22,10 +22,14 @@ const saveEmail = (email) => {
     localStorage.setItem('email', email)
 }
 
-// Se déconecter
-const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('email');
+// Récupérer le token
+const getToken = () => {
+    return localStorage.getItem('token');
+}
+
+// Récupérer les infos utilisateur
+const getUserInfo = (email) => {
+    return Axios.get(`/persMedical/${email}`);
 }
 
 // Vérifier la connexion
@@ -36,16 +40,12 @@ const isLogged = () => {
     return !!token;
 }
 
-// Récupérer le token
-const getToken = () => {
-    return localStorage.getItem('token');
-}
-
-// Récupérer les infos utilisateur
-const getUserInfo = (email) => {
-    return Axios.get('/persMedical/' + email);
+// Se déconecter
+const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('email');
 }
 
 export const accountService = {
-    isEmailValid, login, saveToken, saveEmail, logout, isLogged, getToken, getUserInfo
+    isEmailValid, login, saveToken, saveEmail, getToken, getUserInfo, logout, isLogged
 }

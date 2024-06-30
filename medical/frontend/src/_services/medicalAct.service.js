@@ -40,7 +40,7 @@ const isDescValide = (intitule) => {
 //_____API_____//
 // Récupérer la liste des actes médicaux pour un patient selon le service
 const getMedicalActList = (nir, service) => {
-    return Axios.get('/acteMedical?nir='+nir+'&service='+service);
+    return Axios.get(`/acteMedical?nir=${nir}&service=${service}`);
 };
 
 // Créer un acte médical

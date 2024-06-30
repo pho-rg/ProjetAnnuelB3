@@ -8,7 +8,6 @@ import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogT
 import WarningIcon from "@mui/icons-material/Warning";
 import {useNavigate} from "react-router-dom";
 import {accountService} from "../_services/account.service";
-import {medicalActService} from "../_services/medicalAct.service";
 
 const Navbar = () => {
     //_____Variables_____//
@@ -27,7 +26,6 @@ const Navbar = () => {
                 setUserName("Dr " + res.data.prenom.substring(0,1).toUpperCase() + "."
                     + res.data.nom.substring(0,1).toUpperCase() + res.data.nom.substring(1,).toLowerCase());
             } catch (err) {
-                console.error(err);
                 setUserName("Espace médical");
                 setUserHopital("Hôpital de France");
             }

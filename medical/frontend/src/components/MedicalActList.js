@@ -3,8 +3,6 @@ import {medicalActService} from "../_services/medicalAct.service";
 import MedicalAct from "./MedicalAct";
 import {Alert} from "@mui/material";
 import {useEffect, useState} from "react";
-import {patientInfoService} from "../_services/patientInfo.service";
-import {searchService} from "../_services/search.service";
 
 const MedicalActList = (props) => {
     //_____Variables_____//
@@ -19,16 +17,13 @@ const MedicalActList = (props) => {
                 const res = await medicalActService.getMedicalActList(props.nir, props.service);
                 setMedicalActListData(res.data);
             } catch (err) {
-                console.error(err);
+                props.setAlertText("Une erreur est survenue à la récupération de la liste des actes médicaux.");
+                props.setShowErrorAlert(true);
             }
         };
 
         fetchMedicalActs();
-    }, [props.nir, props.service]);
-
-    console.log("medicalActList nir " + props.nir);
-    console.log("medicalActList service  " + props.service);
-    console.log("medicalActList sort " + props.selectedSort);
+    }, [props.nir, props.service, props.selectedSort]);
 
     //_____Affichage_____//
     return (<div className="MedicalActList">

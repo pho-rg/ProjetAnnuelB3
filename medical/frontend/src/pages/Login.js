@@ -56,13 +56,11 @@ const Login = () => {
         if (accountService.isEmailValid(credentials.email)) {
             accountService.login(credentials)
                 .then(res => {
-                    console.log(res);
                     accountService.saveToken(res.data.token);
                     accountService.saveEmail(credentials.email);
                     navigate('/search');
                 })
                 .catch(error => {
-                    console.log(error)
                     setAlertMessage(" Identifiants incorrects");
                     setAlertOpen(true);
                 })

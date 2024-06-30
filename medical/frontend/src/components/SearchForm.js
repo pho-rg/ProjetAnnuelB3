@@ -20,6 +20,7 @@ const SearchForm = (props) => {
     });
 
     //_____Evènement_____//
+    // Gestion à la modification d'un champ de recherche
     const handleChange = (event) => {
         if (controlChange(event)) { // contrôles de saisie
             props.setAlertOpen(false); // masquage de l'alerte erreur
@@ -33,12 +34,15 @@ const SearchForm = (props) => {
         // touche entree pressee -> bouton associé activé
         if (event.key === "Enter") {
             if (event.target.name === "nir") {
+                // Si entrer sur le nir : Accéder
                 handleAccess()
             } else {
+                // Si entrer sur le nom prenom ou date de naissance : Rechercher
                 handleSearch()
             }
         }
     }
+
     const handleAccess = async () => {
         // Contrôle validité nir et existence du dossier administratif
         if (!searchService.isNirValid(searchData.nir)) {
@@ -59,26 +63,23 @@ const SearchForm = (props) => {
                     if (getResMed.data.exists) {
                         // Si le dossier médical existe, on dirige vers la page du patient
                         navigate(`/patient-overview/${searchData.nir}`);
-                        // TODO fix bug
+                        // TODO avoid reload
                         window.location.reload();
                     } else {
                         // Si le dossier médical n'existe pas, on dirige vers la page de création du dossier médical
                         navigate(`/patient-register/${searchData.nir}`);
-                        // TODO fix bug
+                        // TODO avoid reload
                         window.location.reload();
                     }
                 } catch (err) {
-                    console.log(err)
                     props.setAlertMessage("Erreur à la vérification du dossier médical.");
                     props.setAlertOpen(true);
                 }
             } else {
-                console.log("admin not exist " + getResAdmin.data.exists);
                 props.setAlertMessage("Aucun dossier administratif n'existe pour ce numéro NIR, il doit être créé avant l'ouverture d'un dossier médical.");
                 props.setAlertOpen(true);
             }
         } catch (err) {
-            console.log(err)
             props.setAlertMessage("Erreur à la vérification du dossier administratif.");
             props.setAlertOpen(true);
         }
@@ -97,7 +98,7 @@ const SearchForm = (props) => {
             // Redirection vers le résultat de la recherche
         } else {
             navigate(`/search/result/${searchData.nom}/${searchData.prenom}/${searchData.date}`)
-            // TODO fix bug
+            // TODO avoid reload
             window.location.reload();
         }
     }

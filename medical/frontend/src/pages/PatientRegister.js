@@ -8,29 +8,22 @@ import '../style/PatientRegister.css';
 import PatientInfo from "../components/PatientInfo";
 
 const PatientRegister = (props) => {
+    //_____Variable_____//
     const navigate = useNavigate();
     const {currentPatientNIR} = useParams();
     const [alertOpen, setAlertOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
     const [adminFileExists, setAdminFileExists] = useState(false);
-    const [adminFileNotExistsAlert, setAdminFileNotExistsAlert] = useState(false);
-
-    useEffect(() => {
-        if (alertMessage !== "") {
-            setAdminFileNotExistsAlert(false);
-        }
-    }, [alertMessage]);
 
     // Si les dossiers admin et médical existe pour ce patient, on redirige vers patient-overview
     useEffect(() => {
         // Vérification de l'existence du dossier administratif
         const checkBothFilesExists = async () => {
             try {
-                // Status 200 pour trouvé et non trrouvé ; res.data.exists à true ou false
+                // Status 200 pour trouvé et non trouvé ; res.data.exists à true ou false
                 const getRes = await searchService.getAdminFileExists(currentPatientNIR);
                 if (getRes.data.exists) {
                     setAdminFileExists(true);
-                    setAdminFileNotExistsAlert(false);
                     // Vérification du dossier médical
                     try {
                         // Status 200 pour trouvé et non trrouvé ; res.data.exists à true ou false
@@ -38,20 +31,16 @@ const PatientRegister = (props) => {
                         if (getResMed.data.exists) {
                             // Si le dossier médical existe, on dirige vers la page du patient
                             navigate(`/patient-overview/${currentPatientNIR}`);
-                            // TODO fix bug
+                            // TODO avoid reload
                             window.location.reload();
                         }
                     } catch (err) {
-                        console.log(err);
-                        props.setAlertMessage("Erreur à la vérification du dossier médical.");
-                        props.setAlertOpen(true);
+                        setAlertMessage("Une erreur est survenue à la vérification du dossier médical.");
+                        setAlertOpen(true);
                     }
                 }
             } catch (err) {
-                console.log(err);
-                setAdminFileExists(false);
-                setAdminFileNotExistsAlert(true);
-                setAlertMessage("Erreur à la vérification du dossier administratif.");
+                setAlertMessage("Une erreur est survenue à la vérification du dossier administratif.");
                 setAlertOpen(true);
             }
         };
@@ -59,26 +48,30 @@ const PatientRegister = (props) => {
         checkBothFilesExists();
     }, [currentPatientNIR, navigate]);
 
+    //_____Evennement_____//
     const handleCloseAlert = () => {
-        setAdminFileNotExistsAlert(false);
         setAlertOpen(false);
     }
 
+    //_____Affichage_____//
     return (
         <div className="PatientRegister">
             <SearchForm setAlertOpen={setAlertOpen} setAlertMessage={setAlertMessage}/>
-            { (alertOpen || adminFileNotExistsAlert) &&
+            { alertOpen &&
                 <div className="noAdminFileAlert">
                     <Alert severity="error"
                            onClose={handleCloseAlert}
                            sx={{minWidth: '30%'}}>
-                        {adminFileNotExistsAlert ?
-                            "Une erreur est survenue lors de la récupération du dossier administratif." :
-                            alertMessage}
+                        {alertMessage}
                     </Alert>
                 </div>
             }
-            {adminFileExists && <div className="PatientInfoContainer"><PatientInfo nir={currentPatientNIR} type="create"/></div>}
+            {adminFileExists &&
+                <div className="PatientInfoContainer">
+                    <PatientInfo nir={currentPatientNIR} type="create" setAlertOpen={setAlertOpen}
+                                 setAlertMessage={setAlertMessage}/>
+                </div>
+            }
         </div>
     );
 };

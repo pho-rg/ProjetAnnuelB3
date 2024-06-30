@@ -43,7 +43,7 @@ const MedicalAct = (props) => {
     }
     // UseState de gestion du bouton sauvegarder
     const [enableSave, setSaveEnable] = useState(false);
-    // Gestion de la fenetre de deconnexion
+    // Gestion de la fenetre de confirmation
     const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
     //_____Evènements_____//
@@ -72,6 +72,7 @@ const MedicalAct = (props) => {
     const handleCloseDialog = () => {
         setOpenConfirmDialog(false);
     };
+
     // Enregistrement du nouvel acte médical
     const handleConfirmSave = () => {
         setSaveEnable(false); // griser l'enregistrement
@@ -82,7 +83,6 @@ const MedicalAct = (props) => {
                 props.handleSuccess();
             })
             .catch(err => {
-                console.log(err);
                 setOpenConfirmDialog(false);
                 setAlertMessage("Erreur à l'ajout de l'acte médical, réessayez.");
                 setSaveEnable(true);
@@ -112,12 +112,6 @@ const MedicalAct = (props) => {
             return true;
         }
     };
-
-    if (props.type === "create") {
-        console.log("medicalAct create nir " + props.nir);
-        console.log("medicalAct create service " + props.service);
-        console.log("medicalAct create date " + props.data);
-    }
 
     //_____Affichage_____//
     return (<div className="MedicalAct">

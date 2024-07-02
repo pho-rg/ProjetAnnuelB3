@@ -1,6 +1,7 @@
 import {DossierMedical} from '../models/dossierMedical-model';
 import express, {response} from 'express';
 import {error} from 'console';
+
 const connectDB = require('../../connectionMedicalDb');
 const mongoose = require('mongoose');
 import axios from 'axios';
@@ -33,10 +34,16 @@ const dossierAdminExists = async (
 
                         if (res.data.exists) {
                             /**Renvoyer une réponse de succès - dossier admin existant*/
-                            return response.status(200).json({"exists": true, message: 'Dossier administratif existant'});
+                            return response.status(200).json({
+                                "exists": true,
+                                message: 'Dossier administratif existant'
+                            });
                         } else {
                             /**Renvoyer une réponse de succès - dossier admin non existant*/
-                            return response.status(200).json({"exists": false, message: 'Dossier administratif non existant'});
+                            return response.status(200).json({
+                                "exists": false,
+                                message: 'Dossier administratif non existant'
+                            });
                         }
                     })
                     .catch(error => {
@@ -206,23 +213,50 @@ const dossierMedicalSearch = async (
         /**Recuperation des données dans les parametres de la requete*/
         const nom = request.query.nom;
         const prenom = request.query.prenom;
+        const date_naissance = request.query.date_naissance;
 
-        /**Recuperation des dossier medicaux qui correspondent au parametres*/
-        DossierMedical.find({
-            nom: {$regex: nom, $options: 'i'},
-            prenom: {$regex: prenom, $options: 'i'}
-        }).then((results) => {
-            /**Renvoyer une réponse de succès*/
-            return response.status(200).send(results);
-        }).catch((err) => {
-            /**Si aucun résultat n'est trouvé, renvoyer une erreur 404*/
-                return response.status(404).send({message: "aucun dossier !"});
+        if (date_naissance== undefined) {
+
+            /**Recuperation des dossier medicaux qui correspondent nom + prenom*/
+            DossierMedical.find({
+                nom: {$regex: nom, $options: 'i'},
+                prenom: {$regex: prenom, $options: 'i'}
+            }).select('num_secu').then((results) => {
+                /**Renvoyer une réponse de succès*/
+                if(results.length!=0) {
+                    return response.status(200).send(results);
+                }else{
+                    return response.status(404).send({message: "aucun dossier !"});
+                }
+            }).catch((err) => {
+                /**Si aucun résultat n'est trouvé, renvoyer une erreur 404*/
+                return response.status(400).send({message: "erreur recherche !"});
             });
+        } else {
+            /**Recuperation des dossier medicaux qui correspondent nom + prenom + date de naissance*/
+            DossierMedical.find({
+                nom: {$regex: nom, $options: 'i'},
+                prenom: {$regex: prenom, $options: 'i'},
+                date_naissance:date_naissance
+            }).select('num_secu').then((results) => {
+                /**Renvoyer une réponse de succès*/
+                if(results.length!=0) {
+                    return response.status(200).send(results);
+                }else{
+                    return response.status(404).send({message: "aucun dossier !"});
+                }
+            }).catch((err) => {
+                /**Si aucun résultat n'est trouvé, renvoyer une erreur 404*/
+                return response.status(400).send({message: "erreur recherche !"});
+            });
+
+        }
     } catch {
         /**Renvoyer une réponse d'echec*/
         return response.status(500);
     }
-};
+}
+;
 
 /**Creation d'un dossier medical*/
 const dossierMedicalPost = async (

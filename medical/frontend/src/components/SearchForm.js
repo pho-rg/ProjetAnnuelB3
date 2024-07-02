@@ -63,13 +63,9 @@ const SearchForm = (props) => {
                     if (getResMed.data.exists) {
                         // Si le dossier médical existe, on dirige vers la page du patient
                         navigate(`/patient-overview/${searchData.nir}`);
-                        // TODO avoid reload
-                        window.location.reload();
                     } else {
                         // Si le dossier médical n'existe pas, on dirige vers la page de création du dossier médical
                         navigate(`/patient-register/${searchData.nir}`);
-                        // TODO avoid reload
-                        window.location.reload();
                     }
                 } catch (err) {
                     props.setAlertMessage("Erreur à la vérification du dossier médical.");
@@ -98,8 +94,6 @@ const SearchForm = (props) => {
             // Redirection vers le résultat de la recherche
         } else {
             navigate(`/search/result/${searchData.nom}/${searchData.prenom}/${searchData.date}`)
-            // TODO avoid reload
-            window.location.reload();
         }
     }
 

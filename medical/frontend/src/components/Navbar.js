@@ -23,7 +23,7 @@ const Navbar = () => {
             try {
                 const res = await accountService.getUserInfo(localStorage.getItem('email'));
                 setUserHopital(res.data.nom_hopital);
-                setUserName("Dr " + res.data.prenom.substring(0,1).toUpperCase() + "."
+                setUserName(res.data.prenom.substring(0,1).toUpperCase() + "."
                     + res.data.nom.substring(0,1).toUpperCase() + res.data.nom.substring(1,).toLowerCase());
             } catch (err) {
                 setUserName("Espace médical");

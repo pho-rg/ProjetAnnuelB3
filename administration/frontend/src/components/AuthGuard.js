@@ -15,10 +15,14 @@ const AuthGuard = ({children}) => {
                 setHasPermission(true);
             })
             .catch(err => {
-                if (err.response.status === 401) {
-                    setHasPermission(false);
+                if (err.response) {
+                    if (err.response.status === 401) {
+                        setHasPermission(false);
+                    } else {
+                        setHasPermission(true);
+                    }
                 } else {
-                    setHasPermission(true);
+                    setHasPermission(false);
                 }
             })
     }, []);

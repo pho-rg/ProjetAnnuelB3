@@ -18,9 +18,9 @@ const SearchResult = (props) => {
     useEffect(() => {
         const fetchSearchResult = async () => {
             try {
-                const res = await searchService.getAdminSearch(nom, prenom);
+                const res = await searchService.getAdminSearch(nom, prenom, date);
                 // map la liste d'objet en tableau de nir
-                const res_num_secu = res.data.map(obj => obj.num_secu);
+                const res_num_secu = res.data.map((obj) => obj.num_secu);
                 setSearchResultList(res_num_secu);
             } catch (err) {
                 setAlertMessage("Erreur l'envoi de la recherche");
@@ -29,7 +29,7 @@ const SearchResult = (props) => {
         };
 
         fetchSearchResult();
-    }, [nom, prenom]);
+    }, [nom, prenom, date]);
 
     const handleCloseAlert = () => {
         setAlertOpen(false);

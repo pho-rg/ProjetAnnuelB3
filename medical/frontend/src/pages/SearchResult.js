@@ -19,7 +19,7 @@ const SearchResult = (props) => {
     useEffect(() => {
         const fetchSearchResult = async () => {
             try {
-                const res = await searchService.getMedicalSearch(nom, prenom);
+                const res = await searchService.getMedicalSearch(nom, prenom, date);
                 // map la liste d'objet en tableau de nir
                 const res_num_secu = res.data.map(obj => obj.num_secu);
                 setSearchResultList(res_num_secu);
@@ -30,7 +30,7 @@ const SearchResult = (props) => {
         };
 
         fetchSearchResult();
-    }, [nom, prenom]);
+    }, [nom, prenom, date]);
 
     //_____Evenement_____//
     const handleCloseAlert = () => {

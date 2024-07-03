@@ -34,8 +34,12 @@ const getMedicalFileExists = (nir) => {
 };
 
 // Rechercher par nom et prénom
-const getMedicalSearch = (nom, prenom) => {
-    return Axios.get(`/dossMedical/search?nom=${nom}&prenom=${prenom}`);
+const getMedicalSearch = (nom, prenom, date) => {
+    if (date !== undefined) {
+        return Axios.get(`/dossMedical/search?nom=${nom}&prenom=${prenom}&date_naissance=${date}`);
+    } else {
+        return Axios.get(`/dossMedical/search?nom=${nom}&prenom=${prenom}`);
+    }
 };
 
 export const searchService = {

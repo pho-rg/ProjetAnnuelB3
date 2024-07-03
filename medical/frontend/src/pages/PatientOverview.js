@@ -28,8 +28,6 @@ const PatientOverview = () => {
                     // Si le dossier n'existe pas, on dirige vers la page de création
                     // Le test d'existence du fichier administratif est fait sur la page de création
                     navigate(`/patient-register/${currentPatientNIR}`);
-                    // TODO avoid reload
-                    window.location.reload();
                 } else {
                     setMedFileExists(true);
                 }

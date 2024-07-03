@@ -31,8 +31,6 @@ const PatientRegister = (props) => {
                         if (getResMed.data.exists) {
                             // Si le dossier médical existe, on dirige vers la page du patient
                             navigate(`/patient-overview/${currentPatientNIR}`);
-                            // TODO avoid reload
-                            window.location.reload();
                         }
                     } catch (err) {
                         setAlertMessage("Une erreur est survenue à la vérification du dossier médical.");

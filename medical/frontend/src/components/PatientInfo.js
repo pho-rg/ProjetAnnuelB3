@@ -114,6 +114,27 @@ const PatientInfo = (props) => {
         }
     }, [props.nir, props.type]);
 
+    useEffect(() => {
+        setPatientData(prevData => ({
+            ...prevData,
+            pathologies: pathologies
+        }));
+    }, [pathologies]);
+
+    useEffect(() => {
+        setPatientData(prevData => ({
+            ...prevData,
+            allergies: allergies
+        }));
+    }, [allergies]);
+
+    useEffect(() => {
+        setPatientData(prevData => ({
+            ...prevData,
+            operations: operations
+        }));
+    }, [operations]);
+
     //_____Evènement_____//
     const handleClickOpenDialog = () => {
         setOpenConfirmDialog(true);
@@ -200,28 +221,16 @@ const PatientInfo = (props) => {
 
     const updatePathologies = (newPathologies) => {
         setPathologies(newPathologies);
-        setPatientData(prevData => ({
-            ...prevData,
-            pathologies: newPathologies
-        }));
         setUnsavedChanges(true);
     };
 
     const updateOperations = (newOperations) => {
         setOperations(newOperations);
-        setPatientData(prevData => ({
-            ...prevData,
-            operations: newOperations
-        }));
         setUnsavedChanges(true);
     };
 
     const updateAllergies = (newAllergies) => {
         setAllergies(newAllergies);
-        setPatientData(prevData => ({
-            ...prevData,
-            allergies: newAllergies
-        }));
         setUnsavedChanges(true);
     };
 
@@ -574,21 +583,18 @@ const PatientInfo = (props) => {
                                 <div className="medInfoList">
                                     <MedInfoList list={pathologies}
                                                  title={"Pathologies"}
-                                                 //setList={setPathologies}
                                                  setList={updatePathologies}
                                                  enableSave={setUnsavedChanges}/>
                                 </div>
                                 <div className="medInfoList">
                                     <MedInfoList list={allergies}
                                                  title={"Allergies"}
-                                                 //setList={setAllergies}
                                                  setList={updateAllergies}
                                                  enableSave={setUnsavedChanges}/>
                                 </div>
                                 <div className="medInfoList">
                                     <MedInfoList list={operations}
                                                  title={"Opérations"}
-                                                 //setList={setOperations}
                                                  setList={updateOperations}
                                                  enableSave={setUnsavedChanges}/>
                                 </div>

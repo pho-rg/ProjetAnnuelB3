@@ -29,6 +29,7 @@ const MedInfoList = (props) => {
         if (newItem.toString().length <= 40 && newItem.toString().length > 0 && !props.list.includes(newItem.toString())) {
             props.setList([...props.list, newItem.toString()]);
             props.enableSave(true);
+            setNewItem("");
         }
     }
 

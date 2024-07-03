@@ -59,13 +59,9 @@ const SearchForm = (props) => {
             if (getRes.data.exists) {
                 // Si le dossier existe, on dirige vers la page du patient
                 navigate(`/patient-overview/${searchData.nir}`);
-                // TODO avoiid reload
-                window.location.reload();
             } else {
                 // Si le dossier n'existe pas, on dirige vers la page de création du dossier
                 navigate(`/patient-register/${searchData.nir}`);
-                // TODO avoid reload
-                window.location.reload();
             }
         } catch (err) {
             props.setAlertMessage("Erreur à la vérification du dossier administratif.");
@@ -87,8 +83,6 @@ const SearchForm = (props) => {
             props.setAlertOpen(true);
         } else {
             navigate(`/search/result/${searchData.nom}/${searchData.prenom}/${searchData.date}`)
-            // TODO avoid reload
-            window.location.reload();
         }
     }
 

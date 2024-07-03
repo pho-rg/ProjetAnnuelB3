@@ -1,5 +1,5 @@
 // Composant d'affichage de l'historique des actes médicaux et possibilité d'en ajouter un
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import MedicalAct from './MedicalAct';
 import '../style/PatientHistory.css'
 import {Alert, Button, MenuItem, Select, Typography} from "@mui/material";
@@ -9,20 +9,63 @@ import EditOffIcon from "@mui/icons-material/EditOff";
 import ImportExportIcon from '@mui/icons-material/ImportExport';
 import CoPresentIcon from '@mui/icons-material/CoPresent';
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
+import {medicalActService} from "../_services/medicalAct.service";
+import medicalActList from "./MedicalActList";
 
 const PatientHistory = (props) => {
     //_____Variables_____//
     // UseState de création d'un nouvel acte médical
     const [newMedicalAct, setNewMedicalAct] = useState(false);
-    // UseState de tri séléctionné
+    // UseStates de tri
     const [selectedSort, setSelectedSort] = useState(1);
     // UseState message de succès d'ajout ; echec géré dans MedicalAct
     const [alertText, setAlertText] = useState("");
     const [showErrorAlert, setShowErrorAlert] = useState(false);
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
+    // Liste des actes par service
+    const [medicalActListData, setMedicalActListData] = useState([]);
+
+    const fetchMedicalActs = async () => {
+        try {
+            const res = await medicalActService.getMedicalActList(props.nir, props.service);
+            setMedicalActListData(handleSort(res.data));
+        } catch (err) {
+            props.setAlertText("Une erreur est survenue à la récupération de la liste des actes médicaux.");
+            props.setShowErrorAlert(true);
+        }
+    };
+
+    //_____API_____//
+    // Appel API pour écupération de la liste et des données
+    useEffect(() => {
+        fetchMedicalActs();
+    }, [props.nir, props.service]);
+
+    // Detection de changement de tri
+    useEffect(() => {
+        fetchMedicalActs();
+    }, [selectedSort]);
+
     //_____Evènement_____//
     // Gestion de l'ajout d'un nouvel acte médical
+    const handleSort = (list) => {
+        switch (selectedSort) {
+            case 1:
+                return list.sort((a, b) => {
+                    return new Date(b.date) - new Date(a.date);
+                });
+            case 2:
+                return list.sort((a, b) => {
+                    return new Date(a.date) - new Date(b.date);
+                });
+            default:
+                return list.sort((a, b) => {
+                    return new Date(b.date) - new Date(a.date);
+                });
+        }
+    }
+
     const handleAdd = () => {
         setShowErrorAlert(false);
         setShowSuccessAlert(false);
@@ -32,8 +75,6 @@ const PatientHistory = (props) => {
     // Gestion de tri de la liste des actes médicaux
     const handleChange = (event) => {
         setSelectedSort(event.target.value);
-        setShowErrorAlert(false);
-        setShowSuccessAlert(false);
     };
 
     // Gestion du succès de l'ajout d'un acte médical
@@ -42,6 +83,7 @@ const PatientHistory = (props) => {
         setShowErrorAlert(false);
         setAlertText("Nouvel acte médical ajouté avec succès.")
         setShowSuccessAlert(true);
+        fetchMedicalActs();
     }
 
     //_____Affichage_____//
@@ -114,13 +156,12 @@ const PatientHistory = (props) => {
                     >
                         <MenuItem value={1}>Actes récents</MenuItem>
                         <MenuItem value={2}>Actes anciens</MenuItem>
-                        <MenuItem value={3}>Nom du médecin</MenuItem>
                     </Select>
                 </div>
                 <div className="patientHistoryMedicalActList">
                     {/* Liste des actes médicaux en fonction du patient (nir) et du service*/}
-                    <MedicalActList nir={props.nir} service={props.service} selectedSort={selectedSort}
-                                    setAlertText={setAlertText} setShowErrorAlert={setShowErrorAlert}/>
+                    <MedicalActList setAlertText={setAlertText} setShowErrorAlert={setShowErrorAlert}
+                                    service={props.service} medicalActListData={medicalActListData}/>
                 </div>
             </div>
         </div>

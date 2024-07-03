@@ -379,42 +379,44 @@ const PatientInfo = (props) => {
                         {/* Champs de saisie profil administratif*/}
                         <div className="fullAdminInfoData">
                             <div className="fullAdminInfoFirstRow">
-                                <div className="fullAdminInfoField">
-                                    <Typography variant="body1" sx={{mb: 1, color: '#6FA2F8'}}>Nom</Typography>
-                                    <TextField
-                                        className="infoField"
-                                        name="nom"
-                                        value={patientData.nom}
-                                        onChange={handleChange}
-                                        variant="outlined"
-                                        sx={{width: "100%"}}
-                                        disabled={justAdded}
-                                    />
+                                <div className="fullAdminInfoFirstRowFields">
+                                    <div className="fullAdminInfoField">
+                                        <Typography variant="body1" sx={{mb: 1, color: '#6FA2F8'}}>Nom</Typography>
+                                        <TextField
+                                            className="infoField"
+                                            name="nom"
+                                            value={patientData.nom}
+                                            onChange={handleChange}
+                                            variant="outlined"
+                                            sx={{width: "100%"}}
+                                            disabled={justAdded}
+                                        />
+                                    </div>
+                                    <div className="fullAdminInfoField">
+                                        <Typography variant="body1" sx={{mb: 1, color: '#6FA2F8'}}>Prénom</Typography>
+                                        <TextField
+                                            className="infoField"
+                                            name="prenom"
+                                            value={patientData.prenom}
+                                            onChange={handleChange}
+                                            variant="outlined"
+                                            sx={{width: "100%"}}
+                                            disabled={justAdded}
+                                        />
+                                    </div>
+                                    <div className="fullAdminInfoField">
+                                        <Typography variant="body1" sx={{mb: 1, color: '#6FA2F8'}}>NIR</Typography>
+                                        <TextField
+                                            className="infoField"
+                                            name="nir"
+                                            value={props.nir}
+                                            variant="outlined"
+                                            disabled
+                                            sx={{width: "100%"}}
+                                        />
+                                    </div>
                                 </div>
-                                <div className="fullAdminInfoField">
-                                    <Typography variant="body1" sx={{mb: 1, color: '#6FA2F8'}}>Prénom</Typography>
-                                    <TextField
-                                        className="infoField"
-                                        name="prenom"
-                                        value={patientData.prenom}
-                                        onChange={handleChange}
-                                        variant="outlined"
-                                        sx={{width: "100%"}}
-                                        disabled={justAdded}
-                                    />
-                                </div>
-                                <div className="fullAdminInfoField">
-                                    <Typography variant="body1" sx={{mb: 1, color: '#6FA2F8'}}>NIR</Typography>
-                                    <TextField
-                                        className="infoField"
-                                        name="nir"
-                                        value={props.nir}
-                                        variant="outlined"
-                                        disabled
-                                        sx={{width: "100%"}}
-                                    />
-                                </div>
-                                <div className="fullAdminInfoField">
+                                <div className="fullAdminInfoIcon">
                                     <div className="PatientInfoIcon">
                                         <PersonIcon sx={{fontSize: 80, color: "#6FA2F8"}}/>
                                     </div>
@@ -437,7 +439,7 @@ const PatientInfo = (props) => {
                                     >
                                         {patientGender.map((patientGender, index) => {
                                             return (
-                                                <MenuItem key={index} value={index+1}>
+                                                <MenuItem key={index} value={index + 1}>
                                                     {patientGender}
                                                 </MenuItem>)
                                         })}

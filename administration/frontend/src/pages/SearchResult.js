@@ -23,8 +23,10 @@ const SearchResult = (props) => {
                 const res_num_secu = res.data.map(obj => obj.num_secu);
                 setSearchResultList(res_num_secu);
             } catch (err) {
-                setAlertMessage("Erreur l'envoi de la recherche");
-                setAlertOpen(true);
+                if (err.response.status !== 404) {
+                    setAlertMessage("Erreur à l'envoi de la recherche.");
+                    setAlertOpen(true);
+                }
             }
         };
 

@@ -29,8 +29,12 @@ const getAdminFileExists = (nir) => {
 };
 
 // Récupérer les résultats d'une recherche par nom et prénom
-const getAdminSearch = (nom, prenom) => {
-    return Axios.get(`/dossAdmin/search?nom=${nom}&prenom=${prenom}`);
+const getAdminSearch = (nom, prenom, date) => {
+    if (date !== undefined) {
+        return Axios.get(`/dossAdmin/search?nom=${nom}&prenom=${prenom}&date_naissance=${date}`);
+    } else {
+        return Axios.get(`/dossAdmin/search?nom=${nom}&prenom=${prenom}`);
+    }
 };
 
 export const searchService = {

@@ -25,8 +25,6 @@ const PatientOverview = () => {
                 if (!getRes.data.exists) {
                     // Si le dossier n'existe pas, on dirige vers la page du patient
                     navigate(`/patient-register/${currentPatientNIR}`);
-                    // TODO avoid reload
-                    window.location.reload();
                 }
             } catch (err) {
                 setAlertMessage("Erreur à la vérification du dossier administratif.");

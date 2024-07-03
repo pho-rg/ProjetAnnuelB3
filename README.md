@@ -2,6 +2,16 @@
 
 ## Administration
 
+### Base de données
+
+Prerequis : Recuperer la base de données exemple dans annuel\administration\backend\datas
+
+Lancer un serveur sql et importer la base de données presente dans datas.
+
+Creer un fichier config.json sur la base de config.template.json en indiquant les parametre de votre serveur SQL
+
+Voila le serveur et la connexion avec celui ci est prete ! 
+
 ### Backend administration
 
 Prerequis : Lancer une base de données sql avec les tables necessaire pour le backend
@@ -26,6 +36,17 @@ Le frontend medical est lancé !
 
 
 ## Medical
+
+### Base de données
+
+Prerequis : Recuperer les collections exemple dans annuel\medical\backend\datas
+
+Lancer un serveur MongoDB et importer les collections presente dans datas.
+
+Creer un fichier config.json sur la base de config.template.json en indiquant les parametre de votre serveur MongoDB
+
+Voila le serveur et la connexion avec celui ci est prete !
+
 
 ### Backend medical
 

@@ -1,7 +1,7 @@
 import {pool} from '../../connectionAdminDb'
 import {IDossierAdmin, rowToIDossierAdmin} from "../models/dossierAdmin-model";
 import express from "express";
-import {RowDataPacket} from "mysql2/promise";
+import {FieldPacket, RowDataPacket} from "mysql2/promise";
 
 /**Verification si un dossier admin existe*/
 const dossierAdminExists = async (
@@ -52,15 +52,21 @@ const dossierAdminSearch = async (
         /**Recuperation des données dans les parametres de la requete*/
         const nom = request.query.nom;
         const prenom = request.query.prenom;
+        const date_naissance = request.query.date_naissance;
+        let rows: RowDataPacket[];
 
-        /**Execute une requete sur la base de données SQL pour recuperer une liste de dossier admin qui correspondent aux criteres*/
-        const [rows] = await connection.execute<RowDataPacket[]>('SELECT num_secu FROM dossier_administratif WHERE nom LIKE ? AND prenom LIKE ?', [`%${nom}%`, `%${prenom}%`]);
-
+        if (date_naissance == undefined) {
+            /**Execute une requete sur la base de données SQL pour recuperer une liste de dossier admin qui correspondent aux criteres*/
+            const [resultrows] = await connection.execute<RowDataPacket[]>('SELECT num_secu FROM dossier_administratif WHERE nom LIKE ? AND prenom LIKE ?', [`%${nom}%`, `%${prenom}%`]);
+            rows=resultrows
+        }else{
+            const [resultrows] = await connection.execute<RowDataPacket[]>('SELECT num_secu FROM dossier_administratif WHERE nom LIKE ? AND prenom LIKE ? AND date_naissance = ?', [`%${nom}%`, `%${prenom}%`,date_naissance],);
+            rows=resultrows
+        }
         /**Fermeture de la connexion avec la base de données SQL*/
         connection.release();
 
         if (rows.length == 0) {
-
             /** Renvoyer une reponse not found*/
             return response.status(404).json({message: 'Aucun dossier administratif trouvé'});
         }

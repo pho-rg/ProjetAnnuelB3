@@ -24,7 +24,7 @@ function rowToIDossierAdmin(row: RowDataPacket): IDossierAdmin {
         nom: row['nom'],
         prenom: row['prenom'],
         sexe: row['sexe'],
-        date_naissance: moment(row['date_naissance'], 'DD MM YYYY').format('YYYY-MM-DD'),
+        date_naissance: moment(row['date_naissance'], 'YYYY MM DD').format('YYYY-MM-DD'),
         telephone:row['telephone'],
         email:row['email'],
         adresse:row['adresse'],

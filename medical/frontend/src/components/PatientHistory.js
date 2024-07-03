@@ -44,26 +44,22 @@ const PatientHistory = (props) => {
 
     // Detection de changement de tri
     useEffect(() => {
-        console.log(handleSort(medicalActListData));
-        setMedicalActListData(handleSort(medicalActListData));
-    }, [selectedSort, medicalActListData]);
+        fetchMedicalActs();
+    }, [selectedSort]);
 
     //_____Evènement_____//
     // Gestion de l'ajout d'un nouvel acte médical
     const handleSort = (list) => {
         switch (selectedSort) {
             case 1:
-                console.log("tri defaut");
                 return list.sort((a, b) => {
                     return new Date(b.date) - new Date(a.date);
                 });
             case 2:
-                console.log("tri choisit");
                 return list.sort((a, b) => {
                     return new Date(a.date) - new Date(b.date);
                 });
             default:
-                console.log("tri indesirable");
                 return list.sort((a, b) => {
                     return new Date(b.date) - new Date(a.date);
                 });

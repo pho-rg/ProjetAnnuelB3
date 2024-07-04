@@ -59,6 +59,7 @@ const SearchForm = (props) => {
             if (getRes.data.exists) {
                 // Si le dossier existe, on dirige vers la page du patient
                 navigate(`/patient-overview/${searchData.nir}`);
+                window.location.reload();
             } else {
                 // Si le dossier n'existe pas, on dirige vers la page de création du dossier
                 navigate(`/patient-register/${searchData.nir}`);

@@ -84,7 +84,7 @@ const Login = () => {
                 <LocalHospitalIcon className="navbarIcon" sx={{fontSize: 80, color:"#6FA2F8"}}/>
             </div>
             <div className="LoginTitle">
-                <h2>Hôpital Mignon</h2>
+                <h2>Hôpitaux de France</h2>
             </div>
             <div className="LoginForm">
                 <div className="LoginInput">
